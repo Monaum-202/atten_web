@@ -434,6 +434,121 @@
             margin: 0 auto 48px;
         }
 
+        /* --- Reviews Carousel --- */
+        .reviews {
+            padding: 120px 0;
+            background: var(--white);
+            border-top: 1px solid var(--line);
+            overflow: hidden;
+        }
+
+        .review-carousel {
+            position: relative;
+            margin-top: 60px;
+        }
+
+        .review-track {
+            display: flex;
+            gap: 32px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 20px 4px 60px;
+            scrollbar-width: none; /* Hide scrollbar for Chrome/Safari */
+        }
+
+        .review-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .review-card {
+            flex: 0 0 400px;
+            scroll-snap-align: center;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .review-card:hover {
+            border-color: var(--brand);
+            box-shadow: 0 20px 40px rgba(0, 71, 171, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .review-quote {
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            color: var(--ink);
+            font-family: var(--font-body);
+            font-style: italic;
+        }
+
+        .review-user {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .review-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--brand-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .review-info h4 {
+            font-family: var(--font-display);
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .review-info span {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--slate);
+            letter-spacing: 1px;
+        }
+
+        .review-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: -20px;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--line);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            width: 24px;
+            border-radius: 4px;
+            background: var(--brand);
+        }
+
+        @media (max-width: 768px) {
+            .review-card {
+                flex: 0 0 85%;
+                padding: 30px;
+            }
+        }
+
         /* --- Animations --- */
         @keyframes reveal {
             from {
@@ -563,7 +678,7 @@
                 <a href="#features">Architecture</a>
                 <a href="#reports">Analytical Engine</a>
             </div>
-            <a href="#" class="btn btn-primary">Initialize Console</a>
+            <a href="#" class="btn btn-primary">Book Demo</a>
         </div>
     </nav>
 
@@ -571,7 +686,6 @@
         <div class="wrap">
             <div class="hero-grid">
                 <div class="reveal">
-                    <span class="hero-tag">Authentication Protocol // Verified</span>
                     <h1 style="text-transform: capitalize;"><span>Zero Touch</span> attendance</h1>
                     <p class="lead">Capture 100% authentic check-in and check-out data with autonomous
                         GPS verification. Teksoi turns geofence precision into your most secure
@@ -720,7 +834,6 @@
         <div class="wrap">
             <div class="hero-grid" style="align-items: center;">
                 <div class="reveal">
-                    <span class="hero-tag">Core Logic // Autonomous</span>
                     <h1>Zero-Touch Verification</h1>
                     <p class="lead">Manual clock-ins are legacy. Teksoi handles your entire
                         attendance lifecycle through high-precision geofence automation.</p>
@@ -866,10 +979,9 @@
         <div class="wrap">
             <div class="hero-grid" style="align-items: center; direction: rtl;">
                 <div class="reveal" style="direction: ltr;">
-                    <span class="hero-tag">Live Operations // Active</span>
                     <h1>Real-Time Location Tracking</h1>
                     <p class="lead">Monitor employee movement within the assigned geofence throughout
-                        the workday with secure, timestamped location updates.</p>
+                        the workday with secure, timestamped location updates synced every 30 seconds for maximum precision.</p>
 
                     <div style="margin-top: 40px;">
                         <div
@@ -1101,17 +1213,14 @@
                                 style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
                             <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
                                 Performance Reports</h4>
-                            <p style="font-size: 13px; color: var(--slate);">Identify top-tier
-                                punctuality and productivity trends across departments.</p>
+                            <p style="font-size: 13px; color: var(--slate);">Generate detailed attendance, performance, and movement reports on demand.</p>
                         </div>
                         <div
                             style="background: var(--white); padding: 24px; border-radius: 16px; border: 1px solid var(--line);">
-                            <iconify-icon icon="solar:flag-2-linear"
+                            <iconify-icon icon="solar:history-bold-duotone"
                                 style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
-                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Fraud
-                                Detection</h4>
-                            <p style="font-size: 13px; color: var(--slate);">Automatic flagging of
-                                habitual lateness and suspicious location patterns.</p>
+                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Habitual Latecomers</h4>
+                            <p style="font-size: 13px; color: var(--slate);">The system automatically identifies and flags patterns of habitual tardiness.</p>
                         </div>
                     </div>
                 </div>
@@ -1131,12 +1240,11 @@
 
             <div class="bento-grid">
                 <!-- 1. Mobile App Experience (Large) -->
-                <!-- 1. Mobile App Experience (Large) -->
                 <div class="bento-item large reveal">
                     <span class="step-indicator">APP_VIEW</span>
                     <iconify-icon icon="solar:smartphone-2-linear" class="bento-icon"></iconify-icon>
                     <h3>Daily Attendance Check-in</h3>
-                    <p>Employees open the app, enter the geofence, and tap to clock in. It's fast, secure, and verification is instant.</p>
+                    <p>Employees open the app, enter the geofence, and tap to clock in. Fast, secure, and instant.</p>
                     <img src="Brochure/imaged/User Home.jpeg" alt="App UI" style="position: absolute; bottom: -20px; right: -20px; width: 220px; border-radius: 12px; transform: rotate(-5deg); border: 1px solid var(--line); box-shadow: -20px 0 40px rgba(0,0,0,0.1);">
                 </div>
 
@@ -1145,7 +1253,7 @@
                     <span class="step-indicator">ADMIN_VIEW</span>
                     <iconify-icon icon="solar:users-group-rounded-linear" class="bento-icon"></iconify-icon>
                     <h3>Real-Time Monitoring</h3>
-                    <p>Supervisors see exactly who is on-site and who is late via the live attendance dashboard.</p>
+                    <p>Supervisors see exactly who is on-site via the live attendance dashboard.</p>
                     <img src="Brochure/imaged/Tenant_Home.jpeg" alt="Dashboard" style="position: absolute; bottom: 10px; right: 10px; width: 160px; border-radius: 8px; border: 1px solid var(--line);">
                 </div>
 
@@ -1153,8 +1261,8 @@
                 <div class="bento-item small reveal" style="animation-delay: 0.2s;">
                     <span class="step-indicator">LEAVE_MGT</span>
                     <iconify-icon icon="solar:calendar-date-linear" class="bento-icon"></iconify-icon>
-                    <h3>Apply for Leave</h3>
-                    <p>Submit leave directly in the app with instant document upload.</p>
+                    <h3>Digital Leave</h3>
+                    <p>Submit leave with supporting docs. Tracking pauses automatically.</p>
                     <img src="Brochure/imaged/Leave_request.jpeg" alt="Leave UI" style="position: absolute; bottom: 12px; right: 12px; width: 90px; border-radius: 8px; transform: rotate(5deg);">
                 </div>
 
@@ -1162,17 +1270,130 @@
                 <div class="bento-item small reveal" style="animation-delay: 0.3s;">
                     <span class="step-indicator">ALERTS</span>
                     <iconify-icon icon="solar:bell-bing-linear" class="bento-icon"></iconify-icon>
-                    <h3>Instant Notification</h3>
-                    <p>Get notified for shift starts and approvals.</p>
-                    <img src="Brochure/imaged/Notification (2).jpeg" alt="Notif UI" style="position: absolute; bottom: 12px; right: 12px; width: 90px; border-radius: 8px;">
+                    <h3>Latecomer Alerts</h3>
+                    <p>System flags late arrivals and habitual patterns automatically.</p>
                 </div>
 
-                <!-- 5. 2FA Security -->
+                <!-- 5. Secure Sessions -->
                 <div class="bento-item small reveal" style="animation-delay: 0.4s;">
                     <span class="step-indicator">SECURITY</span>
-                    <iconify-icon icon="solar:shield-keyhole-linear" class="bento-icon"></iconify-icon>
-                    <h3>Secure Login</h3>
-                    <p>2FA protection ensures every record is authentic.</p>
+                    <iconify-icon icon="solar:lock-keyhole-linear" class="bento-icon"></iconify-icon>
+                    <h3>Secure Sessions</h3>
+                    <p>Auto-logout on inactivity keeps every account protected.</p>
+                </div>
+
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <h2>Validated by Industry Leaders</h2>
+                <p>See how Teksoi is transforming workforce management for teams globally.</p>
+            </div>
+
+            <div class="review-carousel reveal" style="animation-delay: 0.2s;">
+                <div class="review-track" id="reviewTrack">
+                    <!-- Review 1 -->
+                    <div class="review-card">
+                        <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        </div>
+                        <div
+                            style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
+                            &ldquo;</div>
+                        <p class="review-quote">"Teksoi has completely removed the headache of manual tracking. The
+                            geofence accuracy is remarkable, ensuring our data is 100% authentic."</p>
+                        <div class="review-user">
+                            <div class="review-avatar">SM</div>
+                            <div class="review-info">
+                                <h4>Sarah Mitchell</h4>
+                                <span>Operations Manager</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="review-card">
+                        <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        </div>
+                        <div
+                            style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
+                            &ldquo;</div>
+                        <p class="review-quote">"The Zero-Touch feature is a game changer for our field staff. They love
+                            not having to open the app every time they cross the site boundary."</p>
+                        <div class="review-user">
+                            <div class="review-avatar">JD</div>
+                            <div class="review-info">
+                                <h4>James Donovan</h4>
+                                <span>HR Director</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="review-card">
+                        <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        </div>
+                        <div
+                            style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
+                            &ldquo;</div>
+                        <p class="review-quote">"Detailed analytics helped us identify productivity gaps we didn't know
+                            existed. The automated reports save us hours every week."</p>
+                        <div class="review-user">
+                            <div class="review-avatar">AK</div>
+                            <div class="review-info">
+                                <h4>Amina Khan</h4>
+                                <span>CEO, BuildCorp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 4 -->
+                    <div class="review-card">
+                        <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                            <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        </div>
+                        <div
+                            style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
+                            &ldquo;</div>
+                        <p class="review-quote">"Switching to Teksoi was the best decision for our remote sites. Secure
+                            syncing even in low-bandwidth areas is a technical marvel."</p>
+                        <div class="review-user">
+                            <div class="review-avatar">RL</div>
+                            <div class="review-info">
+                                <h4>Robert Lee</h4>
+                                <span>Site Supervisor</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-nav">
+                    <div class="nav-dot active"></div>
+                    <div class="nav-dot"></div>
+                    <div class="nav-dot"></div>
+                    <div class="nav-dot"></div>
                 </div>
             </div>
         </div>
@@ -1246,6 +1467,86 @@
         </div>
     </footer>
 
+    <script>
+        // Continuous Carousel Logic
+        const track = document.getElementById('reviewTrack');
+        const dots = document.querySelectorAll('.nav-dot');
+        const originalCards = Array.from(track.children);
+        const cardCount = originalCards.length;
+        let isPaused = false;
+
+        // Clone cards to create a seamless infinite loop
+        originalCards.forEach(card => {
+            const clone = card.cloneNode(true);
+            track.appendChild(clone);
+        });
+
+        const getCardWidth = () => {
+            const card = track.querySelector('.review-card');
+            const style = window.getComputedStyle(track);
+            const gap = parseInt(style.gap) || 32;
+            return card.offsetWidth + gap;
+        };
+
+        const updateDots = () => {
+            const cardWidth = getCardWidth();
+            const scrollLeft = track.scrollLeft;
+            const activeIndex = Math.round(scrollLeft / cardWidth) % cardCount;
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === activeIndex);
+            });
+        };
+
+        // Scroll listener for seamless reset
+        track.addEventListener('scroll', () => {
+            const cardWidth = getCardWidth();
+
+            // If we've scrolled past the last original card and are looking at the first clone
+            // (which looks identical to the first original), snap back to the start.
+            // We do this when we are close to the transition point.
+            if (track.scrollLeft >= cardCount * cardWidth) {
+                track.scrollLeft = 0;
+            } else if (track.scrollLeft < 0) {
+                track.scrollLeft = cardCount * cardWidth;
+            }
+
+            updateDots();
+        });
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                const cardWidth = getCardWidth();
+                track.scrollTo({
+                    left: i * cardWidth,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const autoScroll = () => {
+            if (isPaused) return;
+
+            const cardWidth = getCardWidth();
+            const currentPos = Math.round(track.scrollLeft / cardWidth);
+
+            track.scrollTo({
+                left: (currentPos + 1) * cardWidth,
+                behavior: 'smooth'
+            });
+        };
+
+        let scrollInterval = setInterval(autoScroll, 4000);
+
+        // Pause on interaction
+        track.addEventListener('mouseenter', () => isPaused = true);
+        track.addEventListener('mouseleave', () => isPaused = false);
+        track.addEventListener('touchstart', () => isPaused = true);
+        track.addEventListener('touchend', () => setTimeout(() => isPaused = false, 2000));
+
+        // Re-calculate on resize
+        window.addEventListener('resize', updateDots);
+    </script>
 </body>
 
 </html>
