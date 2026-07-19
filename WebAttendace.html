@@ -569,20 +569,42 @@
         }
 
         /* --- Animations --- */
-        @keyframes reveal {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reveal {
-            animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-zoom {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-fade {
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .reveal.visible,
+        .reveal-left.visible,
+        .reveal-right.visible,
+        .reveal-zoom.visible,
+        .reveal-fade.visible {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
         }
 
         /* --- Contact Section --- */
@@ -839,7 +861,7 @@
                     </div>
                 </div>
 
-                <div class="hero-visual-container reveal" style="animation-delay: 0.2s;">
+                <div class="hero-visual-container reveal-zoom" style="animation-delay: 0.2s;">
                     <!-- Advanced Geofence & Movement Tracking SVG -->
                     <svg class="hero-svg" width="300" height="300" viewBox="0 0 200 200" fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -935,19 +957,19 @@
     <section class="stats-band">
         <div class="wrap">
             <div class="stats-grid">
-                <div class="stat-item">
+                <div class="stat-item reveal-zoom">
                     <b>31</b>
                     <span>Verified Features</span>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item reveal-zoom" style="transition-delay: 0.1s;">
                     <b>100%</b>
                     <span>SSL Security</span>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item reveal-zoom" style="transition-delay: 0.2s;">
                     <b>&lt;3s</b>
                     <span>Auth Speed</span>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item reveal-zoom" style="transition-delay: 0.3s;">
                     <b>24/7</b>
                     <span>Real-time Monitoring</span>
                 </div>
@@ -959,7 +981,7 @@
         style="padding: 120px 0; background: var(--white); border-top: 1px solid var(--line); overflow: hidden;">
         <div class="wrap">
             <div class="hero-grid" style="align-items: center;">
-                <div class="reveal">
+                <div class="reveal-left">
                     <h1>Zero-Touch Attendance</h1>
                     <p class="lead">Eliminate manual errors and save time. Teksoi handles your entire
                         attendance
@@ -1008,7 +1030,7 @@
                     </div>
                 </div>
 
-                <div class="reveal" style="animation-delay: 0.2s;">
+                <div class="reveal-right" style="animation-delay: 0.2s;">
                     <div class="automation-viz-card"
                         style="background: var(--bg); border: 1.5px solid var(--line); border-radius: 40px; padding: 40px; position: relative; box-shadow: 0 40px 100px -20px rgba(0,71,171,0.1);">
                         <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -1105,7 +1127,7 @@
         style="padding: 120px 0; background: var(--bg); border-top: 1px solid var(--line); position: relative;">
         <div class="wrap">
             <div class="hero-grid" style="align-items: center; direction: rtl;">
-                <div class="reveal" style="direction: ltr;">
+                <div class="reveal-right" style="direction: ltr;">
                     <h1>Real-Time Presence Monitoring</h1>
                     <p class="lead">Stay informed about your team's presence within the workplace
                         throughout
@@ -1145,7 +1167,7 @@
                 </div>
 
 
-                <div class="reveal" style="direction: ltr; animation-delay: 0.2s;">
+                <div class="reveal-left" style="direction: ltr; animation-delay: 0.2s;">
                     <div class="tracking-viz-card"
                         style="background: var(--white); border: 1px solid var(--line); border-radius: 40px; padding: 40px; position: relative; box-shadow: 0 40px 100px -20px rgba(0,71,171,0.08); overflow: hidden;">
 
@@ -1243,7 +1265,7 @@
     <section class="mobile-showcase" style="padding: 120px 0; background: var(--white);">
         <div class="wrap">
             <div class="hero-grid" style="align-items: center;">
-                <div class="hero-visual-container reveal">
+                <div class="hero-visual-container reveal-left">
                     <div class="dim-line h" style="top: 0; left: 0;"></div>
                     <div class="hero-visual"
                         style="max-width: 320px; margin: 0 auto; border-radius: 40px; padding: 10px; border: 8px solid var(--ink);">
@@ -1251,7 +1273,7 @@
                             loading="lazy">
                     </div>
                 </div>
-                <div class="reveal" style="animation-delay: 0.2s;">
+                <div class="reveal-right" style="animation-delay: 0.2s;">
                     <span class="hero-tag">Mobile Experience</span>
                     <h1>Attendance in Your Pocket</h1>
                     <p class="lead">Teksoi transforms how employees interact with their workplace. No
@@ -1299,7 +1321,7 @@
         style="padding: 120px 0; background: var(--bg); border-top: 1px solid var(--line);">
         <div class="wrap">
             <div class="hero-grid" style="direction: rtl;">
-                <div class="hero-visual-container reveal" style="direction: ltr;">
+                <div class="hero-visual-container reveal-right" style="direction: ltr;">
                     <div class="dim-line h" style="top: 0; left: 0;"></div>
                     <div class="hero-visual">
                         <img src="Brochure/imaged/Dashboard.png" alt="Admin Analytics Dashboard" loading="lazy">
@@ -1326,7 +1348,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="reveal" style="direction: ltr; animation-delay: 0.2s;">
+                <div class="reveal-left" style="direction: ltr; animation-delay: 0.2s;">
                     <span class="hero-tag">Admin Intelligence</span>
                     <h1>Reporting Insights</h1>
                     <p class="lead">Harness the power of data to optimize your workforce. Our system
@@ -1370,7 +1392,7 @@
 
     <section class="reviews" id="reviews">
         <div class="wrap">
-            <div class="section-head reveal">
+            <div class="section-head reveal-fade">
                 <h2>Validated by Industry Leaders</h2>
                 <p>See how Teksoi is transforming workforce management for teams globally.</p>
             </div>
@@ -1490,7 +1512,7 @@
 
     <section class="cta-section">
         <div class="wrap">
-            <div class="cta-card reveal">
+            <div class="cta-card reveal-zoom">
                 <div
                     style="font-family: var(--font-mono); font-size: 12px; margin-bottom: 24px; color: var(--brand-light); opacity: 0.6;">
                     System Ready for Setup
@@ -1525,7 +1547,7 @@
 
         <div class="wrap">
             <div class="contact-grid">
-                <div class="reveal">
+                <div class="reveal-left">
                     <h2
                         style="font-family: var(--font-display); font-size: 48px; letter-spacing: -2px; margin-bottom: 24px;">
                         Transform Your Workplace Attendance.</h2>
@@ -1569,7 +1591,7 @@
                     </div>
                 </div>
 
-                <div class="reveal" style="animation-delay: 0.2s; position: relative;">
+                <div class="reveal-right" style="animation-delay: 0.2s; position: relative;">
                     <!-- Technical Decoration -->
 <!--                    <div-->
 <!--                        style="position: absolute; top: -30px; right: 0; font-family: var(&#45;&#45;font-mono); font-size: 9px; color: var(&#45;&#45;brand); opacity: 0.4; letter-spacing: 1px;">-->
@@ -1756,6 +1778,19 @@
 
         // Re-calculate on resize
         window.addEventListener('resize', updateDots);
+
+        // Reveal on Scroll Logic
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom, .reveal-fade').forEach(el => {
+            revealObserver.observe(el);
+        });
     </script>
 </body>
 
