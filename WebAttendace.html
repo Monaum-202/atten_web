@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teksoi — Attendance Engineered for Precision</title>
+    <title>Teksoi — Smart Attendance Solutions</title>
 
     <!-- Fonts: Outfit for display, Manrope for body, IBM Plex Mono for technical accents -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -154,6 +154,24 @@
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 15px 30px -10px rgba(0, 71, 171, 0.4);
+        }
+
+        .analytical-engine .hero-visual {
+            max-width: 720px;
+        }
+
+        .analytical-engine .hero-visual img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .analytical-engine .hero-visual-container>div[style*="position: absolute"] {
+                display: none;
+            }
         }
 
         /* --- Hero Section (50% Rule) --- */
@@ -453,7 +471,8 @@
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             padding: 20px 4px 60px;
-            scrollbar-width: none; /* Hide scrollbar for Chrome/Safari */
+            scrollbar-width: none;
+            /* Hide scrollbar for Chrome/Safari */
         }
 
         .review-track::-webkit-scrollbar {
@@ -566,6 +585,93 @@
             animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
+        /* --- Contact Section --- */
+        .contact-section {
+            padding: 120px 0;
+            background: var(--white);
+            border-top: 1px solid var(--line);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        .form-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--brand);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-input,
+        .form-select {
+            background: var(--bg);
+            border: 1.5px solid var(--line);
+            padding: 14px 16px;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 15px;
+            color: var(--ink);
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--brand);
+            background: var(--white);
+            box-shadow: 0 0 0 4px var(--brand-light);
+        }
+
+        .form-input::placeholder {
+            color: var(--slate);
+            opacity: 0.4;
+        }
+
+        .phone-input-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .phone-prefix {
+            background: var(--brand-light);
+            border: 1.5px solid var(--line);
+            padding: 0 16px;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--brand);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
         @media (max-width: 1024px) {
             .hero-grid {
                 grid-template-columns: 1fr;
@@ -592,7 +698,8 @@
             }
 
             .analytical-engine .hero-grid {
-                direction: ltr !important;
+                grid-template-columns: 2.2fr 1fr;
+                gap: 40px;
             }
 
             .hero-visual-container {
@@ -623,6 +730,19 @@
 
             .bento-item img {
                 display: none;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: span 1;
             }
 
             /* Hide decorative images on mobile bento for focus */
@@ -674,11 +794,17 @@
                 Teksoi
             </div>
             <div class="nav-links">
-                <a href="#automation">Protocol</a>
-                <a href="#features">Architecture</a>
-                <a href="#reports">Analytical Engine</a>
+                <a href="#automation">How it Works</a>
+                <a href="#features">Features</a>
+                <a href="#reports">Insights</a>
+                <a href="#contact">Get Started</a>
             </div>
-            <a href="#" class="btn btn-primary">Book Demo</a>
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <a href="#contact" class="btn btn-primary">Request a Demo</a>
+                <a href="#contact" class="btn"
+                    style="border: 1px solid var(--line); color: var(--ink); background: transparent;">Book
+                    Now</a>
+            </div>
         </div>
     </nav>
 
@@ -687,15 +813,15 @@
             <div class="hero-grid">
                 <div class="reveal">
                     <h1 style="text-transform: capitalize;"><span>Zero Touch</span> attendance</h1>
-                    <p class="lead">Capture 100% authentic check-in and check-out data with autonomous
-                        GPS verification. Teksoi turns geofence precision into your most secure
-                        workforce asset.</p>
+                    <p class="lead">Capture 100% authentic check-in and check-out data with automated
+                        location verification. Teksoi turns workplace presence into your most valuable
+                        management asset.</p>
 
                     <div style="display:flex; gap:16px; margin-bottom: 60px; flex-wrap: wrap;">
-                        <a href="#" class="btn btn-primary">Initialize Deployment</a>
-                        <a href="#" class="btn"
-                            style="background: var(--white); border: 1px solid var(--line); color: var(--ink);">Security
-                            Overview</a>
+                        <a href="#contact" class="btn btn-primary">Request a Demo</a>
+                        <a href="#contact" class="btn"
+                            style="background: var(--white); border: 1px solid var(--line); color: var(--ink);">Book
+                            Now</a>
                     </div>
 
                     <div
@@ -732,7 +858,7 @@
                         <path d="M60 80H140M60 100H140M60 120H140M80 60V140M100 60V140M120 60V140" stroke="var(--brand)"
                             stroke-width="0.5" opacity="0.1" />
                         <text x="60" y="55" fill="var(--brand)" font-family="var(--font-mono)" font-size="7"
-                            font-weight="bold">OFFICE_ZONE_A
+                            font-weight="bold">OFFICE ZONE A
                         </text>
 
                         <!-- Geofence Boundary -->
@@ -761,13 +887,13 @@
                         <!-- Status Box -->
                         <rect x="10" y="10" width="100" height="55" rx="6" fill="var(--ink)" />
                         <text x="18" y="26" fill="white" font-family="var(--font-mono)" font-size="8"
-                            font-weight="bold">AUTO_ATTENDANCE
+                            font-weight="bold">AUTO ATTENDANCE
                         </text>
                         <text x="18" y="38" fill="var(--accent)" font-family="var(--font-mono)" font-size="7">●
-                            LIVE_TRACKING
+                            LIVE TRACKING
                         </text>
                         <text x="18" y="50" fill="rgba(255,255,255,0.6)" font-family="var(--font-mono)"
-                            font-size="6">USER_ID: EMP_4210
+                            font-size="6">USER ID: EMP-4210
                         </text>
                         <text x="18" y="58" fill="rgba(255,255,255,0.6)" font-family="var(--font-mono)"
                             font-size="6">BOUNDARY: WITHIN
@@ -782,7 +908,7 @@
                                     repeatCount="indefinite" />
                             </path>
                             <text x="-18" y="32" fill="var(--slate)" font-family="var(--font-mono)" font-size="6"
-                                font-weight="bold">AUTO_CHECK_IN
+                                font-weight="bold">AUTO CHECK-IN
                             </text>
                         </g>
                     </svg>
@@ -797,7 +923,7 @@
                                 style="color:var(--accent); font-size:28px;"></iconify-icon>
                             <div style="font-family: var(--font-mono); font-size: 10px;">
                                 <span style="display:block; opacity:0.6; font-weight: 700;">DATA INTEGRITY</span>
-                                <b style="color:var(--brand)">GEOFENCE_LOCKED</b>
+                                <b style="color:var(--brand)">SECURE LOCATION</b>
                             </div>
                         </div>
                     </div>
@@ -834,9 +960,10 @@
         <div class="wrap">
             <div class="hero-grid" style="align-items: center;">
                 <div class="reveal">
-                    <h1>Zero-Touch Verification</h1>
-                    <p class="lead">Manual clock-ins are legacy. Teksoi handles your entire
-                        attendance lifecycle through high-precision geofence automation.</p>
+                    <h1>Zero-Touch Attendance</h1>
+                    <p class="lead">Eliminate manual errors and save time. Teksoi handles your entire
+                        attendance
+                        process automatically, so your team can focus on what matters most.</p>
 
                     <div style="margin-top: 48px;">
                         <div style="display: flex; gap: 24px; margin-bottom: 32px;">
@@ -846,10 +973,10 @@
                             </div>
                             <div>
                                 <h4 style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px;">
-                                    Automated Presence</h4>
-                                <p style="color: var(--slate); font-size: 15px;">Entering the 100-meter
-                                    geofenced work zone triggers an instant presence mark. No app
-                                    interaction required.</p>
+                                    Seamless Arrival</h4>
+                                <p style="color: var(--slate); font-size: 15px;">Your team is
+                                    automatically checked in as they arrive at the workplace. No apps to
+                                    open, no buttons to press.</p>
                             </div>
                         </div>
                         <div style="display: flex; gap: 24px; margin-bottom: 32px;">
@@ -859,10 +986,10 @@
                             </div>
                             <div>
                                 <h4 style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px;">
-                                    First Entry Protocol</h4>
-                                <p style="color: var(--slate); font-size: 15px;">The system identifies
-                                    your first GPS ping within the boundary as your official Check-In
-                                    time for the day.</p>
+                                    Precise Start Times</h4>
+                                <p style="color: var(--slate); font-size: 15px;">Capture exact arrival
+                                    times for every employee. Ensure accurate records for payroll and
+                                    compliance without lifting a finger.</p>
                             </div>
                         </div>
                         <div style="display: flex; gap: 24px;">
@@ -872,10 +999,10 @@
                             </div>
                             <div>
                                 <h4 style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px;">
-                                    Last Exit Verification</h4>
-                                <p style="color: var(--slate); font-size: 15px;">Attendance is closed
-                                    only when the system confirms your final departure from the zone,
-                                    logging the exact Check-Out.</p>
+                                    Effortless Departure</h4>
+                                <p style="color: var(--slate); font-size: 15px;">Check-out is handled
+                                    automatically when employees leave. Get complete visibility into
+                                    daily hours without any manual effort from your team.</p>
                             </div>
                         </div>
                     </div>
@@ -908,7 +1035,7 @@
                             </g>
                             <text x="200" y="250" text-anchor="middle" fill="var(--brand)"
                                 font-family="var(--font-mono)" font-size="10" font-weight="bold">
-                                100M_SAFE_ZONE
+                                OFFICE SAFE ZONE
                             </text>
 
                             <!-- Trajectory Path -->
@@ -933,7 +1060,7 @@
                             <!-- Status HUD -->
                             <rect x="230" y="30" width="140" height="70" rx="12" fill="var(--ink)" />
                             <text x="245" y="55" fill="rgba(255,255,255,0.5)" font-family="var(--font-mono)"
-                                font-size="9">LOG_PROTOCOL
+                                font-size="9">ATTENDANCE_STATUS
                             </text>
                             <g>
                                 <text x="245" y="80" fill="var(--white)" font-family="var(--font-mono)" font-size="12"
@@ -946,13 +1073,13 @@
                                     font-weight="bold" opacity="0">
                                     <animate attributeName="opacity" values="0;0;1;1;1;0;0" dur="8s"
                                         repeatCount="indefinite" />
-                                    CHECK_IN: 08:52
+                                    Check-In: 08:52
                                 </text>
                                 <text x="245" y="80" fill="#EF4444" font-family="var(--font-mono)" font-size="12"
                                     font-weight="bold" opacity="0">
                                     <animate attributeName="opacity" values="0;0;0;0;0;1;0" dur="8s"
                                         repeatCount="indefinite" />
-                                    CHECK_OUT: 17:10
+                                    Check-Out: 17:10
                                 </text>
                             </g>
                         </svg>
@@ -966,7 +1093,7 @@
                         </div>
                         <div
                             style="position: absolute; top: 8px; left: 30px; font-family: var(--font-mono); font-size: 8px; color: var(--brand); opacity: 0.5;">
-                            AUTO_VERIFY_v4.2
+                            AUTO VERIFY ACTIVE
                         </div>
                     </div>
                 </div>
@@ -979,9 +1106,10 @@
         <div class="wrap">
             <div class="hero-grid" style="align-items: center; direction: rtl;">
                 <div class="reveal" style="direction: ltr;">
-                    <h1>Real-Time Location Tracking</h1>
-                    <p class="lead">Monitor employee movement within the assigned geofence throughout
-                        the workday with secure, timestamped location updates synced every 30 seconds for maximum precision.</p>
+                    <h1>Real-Time Presence Monitoring</h1>
+                    <p class="lead">Stay informed about your team's presence within the workplace
+                        throughout
+                        the day with secure, automated updates that ensure complete accuracy.</p>
 
                     <div style="margin-top: 40px;">
                         <div
@@ -991,11 +1119,10 @@
                                     style="color: var(--brand); font-size: 32px;"></iconify-icon>
                                 <div>
                                     <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
-                                        Visibility & Compliance</h4>
+                                        Visibility & Accountability</h4>
                                     <p style="font-size: 14px; color: var(--slate); max-width: 100%;">
-                                        Managers gain real-time visibility into workforce presence while
-                                        ensuring accountability and compliance across all site
-                                        zones.</p>
+                                        Managers gain real-time visibility into workforce presence,
+                                        ensuring team accountability across all work areas.</p>
                                 </div>
                             </div>
                         </div>
@@ -1008,8 +1135,8 @@
                                     <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
                                         Zero-Manual Logging</h4>
                                     <p style="font-size: 14px; color: var(--slate); max-width: 100%;">
-                                        Live location capture throughout work hours logs every movement
-                                        with a precision timestamp — giving full visibility with zero
+                                        Live location capture throughout work hours logs every presence
+                                        with an accurate timestamp — giving full visibility with zero
                                         manual entry required.</p>
                                 </div>
                             </div>
@@ -1046,7 +1173,7 @@
                             <path d="M30 40 L370 25 L385 200 L260 275 L45 260 Z" fill="var(--brand)" fill-opacity="0.03"
                                 stroke="var(--brand)" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.55" />
                             <text x="60" y="55" fill="var(--brand)" font-family="var(--font-mono)" font-size="8"
-                                letter-spacing="0.05em" opacity="0.6">ASSIGNED ZONE
+                                letter-spacing="0.05em" opacity="0.6">ASSIGNED WORK AREA
                             </text>
 
                             <!-- Orthogonal corridor route: only horizontal / vertical segments -->
@@ -1120,8 +1247,8 @@
                     <div class="dim-line h" style="top: 0; left: 0;"></div>
                     <div class="hero-visual"
                         style="max-width: 320px; margin: 0 auto; border-radius: 40px; padding: 10px; border: 8px solid var(--ink);">
-                        <img src="Brochure/imaged/User Home.jpeg" alt="Attendance App Home"
-                            style="border-radius: 30px;">
+                        <img src="Brochure/imaged/User Home.jpeg" alt="Attendance App Home" style="border-radius: 30px;"
+                            loading="lazy">
                     </div>
                 </div>
                 <div class="reveal" style="animation-delay: 0.2s;">
@@ -1175,14 +1302,14 @@
                 <div class="hero-visual-container reveal" style="direction: ltr;">
                     <div class="dim-line h" style="top: 0; left: 0;"></div>
                     <div class="hero-visual">
-                        <img src="Brochure/imaged/Tenant_Home.jpeg" alt="Admin Analytics Dashboard">
+                        <img src="Brochure/imaged/Dashboard.png" alt="Admin Analytics Dashboard" loading="lazy">
                     </div>
                     <!-- Technical Overlay for Analytics -->
                     <div
-                        style="position: absolute; top: 40px; left: -40px; background: var(--white); border: 1.5px solid var(--brand); padding: 20px; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,71,171,0.2); z-index: 10; width: 220px;">
+                        style="position: absolute; top: 30px; right: -20px; background: var(--white); border: 1.5px solid var(--brand); padding: 20px; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,71,171,0.2); z-index: 10; width: 200px;">
                         <div
                             style="font-family: var(--font-mono); font-size: 10px; color: var(--brand); margin-bottom: 12px; font-weight: 700;">
-                            LIVE_DATA_STREAM
+                            LIVE DATA FEED
                         </div>
                         <div style="height: 60px; display: flex; align-items: flex-end; gap: 4px;">
                             <div style="flex: 1; background: var(--brand); height: 40%; border-radius: 2px;"></div>
@@ -1201,26 +1328,38 @@
                 </div>
                 <div class="reveal" style="direction: ltr; animation-delay: 0.2s;">
                     <span class="hero-tag">Admin Intelligence</span>
-                    <h1>The Analytical Engine</h1>
-                    <p class="lead">Harness the power of data to optimize your workforce. Our engine
-                        provides high-fidelity reports that transform raw clock-ins into actionable
+                    <h1>Reporting Insights</h1>
+                    <p class="lead">Harness the power of data to optimize your workforce. Our system
+                        provides clear reports that transform raw clock-ins into actionable
                         performance insights.</p>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px;">
+                        <div
+                            style="background: var(--white); padding: 24px; border-radius: 16px; border: 1px solid var(--line);">
+                            <iconify-icon icon="solar:calendar-mark-linear"
+                                style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
+                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
+                                Attendance Reports</h4>
+                            <p style="font-size: 13px; color: var(--slate);">Track daily check-ins,
+                                absences, and working hours across your entire team at a glance.</p>
+                        </div>
                         <div
                             style="background: var(--white); padding: 24px; border-radius: 16px; border: 1px solid var(--line);">
                             <iconify-icon icon="solar:chart-2-linear"
                                 style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
                             <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
                                 Performance Reports</h4>
-                            <p style="font-size: 13px; color: var(--slate);">Generate detailed attendance, performance, and movement reports on demand.</p>
+                            <p style="font-size: 13px; color: var(--slate);">Generate detailed
+                                attendance, performance, and movement reports on demand.</p>
                         </div>
                         <div
                             style="background: var(--white); padding: 24px; border-radius: 16px; border: 1px solid var(--line);">
                             <iconify-icon icon="solar:history-bold-duotone"
                                 style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
-                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Habitual Latecomers</h4>
-                            <p style="font-size: 13px; color: var(--slate);">The system automatically identifies and flags patterns of habitual tardiness.</p>
+                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Habitual
+                                Latecomers</h4>
+                            <p style="font-size: 13px; color: var(--slate);">The system automatically
+                                identifies and flags patterns of habitual tardiness.</p>
                         </div>
                     </div>
                 </div>
@@ -1228,64 +1367,6 @@
         </div>
     </section>
 
-
-    <section class="features" id="features">
-        <div class="wrap">
-            <div class="section-head reveal">
-                <span class="hero-tag">System Blueprints</span>
-                <h2>Structural Capabilities</h2>
-                <p>Designed to eliminate fraud and automate administrative overhead through
-                    high-fidelity tracking.</p>
-            </div>
-
-            <div class="bento-grid">
-                <!-- 1. Mobile App Experience (Large) -->
-                <div class="bento-item large reveal">
-                    <span class="step-indicator">APP_VIEW</span>
-                    <iconify-icon icon="solar:smartphone-2-linear" class="bento-icon"></iconify-icon>
-                    <h3>Daily Attendance Check-in</h3>
-                    <p>Employees open the app, enter the geofence, and tap to clock in. Fast, secure, and instant.</p>
-                    <img src="Brochure/imaged/User Home.jpeg" alt="App UI" style="position: absolute; bottom: -20px; right: -20px; width: 220px; border-radius: 12px; transform: rotate(-5deg); border: 1px solid var(--line); box-shadow: -20px 0 40px rgba(0,0,0,0.1);">
-                </div>
-
-                <!-- 2. Admin Console (Medium) -->
-                <div class="bento-item medium reveal" style="animation-delay: 0.1s;">
-                    <span class="step-indicator">ADMIN_VIEW</span>
-                    <iconify-icon icon="solar:users-group-rounded-linear" class="bento-icon"></iconify-icon>
-                    <h3>Real-Time Monitoring</h3>
-                    <p>Supervisors see exactly who is on-site via the live attendance dashboard.</p>
-                    <img src="Brochure/imaged/Tenant_Home.jpeg" alt="Dashboard" style="position: absolute; bottom: 10px; right: 10px; width: 160px; border-radius: 8px; border: 1px solid var(--line);">
-                </div>
-
-                <!-- 3. Leave Requests -->
-                <div class="bento-item small reveal" style="animation-delay: 0.2s;">
-                    <span class="step-indicator">LEAVE_MGT</span>
-                    <iconify-icon icon="solar:calendar-date-linear" class="bento-icon"></iconify-icon>
-                    <h3>Digital Leave</h3>
-                    <p>Submit leave with supporting docs. Tracking pauses automatically.</p>
-                    <img src="Brochure/imaged/Leave_request.jpeg" alt="Leave UI" style="position: absolute; bottom: 12px; right: 12px; width: 90px; border-radius: 8px; transform: rotate(5deg);">
-                </div>
-
-                <!-- 4. Smart Alerts -->
-                <div class="bento-item small reveal" style="animation-delay: 0.3s;">
-                    <span class="step-indicator">ALERTS</span>
-                    <iconify-icon icon="solar:bell-bing-linear" class="bento-icon"></iconify-icon>
-                    <h3>Latecomer Alerts</h3>
-                    <p>System flags late arrivals and habitual patterns automatically.</p>
-                </div>
-
-                <!-- 5. Secure Sessions -->
-                <div class="bento-item small reveal" style="animation-delay: 0.4s;">
-                    <span class="step-indicator">SECURITY</span>
-                    <iconify-icon icon="solar:lock-keyhole-linear" class="bento-icon"></iconify-icon>
-                    <h3>Secure Sessions</h3>
-                    <p>Auto-logout on inactivity keeps every account protected.</p>
-                </div>
-
-                
-            </div>
-        </div>
-    </section>
 
     <section class="reviews" id="reviews">
         <div class="wrap">
@@ -1307,8 +1388,10 @@
                         </div>
                         <div
                             style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
-                            &ldquo;</div>
-                        <p class="review-quote">"Teksoi has completely removed the headache of manual tracking. The
+                            &ldquo;
+                        </div>
+                        <p class="review-quote">"Teksoi has completely removed the headache of manual
+                            tracking. The
                             geofence accuracy is remarkable, ensuring our data is 100% authentic."</p>
                         <div class="review-user">
                             <div class="review-avatar">SM</div>
@@ -1330,8 +1413,10 @@
                         </div>
                         <div
                             style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
-                            &ldquo;</div>
-                        <p class="review-quote">"The Zero-Touch feature is a game changer for our field staff. They love
+                            &ldquo;
+                        </div>
+                        <p class="review-quote">"The Zero-Touch feature is a game changer for our field
+                            staff. They love
                             not having to open the app every time they cross the site boundary."</p>
                         <div class="review-user">
                             <div class="review-avatar">JD</div>
@@ -1353,8 +1438,10 @@
                         </div>
                         <div
                             style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
-                            &ldquo;</div>
-                        <p class="review-quote">"Detailed analytics helped us identify productivity gaps we didn't know
+                            &ldquo;
+                        </div>
+                        <p class="review-quote">"Detailed analytics helped us identify productivity gaps
+                            we didn't know
                             existed. The automated reports save us hours every week."</p>
                         <div class="review-user">
                             <div class="review-avatar">AK</div>
@@ -1376,9 +1463,11 @@
                         </div>
                         <div
                             style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
-                            &ldquo;</div>
-                        <p class="review-quote">"Switching to Teksoi was the best decision for our remote sites. Secure
-                            syncing even in low-bandwidth areas is a technical marvel."</p>
+                            &ldquo;
+                        </div>
+                        <p class="review-quote">"Switching to Teksoi was the best decision for our
+                            remote sites. Secure
+                            syncing even in low-bandwidth areas works flawlessly every time."</p>
                         <div class="review-user">
                             <div class="review-avatar">RL</div>
                             <div class="review-info">
@@ -1404,17 +1493,138 @@
             <div class="cta-card reveal">
                 <div
                     style="font-family: var(--font-mono); font-size: 12px; margin-bottom: 24px; color: var(--brand-light); opacity: 0.6;">
-                    SYSTEM_READY_FOR_DEPLOYMENT
+                    System Ready for Setup
                 </div>
-                <h2>Ready to Engineer Your Workforce?</h2>
-                <p>Join the enterprise leaders using Teksoi to automate their workforce management
-                    with surgical precision.</p>
+                <h2>Ready to Optimize Your Workforce?</h2>
+                <p>Join the industry leaders using Teksoi to automate their workforce management
+                    with ease and reliability.</p>
                 <div class="cta-buttons" style="display:flex; gap:20px; justify-content: center;">
-                    <a href="#" class="btn btn-primary"
-                        style="background: white; color: var(--ink); padding: 18px 40px; font-size: 16px;">Initialize
-                        Now</a>
-                    <a href="#" class="btn" style="border: 1px solid rgba(255,255,255,0.2); color: white;">Contact
+                    <a href="#contact" class="btn btn-primary"
+                        style="background: white; color: var(--ink); padding: 18px 40px; font-size: 16px;">Start
+                        Your Setup</a>
+                    <a href="#" class="btn" style="border: 1px solid rgba(255,255,255,0.2); color: white;">Customer
                         Support</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <!-- Technical Grid Backdrop -->
+        <div
+            style="position: absolute; top: 0; right: 0; width: 300px; height: 300px; opacity: 0.05; pointer-events: none;">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="contact-grid-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
+                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="var(--brand)" stroke-width="0.5" />
+                    </pattern>
+                </defs>
+                <rect width="100" height="100" fill="url(#contact-grid-pattern)" />
+            </svg>
+        </div>
+
+        <div class="wrap">
+            <div class="contact-grid">
+                <div class="reveal">
+                    <h2
+                        style="font-family: var(--font-display); font-size: 48px; letter-spacing: -2px; margin-bottom: 24px;">
+                        Transform Your Workplace Attendance.</h2>
+                    <p class="lead" style="margin-bottom: 48px;">Share your needs and our team will help
+                        you set up your account within 24 hours.</p>
+
+                    <div style="display: grid; gap: 32px; position: relative;">
+                        <!-- Connection Line Decoration -->
+                        <div
+                            style="position: absolute; left: 15px; top: 40px; bottom: 0; width: 1px; background: var(--line); z-index: 0;">
+                        </div>
+
+                        <div
+                            style="display: flex; gap: 20px; background: var(--white); position: relative; z-index: 1;">
+                            <iconify-icon icon="solar:shield-check-bold-duotone"
+                                style="color: var(--brand); font-size: 32px; background: var(--white); padding-bottom: 8px;"></iconify-icon>
+                            <div>
+                                <h4 style="font-family: var(--font-display); margin-bottom: 4px;">
+                                    Reliable Data Security</h4>
+                                <p style="font-size: 14px; color: var(--slate);">Your privacy is our
+                                    priority with enterprise-grade data protection.</p>
+                                <span
+                                    style="font-family: var(--font-mono); font-size: 8px; color: var(--brand); opacity: 0.5;">SECURE
+                                    DATA PROTECTION</span>
+                            </div>
+                        </div>
+                        <div
+                            style="display: flex; gap: 20px; background: var(--white); position: relative; z-index: 1;">
+                            <iconify-icon icon="solar:globus-bold-duotone"
+                                style="color: var(--brand); font-size: 32px; background: var(--white); padding-bottom: 8px;"></iconify-icon>
+                            <div>
+                                <h4 style="font-family: var(--font-display); margin-bottom: 4px;">
+                                    Scalable Solution</h4>
+                                <p style="font-size: 14px; color: var(--slate);">Built to support
+                                    businesses of any size, from small teams to large enterprises.</p>
+                                <span
+                                    style="font-family: var(--font-mono); font-size: 8px; color: var(--brand); opacity: 0.5;">READY
+                                    FOR SCALE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal" style="animation-delay: 0.2s; position: relative;">
+                    <!-- Technical Decoration -->
+<!--                    <div-->
+<!--                        style="position: absolute; top: -30px; right: 0; font-family: var(&#45;&#45;font-mono); font-size: 9px; color: var(&#45;&#45;brand); opacity: 0.4; letter-spacing: 1px;">-->
+<!--                        SECURE_COMMUNICATION_READY-->
+<!--                    </div>-->
+
+                    <form class="contact-form"
+                        style="background: var(--white); padding: 40px; border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 40px 80px -20px rgba(0,71,171,0.1);">
+                        <div class="form-group">
+                            <label class="form-label">First Name*</label>
+                            <input type="text" class="form-input" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name*</label>
+                            <input type="text" class="form-input" placeholder="Penn" required>
+                        </div>
+                        <div class="form-group full">
+                            <label class="form-label">Work Email*</label>
+                            <input type="email" class="form-input" placeholder="john.penn@acmecorp.com" required>
+                        </div>
+                        <div class="form-group full">
+                            <label class="form-label">Phone Number*</label>
+                            <div class="phone-input-group">
+                                <input type="tel" class="form-input" placeholder="01XXX-XXXXXX" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Company Name</label>
+                            <input type="text" class="form-input" placeholder="Acme Corporation">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Company Size</label>
+                            <select class="form-select">
+                                <option>100 - 500 Employees</option>
+                                <option selected>1k - 10k Employees</option>
+                                <option>10k+ Employees</option>
+                            </select>
+                        </div>
+                        <div class="form-group full">
+                            <label class="form-label">Industry</label>
+                            <select class="form-select">
+                                <option selected>Construction & Engineering</option>
+                                <option>Retail & Logistics</option>
+                                <option>Manufacturing</option>
+                                <option>Software & Technology</option>
+                            </select>
+                        </div>
+                        <div class="form-group full" style="margin-top: 12px;">
+                            <button type="submit" class="btn btn-primary"
+                                style="width: 100%; justify-content: center; padding: 16px;">
+                                Get Started
+                                <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -1430,20 +1640,20 @@
                         Teksoi
                     </div>
                     <p style="color: var(--slate); font-size: 14px; max-width: 300px;">Smart Attendance,
-                        Simplified. The technical standard for workforce verification.</p>
+                        Simplified. The industry standard for workforce management.</p>
                 </div>
                 <div class="footer-links" style="display:flex; gap:80px;">
                     <div style="font-family: var(--font-mono); font-size: 12px;">
                         <div style="color: var(--brand); margin-bottom: 20px; font-weight: 700;">
-                            SYSTEM
+                            PRODUCT
                         </div>
                         <a href="#"
                             style="display:block; text-decoration:none; color: var(--slate); margin-bottom: 12px;">Dashboard</a>
                         <a href="#"
-                            style="display:block; text-decoration:none; color: var(--slate); margin-bottom: 12px;">API
-                            Reference</a>
+                            style="display:block; text-decoration:none; color: var(--slate); margin-bottom: 12px;">Help
+                            Center</a>
                         <a href="#" style="display:block; text-decoration:none; color: var(--slate);">Security
-                            Audit</a>
+                            Compliance</a>
                     </div>
                     <div style="font-family: var(--font-mono); font-size: 12px;">
                         <div style="color: var(--brand); margin-bottom: 20px; font-weight: 700;">
