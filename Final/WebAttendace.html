@@ -917,17 +917,25 @@
                         <text x="18" y="50" fill="rgba(255,255,255,0.6)" font-family="var(--font-mono)"
                             font-size="6">USER ID: EMP-4210
                         </text>
-                        <text x="18" y="58" fill="rgba(255,255,255,0.6)" font-family="var(--font-mono)"
-                            font-size="6">BOUNDARY: WITHIN
+                        <text x="18" y="58" fill="rgba(255,255,255,0.6)" font-family="var(--font-mono)" font-size="6">
+                            BOUNDARY:
+                            <tspan fill="rgba(255,255,255,0.4)">OUTSIDE
+                                <animate attributeName="display" values="inline; inline; none; none" keyTimes="0; 0.55; 0.56; 1" dur="5s" repeatCount="indefinite" />
+                            </tspan>
+                            <tspan fill="var(--accent)" font-weight="bold">WITHIN
+                                <animate attributeName="display" values="none; none; inline; inline" keyTimes="0; 0.55; 0.56; 1" dur="5s" repeatCount="indefinite" />
+                            </tspan>
                         </text>
 
                         <!-- Automated Status Indicator -->
                         <g transform="translate(150, 30)">
-                            <circle r="20" fill="var(--white)" stroke="var(--line)" stroke-width="1" />
-                            <path d="M-8 0 L-2 6 L8 -6" stroke="var(--accent)" stroke-width="2.5" fill="none"
+                            <circle r="20" fill="var(--white)" stroke="var(--line)" stroke-width="1">
+                                <animate attributeName="fill" values="var(--white); var(--white); var(--accent); var(--accent)" keyTimes="0; 0.55; 0.58; 1" dur="5s" repeatCount="indefinite" />
+                                <animate attributeName="stroke" values="var(--line); var(--line); var(--accent); var(--accent)" keyTimes="0; 0.55; 0.58; 1" dur="5s" repeatCount="indefinite" />
+                            </circle>
+                            <path d="M-8 0 L-2 6 L8 -6" stroke="white" stroke-width="2.5" fill="none"
                                 stroke-linecap="round" stroke-linejoin="round">
-                                <animate attributeName="stroke-dasharray" from="0, 30" to="30, 30" dur="2s"
-                                    repeatCount="indefinite" />
+                                <animate attributeName="stroke-dasharray" values="0, 30; 0, 30; 30, 30; 30, 30" keyTimes="0; 0.58; 0.65; 1" dur="5s" repeatCount="indefinite" />
                             </path>
                             <text x="-18" y="32" fill="var(--slate)" font-family="var(--font-mono)" font-size="6"
                                 font-weight="bold">AUTO CHECK-IN
