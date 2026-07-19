@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gefancing — Attendance Engineered for Precision</title>
+    <title>Teksoi — Attendance Engineered for Precision</title>
 
     <!-- Fonts: Outfit for display, Manrope for body, IBM Plex Mono for technical accents -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -299,12 +299,12 @@
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: repeat(2, 320px);
+            grid-auto-rows: 320px;
             gap: 24px;
         }
 
         .bento-item {
-            background: var(--bg);
+            background: var(--white);
             border-radius: 24px;
             padding: 40px;
             border: 1px solid var(--line);
@@ -313,10 +313,15 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        .bento-content {
+            position: relative;
+            z-index: 5;
+        }
+
         .bento-item:hover {
             border-color: var(--brand);
             transform: translateY(-8px);
-            box-shadow: 0 30px 60px -15px rgba(0, 71, 171, 0.1);
+            box-shadow: 0 30px 60px -15px rgba(0, 71, 171, 0.15);
         }
 
         .bento-item.large {
@@ -331,18 +336,23 @@
             grid-column: span 4;
         }
 
+        .bento-item.full {
+            grid-column: span 12;
+        }
+
         .bento-item h3 {
             font-family: var(--font-display);
             font-size: 24px;
             margin-bottom: 12px;
             letter-spacing: -0.5px;
+            color: var(--ink);
         }
 
         .bento-item p {
             color: var(--slate);
             line-height: 1.6;
             font-size: 15px;
-            max-width: 300px;
+            max-width: 260px;
         }
 
         .bento-icon {
@@ -546,7 +556,7 @@
         <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; width:100%;">
             <div class="logo">
                 <div class="logo-mark"></div>
-                Gefancing
+                Teksoi
             </div>
             <div class="nav-links">
                 <a href="#automation">Protocol</a>
@@ -564,7 +574,7 @@
                     <span class="hero-tag">Authentication Protocol // Verified</span>
                     <h1 style="text-transform: capitalize;"><span>Zero Touch</span> attendance</h1>
                     <p class="lead">Capture 100% authentic check-in and check-out data with autonomous
-                        GPS verification. Gefancing turns geofence precision into your most secure
+                        GPS verification. Teksoi turns geofence precision into your most secure
                         workforce asset.</p>
 
                     <div style="display:flex; gap:16px; margin-bottom: 60px; flex-wrap: wrap;">
@@ -664,7 +674,7 @@
                     </svg>
 
                     <div class="hero-visual">
-                        <img src="web_image_3.png" alt="Gefancing Secure App Interface">
+                        <img src="web_image_3.png" alt="Teksoi Secure App Interface">
                     </div>
 
                     <div class="tech-badge">
@@ -711,8 +721,8 @@
             <div class="hero-grid" style="align-items: center;">
                 <div class="reveal">
                     <span class="hero-tag">Core Logic // Autonomous</span>
-                    <h2>Zero-Touch Verification</h2>
-                    <p class="lead">Manual clock-ins are legacy. Gefancing handles your entire
+                    <h1>Zero-Touch Verification</h1>
+                    <p class="lead">Manual clock-ins are legacy. Teksoi handles your entire
                         attendance lifecycle through high-precision geofence automation.</p>
 
                     <div style="margin-top: 48px;">
@@ -857,7 +867,7 @@
             <div class="hero-grid" style="align-items: center; direction: rtl;">
                 <div class="reveal" style="direction: ltr;">
                     <span class="hero-tag">Live Operations // Active</span>
-                    <h2>Real-Time Location Tracking</h2>
+                    <h1>Real-Time Location Tracking</h1>
                     <p class="lead">Monitor employee movement within the assigned geofence throughout
                         the workday with secure, timestamped location updates.</p>
 
@@ -1004,8 +1014,8 @@
                 </div>
                 <div class="reveal" style="animation-delay: 0.2s;">
                     <span class="hero-tag">Mobile Experience</span>
-                    <h2>Attendance in Your Pocket</h2>
-                    <p class="lead">Gefancing transforms how employees interact with their workplace. No
+                    <h1>Attendance in Your Pocket</h1>
+                    <p class="lead">Teksoi transforms how employees interact with their workplace. No
                         more manual logs or hardware scanners—just a simple tap on your phone within the
                         office geofence.</p>
 
@@ -1079,7 +1089,7 @@
                 </div>
                 <div class="reveal" style="direction: ltr; animation-delay: 0.2s;">
                     <span class="hero-tag">Admin Intelligence</span>
-                    <h2>The Analytical Engine</h2>
+                    <h1>The Analytical Engine</h1>
                     <p class="lead">Harness the power of data to optimize your workforce. Our engine
                         provides high-fidelity reports that transform raw clock-ins into actionable
                         performance insights.</p>
@@ -1121,73 +1131,48 @@
 
             <div class="bento-grid">
                 <!-- 1. Mobile App Experience (Large) -->
+                <!-- 1. Mobile App Experience (Large) -->
                 <div class="bento-item large reveal">
-                    <div class="bento-content">
-                        <span class="step-indicator">APP_VIEW_V4</span>
-                        <iconify-icon icon="solar:smartphone-2-bold-duotone" class="bento-icon"></iconify-icon>
-                        <h3>Daily Attendance Check-in</h3>
-                        <p>Employees enter the geofence and tap to clock in. Fast, secure, and instant
-                            GPS verification ensures 100% data integrity.</p>
-                    </div>
-                    <img src="Brochure/imaged/User Home.jpeg" alt="App UI"
-                        style="position: absolute; bottom: -40px; right: -20px; width: 340px; border-radius: 24px; border: 1px solid var(--line); transform: rotate(-5deg); box-shadow: -20px 20px 50px rgba(0,0,0,0.15); z-index: 1;">
+                    <span class="step-indicator">APP_VIEW</span>
+                    <iconify-icon icon="solar:smartphone-2-linear" class="bento-icon"></iconify-icon>
+                    <h3>Daily Attendance Check-in</h3>
+                    <p>Employees open the app, enter the geofence, and tap to clock in. It's fast, secure, and verification is instant.</p>
+                    <img src="Brochure/imaged/User Home.jpeg" alt="App UI" style="position: absolute; bottom: -20px; right: -20px; width: 220px; border-radius: 12px; transform: rotate(-5deg); border: 1px solid var(--line); box-shadow: -20px 0 40px rgba(0,0,0,0.1);">
                 </div>
 
                 <!-- 2. Admin Console (Medium) -->
                 <div class="bento-item medium reveal" style="animation-delay: 0.1s;">
-                    <div class="bento-content">
-                        <span class="step-indicator">ADMIN_CONSOLE</span>
-                        <iconify-icon icon="solar:users-group-rounded-bold-duotone" class="bento-icon"></iconify-icon>
-                        <h3>Real-Time Monitoring</h3>
-                        <p>Supervisors see exactly who is on-site via the live attendance dashboard with
-                            automated movement logs.</p>
-                    </div>
-                    <img src="Brochure/imaged/Tenant_Home.jpeg" alt="Dashboard"
-                        style="position: absolute; bottom: -20px; right: -20px; width: 240px; border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 15px 40px rgba(0,0,0,0.1); z-index: 1;">
+                    <span class="step-indicator">ADMIN_VIEW</span>
+                    <iconify-icon icon="solar:users-group-rounded-linear" class="bento-icon"></iconify-icon>
+                    <h3>Real-Time Monitoring</h3>
+                    <p>Supervisors see exactly who is on-site and who is late via the live attendance dashboard.</p>
+                    <img src="Brochure/imaged/Tenant_Home.jpeg" alt="Dashboard" style="position: absolute; bottom: 10px; right: 10px; width: 160px; border-radius: 8px; border: 1px solid var(--line);">
                 </div>
 
                 <!-- 3. Leave Requests -->
                 <div class="bento-item small reveal" style="animation-delay: 0.2s;">
-                    <div class="bento-content">
-                        <span class="step-indicator">LEAVE_MGT</span>
-                        <iconify-icon icon="solar:calendar-date-bold-duotone" class="bento-icon"></iconify-icon>
-                        <h3>Apply for Leave</h3>
-                        <p>Submit leave directly in-app with encrypted medical certificate uploads and
-                            instant manager routing.</p>
-                    </div>
+                    <span class="step-indicator">LEAVE_MGT</span>
+                    <iconify-icon icon="solar:calendar-date-linear" class="bento-icon"></iconify-icon>
+                    <h3>Apply for Leave</h3>
+                    <p>Submit leave directly in the app with instant document upload.</p>
+                    <img src="Brochure/imaged/Leave_request.jpeg" alt="Leave UI" style="position: absolute; bottom: 12px; right: 12px; width: 90px; border-radius: 8px; transform: rotate(5deg);">
                 </div>
 
                 <!-- 4. Smart Alerts -->
                 <div class="bento-item small reveal" style="animation-delay: 0.3s;">
-                    <div class="bento-content">
-                        <span class="step-indicator">ALERTS_ENGINE</span>
-                        <iconify-icon icon="solar:bell-bing-bold-duotone" class="bento-icon"></iconify-icon>
-                        <h3>Instant Notifications</h3>
-                        <p>Real-time push alerts for shift starts, leave approvals, and habitual
-                            lateness detection.</p>
-                    </div>
+                    <span class="step-indicator">ALERTS</span>
+                    <iconify-icon icon="solar:bell-bing-linear" class="bento-icon"></iconify-icon>
+                    <h3>Instant Notification</h3>
+                    <p>Get notified for shift starts and approvals.</p>
+                    <img src="Brochure/imaged/Notification (2).jpeg" alt="Notif UI" style="position: absolute; bottom: 12px; right: 12px; width: 90px; border-radius: 8px;">
                 </div>
 
                 <!-- 5. 2FA Security -->
                 <div class="bento-item small reveal" style="animation-delay: 0.4s;">
-                    <div class="bento-content">
-                        <span class="step-indicator">SECURITY_LAYER</span>
-                        <iconify-icon icon="solar:shield-keyhole-bold-duotone" class="bento-icon"></iconify-icon>
-                        <h3>Secure 2FA Login</h3>
-                        <p>Multi-factor authentication ensures every attendance record is authentic and
-                            tamper-proof.</p>
-                    </div>
-                </div>
-
-                <!-- 6. Secure Sessions -->
-                <div class="bento-item small reveal" style="animation-delay: 0.5s;">
-                    <div class="bento-content">
-                        <span class="step-indicator">AUTH_PROTECT</span>
-                        <iconify-icon icon="solar:lock-password-bold-duotone" class="bento-icon"></iconify-icon>
-                        <h3>Protected Sessions</h3>
-                        <p>Auto-logout on inactivity and secure session handling keep every account
-                            protected, every time.</p>
-                    </div>
+                    <span class="step-indicator">SECURITY</span>
+                    <iconify-icon icon="solar:shield-keyhole-linear" class="bento-icon"></iconify-icon>
+                    <h3>Secure Login</h3>
+                    <p>2FA protection ensures every record is authentic.</p>
                 </div>
             </div>
         </div>
@@ -1201,7 +1186,7 @@
                     SYSTEM_READY_FOR_DEPLOYMENT
                 </div>
                 <h2>Ready to Engineer Your Workforce?</h2>
-                <p>Join the enterprise leaders using Gefancing to automate their workforce management
+                <p>Join the enterprise leaders using Teksoi to automate their workforce management
                     with surgical precision.</p>
                 <div class="cta-buttons" style="display:flex; gap:20px; justify-content: center;">
                     <a href="#" class="btn btn-primary"
@@ -1221,7 +1206,7 @@
                 <div>
                     <div class="logo" style="margin-bottom: 20px;">
                         <div class="logo-mark"></div>
-                        Gefancing
+                        Teksoi
                     </div>
                     <p style="color: var(--slate); font-size: 14px; max-width: 300px;">Smart Attendance,
                         Simplified. The technical standard for workforce verification.</p>
@@ -1255,7 +1240,7 @@
             </div>
             <div class="footer-bottom"
                 style="display:flex; justify-content:space-between; align-items:center; padding-top: 40px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 11px; color: var(--slate); opacity: 0.6;">
-                <div>© 2024 GEFANCING_SYSTEMS. ALL RIGHTS RESERVED.</div>
+                <div>© 2024 Teksoi. ALL RIGHTS RESERVED.</div>
                 <div>UTC: [00:00:00] // STATUS: OPERATIONAL</div>
             </div>
         </div>
