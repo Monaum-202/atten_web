@@ -52,6 +52,19 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* --- Soft Color Wash (subtle brand + accent glow behind the grid) --- */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(700px circle at 10% 5%, rgba(0, 71, 171, 0.1), transparent 60%),
+                radial-gradient(600px circle at 95% 40%, rgba(0, 71, 171, 0.09), transparent 55%),
+                radial-gradient(650px circle at 15% 95%, rgba(0, 71, 171, 0.08), transparent 60%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
         /* --- Blueprint Grid Background (The Wildcard) --- */
         body::before {
             content: "";
@@ -340,6 +353,13 @@
             border-top: 1px solid var(--line);
         }
 
+        .automation-showcase,
+        .tracking-showcase,
+        .mobile-showcase,
+        .analytical-engine {
+            padding: 120px 0;
+        }
+
         .section-head {
             text-align: center;
             max-width: 700px;
@@ -508,7 +528,10 @@
         /* --- Reviews Carousel --- */
         .reviews {
             padding: 120px 0;
-            background: var(--white);
+            background:
+                radial-gradient(900px circle at 90% 0%, rgba(0, 71, 171, 0.11), transparent 55%),
+                radial-gradient(800px circle at 5% 100%, rgba(0, 71, 171, 0.09), transparent 50%),
+                var(--white);
             border-top: 1px solid var(--line);
             overflow: hidden;
         }
@@ -663,7 +686,7 @@
         /* --- Contact Section --- */
         .contact-section {
             padding: 120px 0;
-            background: var(--white);
+            background: radial-gradient(1000px circle at 100% 0%, rgba(0, 71, 171, 0.1), transparent 55%), var(--white);
             border-top: 1px solid var(--line);
             position: relative;
             overflow: hidden;
@@ -829,8 +852,15 @@
             .analytical-engine,
             .automation-showcase,
             .mobile-showcase,
-            .tracking-showcase {
+            .tracking-showcase,
+            .reviews,
+            .contact-section,
+            .cta-section {
                 padding: 60px 0;
+            }
+
+            .stats-band {
+                padding: 48px 0;
             }
 
             .hero-grid {
@@ -1161,7 +1191,7 @@
 </section>
 
 <section class="automation-showcase" id="automation"
-         style="padding: 120px 0; background: var(--white); border-top: 1px solid var(--line); overflow: hidden;">
+         style="background: radial-gradient(1100px circle at 100% 0%, rgba(0, 71, 171, 0.13), transparent 55%), var(--white); border-top: 1px solid var(--line); overflow: hidden;">
     <div class="wrap">
         <div class="hero-grid" style="align-items: center;">
             <div class="reveal-left">
@@ -1307,7 +1337,7 @@
 </section>
 
 <section class="tracking-showcase" id="tracking"
-         style="padding: 120px 0; background: var(--bg); border-top: 1px solid var(--line); position: relative;">
+         style="background: radial-gradient(1100px circle at 0% 0%, rgba(0, 71, 171, 0.1), transparent 55%), var(--bg); border-top: 1px solid var(--line); position: relative;">
     <div class="wrap">
         <div class="hero-grid" style="align-items: center; direction: rtl;">
             <div class="reveal-right" style="direction: ltr;">
@@ -1445,7 +1475,7 @@
     </div>
 </section>
 
-<section class="mobile-showcase" style="padding: 120px 0; background: var(--white);">
+<section class="mobile-showcase" style="background: radial-gradient(1100px circle at 0% 100%, rgba(0, 71, 171, 0.12), transparent 55%), var(--white);">
     <div class="wrap">
         <div class="hero-grid" style="align-items: center;">
             <div class="hero-visual-container reveal-left">
@@ -1501,7 +1531,7 @@
 </section>
 
 <section class="analytical-engine" id="reports"
-         style="padding: 120px 0; background: var(--bg); border-top: 1px solid var(--line);">
+         style="background: radial-gradient(1100px circle at 100% 100%, rgba(0, 71, 171, 0.12), transparent 55%), var(--bg); border-top: 1px solid var(--line);">
     <div class="wrap">
         <div class="hero-grid" style="direction: rtl;">
             <div class="hero-visual-container reveal-right" style="direction: ltr;">
@@ -1877,7 +1907,7 @@
         <div class="footer-bottom"
              style="display:flex; justify-content:space-between; align-items:center; padding-top: 40px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 11px; color: var(--slate); opacity: 0.6;">
             <div>© 2024 Teksoi. ALL RIGHTS RESERVED.</div>
-            <div>UTC: [00:00:00] // STATUS: OPERATIONAL</div>
+<!--            <div>UTC: [00:00:00] // STATUS: OPERATIONAL</div>-->
         </div>
     </div>
 </footer>
