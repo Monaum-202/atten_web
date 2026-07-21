@@ -6,27 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teksoi — Smart Attendance Solutions</title>
 
-    <!-- Fonts: Outfit for display, Manrope for body, IBM Plex Mono for technical accents -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Manrope:wght@400;500;700&family=IBM+Plex+Mono&display=swap"
         rel="stylesheet">
 
-    <!-- Icons: Solar Icons for a modern, distinctive look -->
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
     <style>
         :root {
-            /* Palette: "Draftsman's Ink" */
             --brand: #0047AB;
-            /* Cobalt Blueprint Blue */
             --brand-light: #E0E7FF;
             --ink: #0B1730;
             --slate: #4B5563;
             --bg: #F9FAFB;
             --white: #FFFFFF;
             --accent: #10B981;
-            /* Precision Green */
             --line: rgba(0, 71, 171, 0.1);
             --radius: 12px;
             --font-display: 'Outfit', sans-serif;
@@ -52,7 +47,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- Soft Color Wash (subtle brand + accent glow behind the grid) --- */
         body::after {
             content: "";
             position: fixed;
@@ -65,7 +59,6 @@
             pointer-events: none;
         }
 
-        /* --- Blueprint Grid Background (The Wildcard) --- */
         body::before {
             content: "";
             position: fixed;
@@ -85,7 +78,6 @@
             padding: 0 24px;
         }
 
-        /* --- Navbar --- */
         nav {
             padding: 20px 0;
             display: flex;
@@ -152,7 +144,6 @@
             color: var(--brand);
         }
 
-        /* --- Mega Menu --- */
         .nav-item-dropdown {
             position: static;
         }
@@ -165,7 +156,6 @@
             background: var(--white);
             border-top: 1px solid var(--line);
             border-bottom: 2px solid var(--brand);
-            /* Thick brand bottom edge */
             box-shadow: 0 40px 80px -20px rgba(0, 71, 171, 0.15);
             opacity: 0;
             visibility: hidden;
@@ -173,11 +163,9 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 1000;
             padding: 0;
-            /* Changed to handle internal grid */
             overflow: hidden;
         }
 
-        /* Blueprint background for the menu */
         .megamenu::before {
             content: "";
             position: absolute;
@@ -253,7 +241,6 @@
             position: relative;
         }
 
-        /* Technical corner accents on icons */
         .megamenu-link:hover .megamenu-icon-wrap::after {
             content: "";
             position: absolute;
@@ -262,12 +249,6 @@
             width: 6px;
             height: 6px;
             background: var(--brand);
-        }
-
-        .megamenu-icon {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
         }
 
         .megamenu-link-title {
@@ -287,64 +268,6 @@
             opacity: 0.8;
         }
 
-        .megamenu-sidebar {
-            background: rgba(0, 71, 171, 0.02);
-            padding: 40px 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .megamenu-module {
-            background: var(--white);
-            border: 1px solid var(--line);
-            padding: 20px;
-            position: relative;
-        }
-
-        .megamenu-module-label {
-            font-family: var(--font-mono);
-            font-size: 9px;
-            color: var(--brand);
-            position: absolute;
-            top: -6px;
-            left: 15px;
-            background: var(--white);
-            padding: 0 5px;
-            font-weight: 700;
-        }
-
-        .megamenu-footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--line);
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .megamenu-footer-link {
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--font-mono);
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--slate);
-            transition: color 0.2s;
-        }
-
-        .megamenu-footer-link:hover {
-            color: var(--brand);
-        }
-
-        .megamenu-footer-link img {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* Mobile nav toggle button (hidden on desktop) */
         .nav-toggle {
             display: none;
             background: transparent;
@@ -404,7 +327,6 @@
             }
         }
 
-        /* --- Hero Section (50% Rule) --- */
         .hero {
             padding: 80px 0 120px;
             position: relative;
@@ -453,7 +375,6 @@
             line-height: 1.6;
         }
 
-        /* Hero Visual: Technical Blueprint Style */
         .hero-visual-container {
             position: relative;
             padding: 20px;
@@ -485,8 +406,8 @@
 
         .hero-svg {
             position: absolute;
-            top: -120px;
-            right: -100px;
+            top: -110px;
+            right: -90px;
             width: 340px;
             height: 340px;
             z-index: 5;
@@ -494,7 +415,7 @@
             backdrop-filter: blur(12px);
             border-radius: 28px;
             border: 1.5px solid var(--line);
-            padding: 1px;
+            padding: 15px;
             box-shadow: 0 40px 80px rgba(0, 71, 171, 0.15);
         }
 
@@ -521,10 +442,10 @@
 
             .hero-svg {
                 position: absolute;
-                top: -30px;
-                right: 0;
-                width: 190px;
-                height: 190px;
+                top: -36px;
+                right: -4px;
+                width: 240px;
+                height: 240px;
             }
 
             .tech-badge {
@@ -539,14 +460,13 @@
             }
 
             .hero-svg {
-                width: 180px;
-                height: 180px;
-                top: -40px;
-                right: 5px;
+                width: 200px;
+                height: 200px;
+                top: -34px;
+                right: 2px;
             }
         }
 
-        /* --- Feature Grid (Bento Style) --- */
         .features {
             padding: 120px 0;
             background: var(--white);
@@ -573,7 +493,6 @@
             margin-bottom: 20px;
         }
 
-        /* Give every other section title the same look as .section-head h2 */
         .automation-showcase h1,
         .tracking-showcase h1,
         .mobile-showcase h1,
@@ -584,6 +503,512 @@
             letter-spacing: -2px;
             margin-bottom: 20px;
             line-height: 1.1;
+        }
+
+        /* --- Automation Showcase: richer background + timeline --- */
+        .automation-showcase {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .automation-showcase::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
+            background-size: 26px 26px;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .automation-showcase .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(10px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .automation-showcase .blob-1 {
+            width: 420px;
+            height: 420px;
+            top: -180px;
+            left: -160px;
+            background: radial-gradient(circle, rgba(0, 71, 171, 0.14), transparent 70%);
+            animation: floatBlob 12s ease-in-out infinite;
+        }
+
+        .automation-showcase .blob-2 {
+            width: 380px;
+            height: 380px;
+            bottom: -160px;
+            right: -140px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.13), transparent 70%);
+            animation: floatBlob 14s ease-in-out infinite reverse;
+        }
+
+        @keyframes floatBlob {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(30px, 26px) scale(1.06);
+            }
+        }
+
+        .automation-showcase .hero-grid {
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-track {
+            position: relative;
+            margin-top: 48px;
+            text-align: left;
+        }
+
+        .step-connector {
+            position: absolute;
+            left: 23px;
+            top: 56px;
+            bottom: 40px;
+            width: 2px;
+            background: repeating-linear-gradient(var(--line), var(--line) 5px, transparent 5px, transparent 10px);
+            z-index: 0;
+        }
+
+        .step-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-num {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--brand), #1e63c9);
+            border: 1px solid var(--brand);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-weight: 800;
+            color: var(--white);
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px -6px rgba(0, 71, 171, 0.5), 0 0 0 0 rgba(0, 71, 171, 0.25);
+            animation: pulseNum 3.6s ease-in-out infinite;
+        }
+
+        .step-row:nth-child(2) .step-num {
+            animation-delay: 0.6s;
+            background: linear-gradient(135deg, #0e9f6e, var(--accent));
+            border-color: var(--accent);
+            box-shadow: 0 8px 20px -6px rgba(16, 185, 129, 0.5), 0 0 0 0 rgba(16, 185, 129, 0.25);
+        }
+
+        .step-row:nth-child(3) .step-num {
+            animation-delay: 1.2s;
+        }
+
+        .step-num {
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+            cursor: default;
+        }
+
+        .step-row:hover .step-num {
+            transform: rotate(-6deg) scale(1.12);
+            filter: brightness(1.1);
+        }
+
+        @keyframes pulseNum {
+
+            0%,
+            70%,
+            100% {
+                box-shadow: 0 8px 20px -6px rgba(0, 71, 171, 0.5), 0 0 0 0 rgba(0, 71, 171, 0.22);
+            }
+
+            35% {
+                box-shadow: 0 8px 20px -6px rgba(0, 71, 171, 0.5), 0 0 0 8px rgba(0, 71, 171, 0);
+            }
+        }
+
+        .step-row:nth-child(2) .step-num {
+            animation-name: pulseNumGreen;
+        }
+
+        @keyframes pulseNumGreen {
+
+            0%,
+            70%,
+            100% {
+                box-shadow: 0 8px 20px -6px rgba(16, 185, 129, 0.5), 0 0 0 0 rgba(16, 185, 129, 0.25);
+            }
+
+            35% {
+                box-shadow: 0 8px 20px -6px rgba(16, 185, 129, 0.5), 0 0 0 8px rgba(16, 185, 129, 0);
+            }
+        }
+
+        /* Traveling signal dot running down the timeline connector */
+        .step-connector::before {
+            content: "";
+            position: absolute;
+            left: -3px;
+            top: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18), 0 0 12px rgba(16, 185, 129, 0.5);
+            animation: travelDown 3.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+        }
+
+        @keyframes travelDown {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+
+            8% {
+                opacity: 1;
+            }
+
+            92% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        .automation-viz-card {
+            background:
+                radial-gradient(circle at 12% 8%, rgba(0, 71, 171, 0.22), transparent 45%),
+                radial-gradient(circle at 90% 15%, rgba(16, 185, 129, 0.2), transparent 42%),
+                radial-gradient(circle at 85% 90%, rgba(0, 71, 171, 0.18), transparent 48%),
+                linear-gradient(155deg, #dbe7fb 0%, #eef2fb 45%, #d9f7ea 100%);
+            border: 1.5px solid var(--line);
+            border-radius: 40px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 40px 100px -20px rgba(0, 71, 171, 0.18);
+            overflow: hidden;
+            animation: cardBreathe 6s ease-in-out infinite;
+        }
+
+        @keyframes cardBreathe {
+
+            0%,
+            100% {
+                box-shadow: 0 40px 100px -20px rgba(0, 71, 171, 0.1);
+            }
+
+            50% {
+                box-shadow: 0 44px 110px -18px rgba(0, 71, 171, 0.22);
+            }
+        }
+
+        .automation-viz-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 15% 15%, rgba(0, 71, 171, 0.09), transparent 42%),
+                radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.09), transparent 42%);
+            pointer-events: none;
+        }
+
+        .automation-viz-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 45%;
+            height: 100%;
+            background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+            transform: skewX(-18deg);
+            pointer-events: none;
+            animation: shimmerSweep 5.5s ease-in-out infinite;
+        }
+
+        @keyframes shimmerSweep {
+            0% {
+                left: -60%;
+            }
+
+            35%,
+            100% {
+                left: 130%;
+            }
+        }
+
+        /* Drifting particles across the section background */
+        .automation-showcase .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0;
+            pointer-events: none;
+            animation: particleRise linear infinite;
+        }
+
+        .automation-showcase .particle:nth-child(3) {
+            background: var(--brand);
+        }
+
+        .automation-showcase .particle:nth-child(5) {
+            background: var(--brand);
+        }
+
+        @keyframes particleRise {
+            0% {
+                transform: translateY(0) scale(0.6);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.55;
+            }
+
+            85% {
+                opacity: 0.35;
+            }
+
+            100% {
+                transform: translateY(-260px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .viz-chip {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(6px);
+            border: 1px solid var(--line);
+            border-radius: 100px;
+            padding: 6px 12px;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--brand);
+            box-shadow: 0 10px 24px rgba(0, 71, 171, 0.08);
+            z-index: 2;
+            animation: chipFloat 5s ease-in-out infinite;
+        }
+
+        .viz-chip .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .viz-chip-1 {
+            top: 24px;
+            left: 40px;
+            animation-delay: 0s;
+            background: linear-gradient(90deg, rgba(0, 71, 171, 0.1), rgba(255, 255, 255, 0.92));
+            border-color: rgba(0, 71, 171, 0.25);
+        }
+
+        .viz-chip-2 {
+            bottom: 32px;
+            left: 48px;
+            animation-delay: 1.2s;
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.12), rgba(255, 255, 255, 0.92));
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #0e9f6e;
+        }
+
+        .viz-chip-2 .dot {
+            background: #0e9f6e;
+        }
+
+        @keyframes chipFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .viz-chip {
+                display: none;
+            }
+        }
+
+        /* --- Tracking Showcase enhancements --- */
+        .tracking-showcase {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tracking-showcase::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
+            background-size: 26px 26px;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .tracking-showcase .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(10px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .tracking-showcase .blob-3 {
+            width: 400px;
+            height: 400px;
+            top: -160px;
+            right: -140px;
+            background: radial-gradient(circle, rgba(0, 71, 171, 0.14), transparent 70%);
+            animation: floatBlob 13s ease-in-out infinite;
+        }
+
+        .tracking-showcase .blob-4 {
+            width: 360px;
+            height: 360px;
+            bottom: -140px;
+            left: -120px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.13), transparent 70%);
+            animation: floatBlob 15s ease-in-out infinite reverse;
+        }
+
+        .tracking-showcase .hero-grid {
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-card {
+            background: var(--white);
+            padding: 32px;
+            border-radius: 24px;
+            border: 1px solid var(--line);
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+        }
+
+        .info-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--brand);
+            box-shadow: 0 24px 50px -18px rgba(0, 71, 171, 0.22);
+        }
+
+        .info-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(0, 71, 171, 0.06), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        .info-card:hover::before {
+            opacity: 1;
+        }
+
+        .info-card iconify-icon {
+            display: inline-block;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .info-card:hover iconify-icon {
+            transform: scale(1.15) rotate(-6deg);
+        }
+
+        .tracking-viz-card {
+            background:
+                radial-gradient(circle at 90% 10%, rgba(0, 71, 171, 0.18), transparent 45%),
+                radial-gradient(circle at 8% 92%, rgba(16, 185, 129, 0.16), transparent 45%),
+                linear-gradient(160deg, #e6edfb 0%, #f5f7fc 55%, #e3faf0 100%);
+            border: 1.5px solid var(--line);
+            border-radius: 40px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 40px 100px -20px rgba(0, 71, 171, 0.16);
+            overflow: hidden;
+            animation: cardBreathe 6.4s ease-in-out infinite;
+        }
+
+        .tracking-viz-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 45%;
+            height: 100%;
+            background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+            transform: skewX(-18deg);
+            pointer-events: none;
+            animation: shimmerSweep 6s ease-in-out infinite 1s;
+        }
+
+        .tracking-live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--brand);
+            box-shadow: 0 0 0 3px rgba(0, 71, 171, 0.15);
+            animation: dotPulse 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes dotPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 3px rgba(0, 71, 171, 0.15);
+            }
+
+            50% {
+                box-shadow: 0 0 0 6px rgba(0, 71, 171, 0);
+            }
+        }
+
+        .geofence-badge {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: bold;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--brand), #1e63c9);
+            padding: 6px 14px;
+            border-radius: 100px;
+            box-shadow: 0 8px 18px -6px rgba(0, 71, 171, 0.45);
         }
 
         .bento-grid {
@@ -662,7 +1087,6 @@
             color: var(--line);
         }
 
-        /* --- Stats Overlay --- */
         .stats-band {
             padding: 80px 0;
             background: var(--brand);
@@ -693,7 +1117,6 @@
             letter-spacing: 2px;
         }
 
-        /* --- CTA Section --- */
         .cta-section {
             padding: 120px 0;
             background: var(--bg);
@@ -725,7 +1148,6 @@
             margin: 0 auto 48px;
         }
 
-        /* --- Reviews Carousel --- */
         .reviews {
             padding: 120px 0;
             background:
@@ -748,7 +1170,6 @@
             scroll-snap-type: x mandatory;
             padding: 20px 4px 60px;
             scrollbar-width: none;
-            /* Hide scrollbar for Chrome/Safari */
         }
 
         .review-track::-webkit-scrollbar {
@@ -850,9 +1271,14 @@
             transform: translateY(0);
         }
 
-        /* Remove the global display:none that was breaking hover */
         .nav-item-dropdown .megamenu {
             display: block;
+        }
+
+        .nav-item-dropdown:hover .megamenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
 
         @media (max-width: 900px) {
@@ -889,7 +1315,6 @@
             }
         }
 
-        /* --- Animations --- */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -928,7 +1353,6 @@
             transform: translate(0, 0) scale(1);
         }
 
-        /* --- Contact Section --- */
         .contact-section {
             padding: 120px 0;
             background: radial-gradient(1000px circle at 100% 0%, rgba(0, 71, 171, 0.1), transparent 55%), var(--white);
@@ -1176,7 +1600,6 @@
                 grid-column: span 1;
             }
 
-            /* Hide decorative images on mobile bento for focus */
             .automation-viz-card,
             .tracking-viz-card {
                 padding: 20px !important;
@@ -1273,12 +1696,12 @@
                                                 <a href="index.html" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:buildings-3-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Construction</span>
-                                                        <span class="megamenu-link-desc">Geofenced job-site
-                                                            tracking with instant crew check-in verification.</span>
+                                                        <span class="megamenu-link-desc">Geofenced job-site tracking
+                                                            with instant crew check-in verification.</span>
                                                     </div>
                                                 </a>
                                             </li>
@@ -1286,12 +1709,12 @@
                                                 <a href="#" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:medical-kit-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Healthcare</span>
-                                                        <span class="megamenu-link-desc">Staff shift & rotation
-                                                            logs synced across every ward in real time.</span>
+                                                        <span class="megamenu-link-desc">Staff shift & rotation logs
+                                                            synced across every ward in real time.</span>
                                                     </div>
                                                 </a>
                                             </li>
@@ -1299,12 +1722,12 @@
                                                 <a href="#" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:settings-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Manufacturing</span>
-                                                        <span class="megamenu-link-desc">Production-line
-                                                            attendance with automatic shift and overtime capture.</span>
+                                                        <span class="megamenu-link-desc">Production-line attendance with
+                                                            automatic shift and overtime capture.</span>
                                                     </div>
                                                 </a>
                                             </li>
@@ -1312,12 +1735,12 @@
                                                 <a href="#" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:shop-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Hotels & Retail</span>
-                                                        <span class="megamenu-link-desc">Multi-branch staff
-                                                            management across every outlet and shift.</span>
+                                                        <span class="megamenu-link-desc">Multi-branch staff management
+                                                            across every outlet and shift.</span>
                                                     </div>
                                                 </a>
                                             </li>
@@ -1326,29 +1749,16 @@
                                     <div>
                                         <span class="megamenu-title">Field Services</span>
                                         <ul class="megamenu-list">
-<!--                                            <li>-->
-<!--                                                <a href="index.html" class="megamenu-link">-->
-<!--                                                    <div class="megamenu-icon-wrap">-->
-<!--                                                        <iconify-icon icon="solar:user-id-linear"-->
-<!--                                                                      style="color: var(&#45;&#45;brand); font-size: 20px;"></iconify-icon>-->
-<!--                                                    </div>-->
-<!--                                                    <div>-->
-<!--                                                        <span class="megamenu-link-title">Office Attendance</span>-->
-<!--                                                        <span class="megamenu-link-desc">Geofenced check-ins and-->
-<!--                                                            automated timesheets for corporate staff.</span>-->
-<!--                                                    </div>-->
-<!--                                                </a>-->
-<!--                                            </li>-->
                                             <li>
                                                 <a href="sales-representative.html" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:routing-2-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Sales Representative</span>
-                                                        <span class="megamenu-link-desc">Verified visit-site
-                                                            check-ins for every client call, logged automatically.</span>
+                                                        <span class="megamenu-link-desc">Verified visit-site check-ins
+                                                            for every client call, logged automatically.</span>
                                                     </div>
                                                 </a>
                                             </li>
@@ -1356,12 +1766,12 @@
                                                 <a href="#" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:square-academic-cap-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Education</span>
-                                                        <span class="megamenu-link-desc">Campus-wide
-                                                            verification for faculty, staff, and visiting instructors.</span>
+                                                        <span class="megamenu-link-desc">Campus-wide verification for
+                                                            faculty, staff, and visiting instructors.</span>
                                                     </div>
                                                 </a>
                                             </li>
@@ -1369,12 +1779,12 @@
                                                 <a href="#" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:ticket-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Events</span>
-                                                        <span class="megamenu-link-desc">Live venue crew
-                                                            monitoring from load-in to tear-down.</span>
+                                                        <span class="megamenu-link-desc">Live venue crew monitoring from
+                                                            load-in to tear-down.</span>
                                                     </div>
                                                 </a>
                                             </li>
@@ -1382,12 +1792,12 @@
                                                 <a href="#" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:shield-keyhole-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Security</span>
-                                                        <span class="megamenu-link-desc">Real-time post
-                                                            verification with instant patrol and checkpoint alerts.</span>
+                                                        <span class="megamenu-link-desc">Real-time post verification
+                                                            with instant patrol and checkpoint alerts.</span>
                                                     </div>
                                                 </a>
                                             </li>
@@ -1406,8 +1816,7 @@
             <div style="display: flex; gap: 12px; align-items: center;">
                 <a href="#contact" class="btn btn-primary">Request a Demo</a>
                 <a href="#contact" class="btn"
-                    style="border: 1px solid var(--line); color: var(--ink); background: transparent;">Book
-                    Now</a>
+                    style="border: 1px solid var(--line); color: var(--ink); background: transparent;">Book Now</a>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
                     <iconify-icon icon="solar:hamburger-menu-linear" id="navToggleIcon"></iconify-icon>
                 </button>
@@ -1420,9 +1829,8 @@
             <div class="hero-grid">
                 <div class="reveal">
                     <h1 style="text-transform: capitalize;"><span>Zero Touch</span> attendance</h1>
-                    <p class="lead">Capture 100% authentic check-in and check-out data with automated
-                        location verification. Teksoi turns workplace presence into your most valuable
-                        management asset.</p>
+                    <p class="lead">Capture 100% authentic check-in and check-out data with automated location
+                        verification. Teksoi turns workplace presence into your most valuable management asset.</p>
 
                     <div style="display:flex; gap:16px; margin-bottom: 60px; flex-wrap: wrap; justify-content: center;">
                         <a href="#contact" class="btn btn-primary">Request a Demo</a>
@@ -1447,35 +1855,24 @@
                 </div>
 
                 <div class="hero-visual-container reveal-zoom" style="animation-delay: 0.2s;">
-                    <!-- Advanced Geofence & Movement Tracking SVG -->
                     <svg class="hero-svg" width="300" height="300" viewBox="0 0 200 200" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
-                        <!-- Technical Grid Pattern -->
                         <defs>
                             <pattern id="grid-hero" width="20" height="20" patternUnits="userSpaceOnUse">
                                 <path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--line)" stroke-width="0.5" />
                             </pattern>
                         </defs>
                         <rect width="200" height="200" fill="url(#grid-hero)" />
-
-                        <!-- Office Boundary -->
                         <rect x="60" y="60" width="80" height="80" rx="4" stroke="var(--brand)" stroke-width="2"
                             fill="var(--brand)" fill-opacity="0.05" />
                         <path d="M60 80H140M60 100H140M60 120H140M80 60V140M100 60V140M120 60V140" stroke="var(--brand)"
                             stroke-width="0.5" opacity="0.1" />
                         <text x="60" y="55" fill="var(--brand)" font-family="var(--font-mono)" font-size="7"
-                            font-weight="bold">OFFICE ZONE A
-                        </text>
-
-                        <!-- Geofence Boundary -->
+                            font-weight="bold">OFFICE ZONE A</text>
                         <circle cx="100" cy="100" r="75" stroke="var(--brand)" stroke-width="1" stroke-dasharray="4 2"
                             opacity="0.3" />
-
-                        <!-- Employee Movement Tracking -->
                         <path id="trackPath" d="M30 170 C 50 150, 40 130, 70 110 S 90 90, 105 85" fill="none"
                             stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 3" opacity="0.5" />
-
-                        <!-- Tracking Node (Animated) -->
                         <g>
                             <circle r="5" fill="var(--accent)">
                                 <animateMotion dur="5s" repeatCount="indefinite"
@@ -1489,18 +1886,13 @@
                                     repeatCount="indefinite" />
                             </circle>
                         </g>
-
-                        <!-- Status Box -->
                         <rect x="10" y="10" width="100" height="55" rx="6" fill="var(--ink)" />
                         <text x="18" y="26" fill="white" font-family="var(--font-mono)" font-size="8"
-                            font-weight="bold">AUTO ATTENDANCE
-                        </text>
-                        <text x="18" y="38" fill="var(--accent)" font-family="var(--font-mono)" font-size="7">●
-                            LIVE TRACKING
-                        </text>
+                            font-weight="bold">AUTO ATTENDANCE</text>
+                        <text x="18" y="38" fill="var(--accent)" font-family="var(--font-mono)" font-size="7">● LIVE
+                            TRACKING</text>
                         <text x="18" y="50" fill="rgba(255,255,255,0.6)" font-family="var(--font-mono)"
-                            font-size="6">USER ID: EMP-4210
-                        </text>
+                            font-size="6">USER ID: EMP-4210</text>
                         <text x="18" y="58" fill="rgba(255,255,255,0.6)" font-family="var(--font-mono)" font-size="6">
                             BOUNDARY:
                             <tspan fill="rgba(255,255,255,0.4)">
@@ -1514,8 +1906,6 @@
                                 WITHIN
                             </tspan>
                         </text>
-
-                        <!-- Automated Status Indicator -->
                         <g transform="translate(150, 30)">
                             <circle r="20" fill="white" stroke="var(--line)" stroke-width="1.5">
                                 <animate attributeName="fill" values="white; white; #10B981; #10B981"
@@ -1523,7 +1913,6 @@
                                 <animate attributeName="stroke" values="var(--line); var(--line); #10B981; #10B981"
                                     keyTimes="0; 0.48; 0.52; 1" dur="5s" repeatCount="indefinite" />
                             </circle>
-                            <!-- The animated checkmark (Right Sign) -->
                             <path d="M-8 0 L-2 6 L8 -6" stroke="white" stroke-width="3" fill="none"
                                 stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="30"
                                 stroke-dashoffset="30">
@@ -1577,94 +1966,93 @@
         </div>
     </section>
 
-    <section class="automation-showcase" id="automation"
-        style="background: radial-gradient(1100px circle at 100% 0%, rgba(0, 71, 171, 0.13), transparent 55%), var(--white); border-top: 1px solid var(--line); overflow: hidden;">
+    <section class="automation-showcase" id="automation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <span class="particle" style="left: 8%; bottom: 10%; animation-duration: 7s; animation-delay: 0s;"></span>
+        <span class="particle" style="left: 22%; bottom: 5%; animation-duration: 9s; animation-delay: 1.5s;"></span>
+        <span class="particle" style="left: 48%; bottom: 0%; animation-duration: 8s; animation-delay: 3s;"></span>
+        <span class="particle" style="left: 68%; bottom: 8%; animation-duration: 10s; animation-delay: 0.8s;"></span>
+        <span class="particle" style="left: 88%; bottom: 4%; animation-duration: 7.5s; animation-delay: 2.2s;"></span>
         <div class="wrap">
             <div class="hero-grid" style="align-items: center;">
                 <div class="reveal-left">
                     <h1>Zero-Touch Attendance</h1>
-                    <p class="lead">Eliminate manual errors and save time. Teksoi handles your entire
-                        attendance
-                        process automatically, so your team can focus on what matters most.</p>
+                    <p class="lead">Eliminate manual errors and save time. Teksoi handles your entire attendance process
+                        automatically, so your team can focus on what matters most.</p>
 
-                    <div style="margin-top: 48px; text-align: left;">
-                        <div style="display: flex; gap: 24px; margin-bottom: 32px;">
-                            <div
-                                style="width: 48px; height: 48px; border: 1px solid var(--brand); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 800; color: var(--brand); flex-shrink: 0;">
-                                01
-                            </div>
+                    <div class="step-track">
+                        <div class="step-connector"></div>
+                        <div class="step-row">
+                            <div class="step-num">01</div>
                             <div>
                                 <h4 style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px;">
                                     Seamless Arrival</h4>
-                                <p style="color: var(--slate); font-size: 15px;">Your team is
-                                    automatically checked in as they arrive at the workplace. No apps to
-                                    open, no buttons to press.</p>
+                                <p style="color: var(--slate); font-size: 15px;">Your team is automatically checked in
+                                    as they arrive at the workplace. No apps to open, no buttons to press.</p>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 24px; margin-bottom: 32px;">
-                            <div
-                                style="width: 48px; height: 48px; border: 1px solid var(--brand); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 800; color: var(--brand); flex-shrink: 0;">
-                                02
-                            </div>
+                        <div class="step-row">
+                            <div class="step-num">02</div>
                             <div>
                                 <h4 style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px;">
                                     Precise Start Times</h4>
-                                <p style="color: var(--slate); font-size: 15px;">Capture exact arrival
-                                    times for every employee. Ensure accurate records for payroll and
-                                    compliance without lifting a finger.</p>
+                                <p style="color: var(--slate); font-size: 15px;">Capture exact arrival times for every
+                                    employee. Ensure accurate records for payroll and compliance without lifting a
+                                    finger.</p>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 24px;">
-                            <div
-                                style="width: 48px; height: 48px; border: 1px solid var(--brand); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 800; color: var(--brand); flex-shrink: 0;">
-                                03
-                            </div>
+                        <div class="step-row">
+                            <div class="step-num">03</div>
                             <div>
                                 <h4 style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px;">
                                     Effortless Departure</h4>
-                                <p style="color: var(--slate); font-size: 15px;">Check-out is handled
-                                    automatically when employees leave. Get complete visibility into
-                                    daily hours without any manual effort from your team.</p>
+                                <p style="color: var(--slate); font-size: 15px;">Check-out is handled automatically when
+                                    employees leave. Get complete visibility into daily hours without any manual effort
+                                    from your team.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="reveal-right" style="animation-delay: 0.2s;">
-                    <div class="automation-viz-card"
-                        style="background: var(--bg); border: 1.5px solid var(--line); border-radius: 40px; padding: 40px; position: relative; box-shadow: 0 40px 100px -20px rgba(0,71,171,0.1);">
+                    <div class="automation-viz-card">
+                        <div class="viz-chip viz-chip-1"><span class="dot"></span>GEO-VERIFIED</div>
+                        <div class="viz-chip viz-chip-2"><span class="dot"></span>SYNCED 0.4s AGO</div>
                         <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"
-                            style="width: 100%; height: auto;">
-                            <!-- Technical Grid -->
+                            style="width: 100%; height: auto; position: relative; z-index: 1;">
                             <defs>
                                 <pattern id="viz-grid" width="40" height="40" patternUnits="userSpaceOnUse">
                                     <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--line)" stroke-width="0.5" />
                                 </pattern>
                             </defs>
                             <rect width="400" height="400" fill="url(#viz-grid)" />
-
-                            <!-- Geofence -->
-                            <circle cx="200" cy="200" r="120" stroke="var(--brand)" stroke-width="1"
-                                stroke-dasharray="8 4" opacity="0.4" />
-                            <circle cx="200" cy="200" r="120" fill="var(--brand)" fill-opacity="0.03" />
-
-                            <!-- Office Building -->
+                            <rect width="400" height="400" rx="24" fill="var(--white)" fill-opacity="0.6" />
+                            <circle cx="200" cy="200" r="120" stroke="var(--brand)" stroke-width="1.75"
+                                stroke-dasharray="8 4" opacity="0.75" />
+                            <circle cx="200" cy="200" r="120" fill="var(--brand)" fill-opacity="0.06" />
+                            <g style="transform-origin: 200px 200px;">
+                                <circle cx="200" cy="200" r="140" fill="none" stroke="var(--accent)" stroke-width="1.75"
+                                    stroke-dasharray="2 14" opacity="0.7">
+                                    <animateTransform attributeName="transform" type="rotate" from="0 200 200"
+                                        to="360 200 200" dur="14s" repeatCount="indefinite" />
+                                </circle>
+                                <circle cx="200" cy="200" r="150" fill="none" stroke="var(--brand)" stroke-width="1.25"
+                                    stroke-dasharray="1 22" opacity="0.5">
+                                    <animateTransform attributeName="transform" type="rotate" from="360 200 200"
+                                        to="0 200 200" dur="22s" repeatCount="indefinite" />
+                                </circle>
+                            </g>
                             <g transform="translate(170, 170)">
                                 <rect width="60" height="60" rx="12" fill="var(--white)" stroke="var(--brand)"
-                                    stroke-width="2" />
+                                    stroke-width="2.5" />
                                 <rect x="15" y="15" width="30" height="10" rx="2" fill="var(--line)" />
                                 <rect x="15" y="35" width="30" height="10" rx="2" fill="var(--line)" />
                             </g>
                             <text x="200" y="250" text-anchor="middle" fill="var(--brand)"
-                                font-family="var(--font-mono)" font-size="10" font-weight="bold">
-                                OFFICE SAFE ZONE
-                            </text>
-
-                            <!-- Trajectory Path -->
+                                font-family="var(--font-mono)" font-size="10" font-weight="bold">OFFICE SAFE ZONE</text>
                             <path id="entryPath" d="M20 380 Q 100 350, 120 250 T 200 200" fill="none" />
                             <path id="exitPath" d="M200 200 Q 280 150, 320 100 T 380 20" fill="none" />
-
-                            <!-- Employee Node -->
                             <g>
                                 <circle r="8" fill="var(--accent)">
                                     <animateMotion dur="8s" repeatCount="indefinite"
@@ -1678,12 +2066,9 @@
                                         path="M20 380 Q 100 350, 120 250 T 200 200 Q 280 150, 320 100 T 380 20" />
                                 </circle>
                             </g>
-
-                            <!-- Status HUD -->
                             <rect x="230" y="30" width="140" height="70" rx="12" fill="var(--ink)" />
                             <text x="245" y="55" fill="rgba(255,255,255,0.5)" font-family="var(--font-mono)"
-                                font-size="9">ATTENDANCE_STATUS
-                            </text>
+                                font-size="9">ATTENDANCE_STATUS</text>
                             <g>
                                 <text x="245" y="80" fill="var(--white)" font-family="var(--font-mono)" font-size="12"
                                     font-weight="bold">
@@ -1705,8 +2090,6 @@
                                 </text>
                             </g>
                         </svg>
-
-                        <!-- Dimensional Lines -->
                         <div class="dim-line h"
                             style="position: absolute; top: 20px; left: 0; right: 0; height: 1px; background: var(--line);">
                         </div>
@@ -1715,72 +2098,69 @@
                         </div>
                         <div
                             style="position: absolute; top: 8px; left: 30px; font-family: var(--font-mono); font-size: 8px; color: var(--brand); opacity: 0.5;">
-                            AUTO VERIFY ACTIVE
-                        </div>
+                            AUTO VERIFY ACTIVE</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="tracking-showcase" id="tracking"
-        style="background: radial-gradient(1100px circle at 0% 0%, rgba(0, 71, 171, 0.1), transparent 55%), var(--bg); border-top: 1px solid var(--line); position: relative;">
+    <section class="tracking-showcase" id="tracking" style="border-top: 1px solid var(--line); position: relative;">
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
         <div class="wrap">
             <div class="hero-grid" style="align-items: center; direction: rtl;">
                 <div class="reveal-right" style="direction: ltr;">
                     <h1>Real-Time Presence Monitoring</h1>
-                    <p class="lead">Stay informed about your team's presence within the workplace
-                        throughout
-                        the day with secure, automated updates that ensure complete accuracy.</p>
+                    <p class="lead">Stay informed about your team's presence within the workplace throughout the day
+                        with secure, automated updates that ensure complete accuracy.</p>
 
                     <div style="margin-top: 40px; text-align: left;">
-                        <div
-                            style="background: var(--white); padding: 32px; border-radius: 24px; border: 1px solid var(--line); margin-bottom: 24px;">
-                            <div style="display: flex; gap: 20px; align-items: flex-start;">
+                        <div class="info-card">
+                            <div
+                                style="display: flex; gap: 20px; align-items: flex-start; position: relative; z-index: 1;">
                                 <iconify-icon icon="solar:Map-point-wave-bold-duotone"
                                     style="color: var(--brand); font-size: 32px;"></iconify-icon>
                                 <div>
-                                    <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
-                                        Visibility & Accountability</h4>
-                                    <p style="font-size: 14px; color: var(--slate); max-width: 100%;">
-                                        Managers gain real-time visibility into workforce presence,
-                                        ensuring team accountability across all work areas.</p>
+                                    <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Visibility &
+                                        Accountability</h4>
+                                    <p style="font-size: 14px; color: var(--slate); max-width: 100%;">Managers gain
+                                        real-time visibility into workforce presence, ensuring team accountability
+                                        across all work areas.</p>
                                 </div>
                             </div>
                         </div>
-                        <div
-                            style="background: var(--white); padding: 32px; border-radius: 24px; border: 1px solid var(--line);">
-                            <div style="display: flex; gap: 20px; align-items: flex-start;">
+                        <div class="info-card">
+                            <div
+                                style="display: flex; gap: 20px; align-items: flex-start; position: relative; z-index: 1;">
                                 <iconify-icon icon="solar:history-bold-duotone"
                                     style="color: var(--accent); font-size: 32px;"></iconify-icon>
                                 <div>
-                                    <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
-                                        Zero-Manual Logging</h4>
-                                    <p style="font-size: 14px; color: var(--slate); max-width: 100%;">
-                                        Live location capture throughout work hours logs every presence
-                                        with an accurate timestamp — giving full visibility with zero
-                                        manual entry required.</p>
+                                    <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Zero-Manual
+                                        Logging</h4>
+                                    <p style="font-size: 14px; color: var(--slate); max-width: 100%;">Live location
+                                        capture throughout work hours logs every presence with an accurate timestamp —
+                                        giving full visibility with zero manual entry required.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-
                 <div class="reveal-left" style="direction: ltr; animation-delay: 0.2s;">
-                    <div class="tracking-viz-card"
-                        style="background: var(--white); border: 1px solid var(--line); border-radius: 40px; padding: 40px; position: relative; box-shadow: 0 40px 100px -20px rgba(0,71,171,0.08); overflow: hidden;">
-
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
-                            <span
-                                style="width: 6px; height: 6px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 3px rgba(0,71,171,0.15);"></span>
-                            <span
-                                style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--slate); text-transform: uppercase;">Geofence
-                                &middot; Gulshan Site A</span>
+                    <div class="tracking-viz-card">
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; position: relative; z-index: 1;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="tracking-live-dot"></span>
+                                <span
+                                    style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--slate); text-transform: uppercase;">Geofence
+                                    &middot; Gulshan Site A</span>
+                            </div>
+                            <span class="geofence-badge">LIVE</span>
                         </div>
-
                         <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg"
-                            style="width: 100%; height: auto; overflow: visible;">
+                            style="width: 100%; height: auto; overflow: visible; position: relative; z-index: 1;">
                             <defs>
                                 <pattern id="tracking-grid" width="28" height="28" patternUnits="userSpaceOnUse">
                                     <path d="M 28 0 L 0 0 0 28" fill="none" stroke="var(--line)" stroke-width="0.5" />
@@ -1789,51 +2169,35 @@
                                     <path d="M30 40 L370 25 L385 200 L260 275 L45 260 Z" />
                                 </clipPath>
                             </defs>
-
                             <rect width="400" height="300" fill="url(#tracking-grid)" />
-
-                            <path d="M30 40 L370 25 L385 200 L260 275 L45 260 Z" fill="var(--brand)" fill-opacity="0.03"
-                                stroke="var(--brand)" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.55" />
+                            <rect width="400" height="300" rx="20" fill="var(--white)" fill-opacity="0.6" />
+                            <path d="M30 40 L370 25 L385 200 L260 275 L45 260 Z" fill="var(--brand)" fill-opacity="0.05"
+                                stroke="var(--brand)" stroke-width="1.75" stroke-dasharray="6 5" opacity="0.75" />
                             <text x="60" y="55" fill="var(--brand)" font-family="var(--font-mono)" font-size="8"
-                                letter-spacing="0.05em" opacity="0.6">ASSIGNED WORK AREA
-                            </text>
-
-                            <!-- Orthogonal corridor route: only horizontal / vertical segments -->
+                                letter-spacing="0.05em" opacity="0.85">ASSIGNED WORK AREA</text>
                             <g clip-path="url(#fence-clip)">
                                 <path id="motion-path"
                                     d="M70 235 L70 185 L135 185 L135 225 L200 225 L200 145 L155 145 L155 100 L260 100 L260 180 L300 180 L300 65"
                                     stroke="var(--slate)" stroke-width="1.75" stroke-linecap="round"
-                                    stroke-linejoin="round" opacity="0.5" />
+                                    stroke-linejoin="round" opacity="0.55" />
                             </g>
-
-                            <!-- Named office zones -->
                             <g font-family="var(--font-mono)">
                                 <circle cx="70" cy="235" r="4" fill="var(--white)" stroke="var(--ink)"
                                     stroke-width="1.5" />
                                 <text x="70" y="220" text-anchor="middle" font-size="9" font-weight="bold"
-                                    fill="var(--ink)">Reception
-                                </text>
-                                <text x="70" y="252" text-anchor="middle" font-size="7" fill="var(--slate)">09:00
-                                </text>
-
+                                    fill="var(--ink)">Reception</text>
+                                <text x="70" y="252" text-anchor="middle" font-size="7" fill="var(--slate)">09:00</text>
                                 <circle cx="200" cy="225" r="4" fill="var(--white)" stroke="var(--ink)"
                                     stroke-width="1.5" />
                                 <text x="220" y="230" text-anchor="start" font-size="9" font-weight="bold"
-                                    fill="var(--ink)">Warehouse
-                                </text>
-                                <text x="220" y="243" text-anchor="start" font-size="7" fill="var(--slate)">12:35
-                                </text>
-
+                                    fill="var(--ink)">Warehouse</text>
+                                <text x="220" y="243" text-anchor="start" font-size="7" fill="var(--slate)">12:35</text>
                                 <circle cx="300" cy="65" r="4" fill="var(--white)" stroke="var(--ink)"
                                     stroke-width="1.5" />
                                 <text x="300" y="50" text-anchor="middle" font-size="9" font-weight="bold"
-                                    fill="var(--ink)">Loading dock
-                                </text>
-                                <text x="300" y="37" text-anchor="middle" font-size="7" fill="var(--slate)">15:10
-                                </text>
+                                    fill="var(--ink)">Loading dock</text>
+                                <text x="300" y="37" text-anchor="middle" font-size="7" fill="var(--slate)">15:10</text>
                             </g>
-
-                            <!-- Moving pin -->
                             <g id="pin">
                                 <path
                                     d="M0,-14 C7,-14 12,-9 12,-3 C12,7 0,18 0,18 C0,18 -12,7 -12,-3 C-12,-9 -7,-14 0,-14 Z"
@@ -1844,21 +2208,17 @@
                                 </animateMotion>
                             </g>
                         </svg>
-
                         <div
-                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line);">
-                            <div style="font-family: var(--font-mono); font-size: 10px; color: var(--slate);">
-                                4 CHECK-INS &middot; 0 EXITS TODAY
-                            </div>
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); position: relative; z-index: 1;">
+                            <div style="font-family: var(--font-mono); font-size: 10px; color: var(--slate);">4
+                                CHECK-INS &middot; 0 EXITS TODAY</div>
                             <div
                                 style="font-family: var(--font-mono); font-size: 10px; color: var(--brand); font-weight: bold;">
-                                WITHIN GEOFENCE
-                            </div>
+                                WITHIN GEOFENCE</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
 
@@ -1876,10 +2236,8 @@
                 <div class="reveal-right" style="animation-delay: 0.2s;">
                     <span class="hero-tag">Mobile Experience</span>
                     <h1>Attendance in Your Pocket</h1>
-                    <p class="lead">Teksoi transforms how employees interact with their workplace. No
-                        more manual logs or hardware scanners—just a simple tap on your phone within the
-                        office geofence.</p>
-
+                    <p class="lead">Teksoi transforms how employees interact with their workplace. No more manual logs
+                        or hardware scanners—just a simple tap on your phone within the office geofence.</p>
                     <ul style="list-style: none; margin-top: 32px; text-align: left;">
                         <li
                             style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; font-family: var(--font-display); font-weight: 600;">
@@ -1926,13 +2284,11 @@
                     <div class="hero-visual">
                         <img src="Dashboard.png" alt="Admin Analytics Dashboard" loading="lazy">
                     </div>
-                    <!-- Technical Overlay for Analytics -->
                     <div
                         style="position: absolute; top: 30px; right: -20px; background: var(--white); border: 1.5px solid var(--brand); padding: 20px; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,71,171,0.2); z-index: 10; width: 200px;">
                         <div
                             style="font-family: var(--font-mono); font-size: 10px; color: var(--brand); margin-bottom: 12px; font-weight: 700;">
-                            LIVE DATA FEED
-                        </div>
+                            LIVE DATA FEED</div>
                         <div style="height: 60px; display: flex; align-items: flex-end; gap: 4px;">
                             <div style="flex: 1; background: var(--brand); height: 40%; border-radius: 2px;"></div>
                             <div style="flex: 1; background: var(--brand); height: 70%; border-radius: 2px;"></div>
@@ -1951,44 +2307,38 @@
                 <div class="reveal-left" style="direction: ltr; animation-delay: 0.2s;">
                     <span class="hero-tag">Admin Intelligence</span>
                     <h1>Reporting Insights</h1>
-                    <p class="lead">Harness the power of data to optimize your workforce. Our system
-                        provides clear reports that transform raw clock-ins into actionable
-                        performance insights.</p>
-
+                    <p class="lead">Harness the power of data to optimize your workforce. Our system provides clear
+                        reports that transform raw clock-ins into actionable performance insights.</p>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px;">
                         <div
                             style="background: var(--white); padding: 24px; border-radius: 16px; border: 1px solid var(--line); text-align: left;">
                             <iconify-icon icon="solar:calendar-mark-linear"
                                 style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
-                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
-                                Attendance Reports</h4>
-                            <p style="font-size: 13px; color: var(--slate);">Track daily check-ins,
-                                absences, and working hours across your entire team at a glance.</p>
+                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Attendance Reports</h4>
+                            <p style="font-size: 13px; color: var(--slate);">Track daily check-ins, absences, and
+                                working hours across your entire team at a glance.</p>
                         </div>
                         <div
                             style="background: var(--white); padding: 24px; border-radius: 16px; border: 1px solid var(--line); text-align: left;">
                             <iconify-icon icon="solar:chart-2-linear"
                                 style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
-                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
-                                Performance Reports</h4>
-                            <p style="font-size: 13px; color: var(--slate);">Generate detailed
-                                attendance, performance, and movement reports on demand.</p>
+                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Performance Reports</h4>
+                            <p style="font-size: 13px; color: var(--slate);">Generate detailed attendance, performance,
+                                and movement reports on demand.</p>
                         </div>
                         <div
                             style="background: var(--white); padding: 24px; border-radius: 16px; border: 1px solid var(--line); text-align: left;">
                             <iconify-icon icon="solar:history-bold-duotone"
                                 style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
-                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Habitual
-                                Latecomers</h4>
-                            <p style="font-size: 13px; color: var(--slate);">The system automatically
-                                identifies and flags patterns of habitual tardiness.</p>
+                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Habitual Latecomers</h4>
+                            <p style="font-size: 13px; color: var(--slate);">The system automatically identifies and
+                                flags patterns of habitual tardiness.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 
     <section class="reviews" id="reviews">
         <div class="wrap">
@@ -1999,7 +2349,6 @@
 
             <div class="review-carousel reveal" style="animation-delay: 0.2s;">
                 <div class="review-track" id="reviewTrack">
-                    <!-- Review 1 -->
                     <div class="review-card">
                         <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
                             <iconify-icon icon="solar:star-bold"></iconify-icon>
@@ -2010,10 +2359,8 @@
                         </div>
                         <div
                             style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
-                            &ldquo;
-                        </div>
-                        <p class="review-quote">"Teksoi has completely removed the headache of manual
-                            tracking. The
+                            &ldquo;</div>
+                        <p class="review-quote">"Teksoi has completely removed the headache of manual tracking. The
                             geofence accuracy is remarkable, ensuring our data is 100% authentic."</p>
                         <div class="review-user">
                             <div class="review-avatar">SM</div>
@@ -2023,8 +2370,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Review 2 -->
                     <div class="review-card">
                         <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
                             <iconify-icon icon="solar:star-bold"></iconify-icon>
@@ -2035,10 +2380,8 @@
                         </div>
                         <div
                             style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
-                            &ldquo;
-                        </div>
-                        <p class="review-quote">"The Zero-Touch feature is a game changer for our field
-                            staff. They love
+                            &ldquo;</div>
+                        <p class="review-quote">"The Zero-Touch feature is a game changer for our field staff. They love
                             not having to open the app every time they cross the site boundary."</p>
                         <div class="review-user">
                             <div class="review-avatar">JD</div>
@@ -2048,8 +2391,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Review 3 -->
                     <div class="review-card">
                         <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
                             <iconify-icon icon="solar:star-bold"></iconify-icon>
@@ -2060,10 +2401,8 @@
                         </div>
                         <div
                             style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
-                            &ldquo;
-                        </div>
-                        <p class="review-quote">"Detailed analytics helped us identify productivity gaps
-                            we didn't know
+                            &ldquo;</div>
+                        <p class="review-quote">"Detailed analytics helped us identify productivity gaps we didn't know
                             existed. The automated reports save us hours every week."</p>
                         <div class="review-user">
                             <div class="review-avatar">AK</div>
@@ -2073,8 +2412,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Review 4 -->
                     <div class="review-card">
                         <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
                             <iconify-icon icon="solar:star-bold"></iconify-icon>
@@ -2085,10 +2422,8 @@
                         </div>
                         <div
                             style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
-                            &ldquo;
-                        </div>
-                        <p class="review-quote">"Switching to Teksoi was the best decision for our
-                            remote sites. Secure
+                            &ldquo;</div>
+                        <p class="review-quote">"Switching to Teksoi was the best decision for our remote sites. Secure
                             syncing even in low-bandwidth areas works flawlessly every time."</p>
                         <div class="review-user">
                             <div class="review-avatar">RL</div>
@@ -2099,7 +2434,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="review-nav">
                     <div class="nav-dot active"></div>
                     <div class="nav-dot"></div>
@@ -2115,15 +2449,14 @@
             <div class="cta-card reveal-zoom">
                 <div
                     style="font-family: var(--font-mono); font-size: 12px; margin-bottom: 24px; color: var(--brand-light); opacity: 0.6;">
-                    System Ready for Setup
-                </div>
+                    System Ready for Setup</div>
                 <h2>Ready to Optimize Your Workforce?</h2>
-                <p>Join the industry leaders using Teksoi to automate their workforce management
-                    with ease and reliability.</p>
+                <p>Join the industry leaders using Teksoi to automate their workforce management with ease and
+                    reliability.</p>
                 <div class="cta-buttons" style="display:flex; gap:20px; justify-content: center;">
                     <a href="#contact" class="btn btn-primary"
-                        style="background: white; color: var(--ink); padding: 18px 40px; font-size: 16px;">Start
-                        Your Setup</a>
+                        style="background: white; color: var(--ink); padding: 18px 40px; font-size: 16px;">Start Your
+                        Setup</a>
                     <a href="#" class="btn" style="border: 1px solid rgba(255,255,255,0.2); color: white;">Customer
                         Support</a>
                 </div>
@@ -2132,7 +2465,6 @@
     </section>
 
     <section class="contact-section" id="contact">
-        <!-- Technical Grid Backdrop -->
         <div
             style="position: absolute; top: 0; right: 0; width: 300px; height: 300px; opacity: 0.05; pointer-events: none;">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -2151,24 +2483,21 @@
                     <h2
                         style="font-family: var(--font-display); font-size: 48px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px;">
                         Transform Your Workplace Attendance.</h2>
-                    <p class="lead" style="margin-bottom: 48px;">Share your needs and our team will help
-                        you set up your account within 24 hours.</p>
-
+                    <p class="lead" style="margin-bottom: 48px;">Share your needs and our team will help you set up your
+                        account within 24 hours.</p>
                     <div style="display: grid; gap: 32px; position: relative;">
-                        <!-- Connection Line Decoration -->
                         <div
                             style="position: absolute; left: 15px; top: 40px; bottom: 0; width: 1px; background: var(--line); z-index: 0;">
                         </div>
-
                         <div
                             style="display: flex; gap: 20px; background: var(--white); position: relative; z-index: 1;">
                             <iconify-icon icon="solar:shield-check-bold-duotone"
                                 style="color: var(--brand); font-size: 32px; background: var(--white); padding-bottom: 8px; flex-shrink: 0;"></iconify-icon>
                             <div>
-                                <h4 style="font-family: var(--font-display); margin-bottom: 4px;">
-                                    Reliable Data Security</h4>
-                                <p style="font-size: 14px; color: var(--slate);">Your privacy is our
-                                    priority with enterprise-grade data protection.</p>
+                                <h4 style="font-family: var(--font-display); margin-bottom: 4px;">Reliable Data Security
+                                </h4>
+                                <p style="font-size: 14px; color: var(--slate);">Your privacy is our priority with
+                                    enterprise-grade data protection.</p>
                                 <span
                                     style="font-family: var(--font-mono); font-size: 8px; color: var(--brand); opacity: 0.5;">SECURE
                                     DATA PROTECTION</span>
@@ -2179,10 +2508,9 @@
                             <iconify-icon icon="solar:globus-bold-duotone"
                                 style="color: var(--brand); font-size: 32px; background: var(--white); padding-bottom: 8px; flex-shrink: 0;"></iconify-icon>
                             <div>
-                                <h4 style="font-family: var(--font-display); margin-bottom: 4px;">
-                                    Scalable Solution</h4>
-                                <p style="font-size: 14px; color: var(--slate);">Built to support
-                                    businesses of any size, from small teams to large enterprises.</p>
+                                <h4 style="font-family: var(--font-display); margin-bottom: 4px;">Scalable Solution</h4>
+                                <p style="font-size: 14px; color: var(--slate);">Built to support businesses of any
+                                    size, from small teams to large enterprises.</p>
                                 <span
                                     style="font-family: var(--font-mono); font-size: 8px; color: var(--brand); opacity: 0.5;">READY
                                     FOR SCALE</span>
@@ -2255,14 +2583,12 @@
                         <div class="logo-mark"></div>
                         Teksoi
                     </div>
-                    <p style="color: var(--slate); font-size: 14px; max-width: 300px;">Smart Attendance,
-                        Simplified. The industry standard for workforce management.</p>
+                    <p style="color: var(--slate); font-size: 14px; max-width: 300px;">Smart Attendance, Simplified. The
+                        industry standard for workforce management.</p>
                 </div>
                 <div class="footer-links" style="display:flex; gap:80px;">
                     <div style="font-family: var(--font-mono); font-size: 12px;">
-                        <div style="color: var(--brand); margin-bottom: 20px; font-weight: 700;">
-                            PRODUCT
-                        </div>
+                        <div style="color: var(--brand); margin-bottom: 20px; font-weight: 700;">PRODUCT</div>
                         <a href="#"
                             style="display:block; text-decoration:none; color: var(--slate); margin-bottom: 12px;">Dashboard</a>
                         <a href="#"
@@ -2356,7 +2682,6 @@
             const cardWidth = getCardWidth();
             const scrollLeft = track.scrollLeft;
             const activeIndex = Math.round(scrollLeft / cardWidth) % cardCount;
-
             dots.forEach((dot, i) => {
                 dot.classList.toggle('active', i === activeIndex);
             });
@@ -2365,39 +2690,26 @@
         // Scroll listener for seamless reset
         track.addEventListener('scroll', () => {
             const cardWidth = getCardWidth();
-
-            // If we've scrolled past the last original card and are looking at the first clone
-            // (which looks identical to the first original), snap back to the start.
-            // We do this when we are close to the transition point.
             if (track.scrollLeft >= cardCount * cardWidth) {
                 track.scrollLeft = 0;
             } else if (track.scrollLeft < 0) {
                 track.scrollLeft = cardCount * cardWidth;
             }
-
             updateDots();
         });
 
         dots.forEach((dot, i) => {
             dot.addEventListener('click', () => {
                 const cardWidth = getCardWidth();
-                track.scrollTo({
-                    left: i * cardWidth,
-                    behavior: 'smooth'
-                });
+                track.scrollTo({ left: i * cardWidth, behavior: 'smooth' });
             });
         });
 
         const autoScroll = () => {
             if (isPaused) return;
-
             const cardWidth = getCardWidth();
             const currentPos = Math.round(track.scrollLeft / cardWidth);
-
-            track.scrollTo({
-                left: (currentPos + 1) * cardWidth,
-                behavior: 'smooth'
-            });
+            track.scrollTo({ left: (currentPos + 1) * cardWidth, behavior: 'smooth' });
         };
 
         let scrollInterval = setInterval(autoScroll, 4000);
