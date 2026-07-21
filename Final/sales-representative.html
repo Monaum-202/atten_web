@@ -953,6 +953,10 @@
                 display: none;
             }
 
+            .nav-item-dropdown.active {
+                flex-wrap: wrap;
+            }
+
             .nav-item-dropdown.active .megamenu {
                 display: block;
                 position: static;
@@ -962,6 +966,8 @@
                 box-shadow: none;
                 padding: 20px 0;
                 border: none;
+                overflow: visible;
+                flex: 0 0 100%;
             }
 
             .megamenu-columns {
@@ -989,6 +995,8 @@
                 border-bottom: 1px solid var(--line);
                 box-shadow: 0 20px 40px rgba(11, 23, 48, 0.08);
                 padding: 8px 24px 20px;
+                max-height: calc(100vh - 80px);
+                overflow-y: auto;
             }
 
             .nav-links.open {
