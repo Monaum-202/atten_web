@@ -1,0 +1,3188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teksoi — Construction Site Time Tracking & Crew Attendance</title>
+
+    <!-- Fonts: Outfit for display, Manrope for body, IBM Plex Mono for technical accents -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Manrope:wght@400;500;700&family=IBM+Plex+Mono&display=swap"
+            rel="stylesheet">
+
+    <!-- Icons: Solar Icons for a modern, distinctive look -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <style>
+        :root {
+            /* Palette: "Draftsman's Ink" — kept identical to the suite for brand consistency */
+            --brand: #0047AB;
+            --brand-light: #E0E7FF;
+            --ink: #0B1730;
+            --slate: #4B5563;
+            --bg: #F9FAFB;
+            --white: #FFFFFF;
+            --accent: #10B981;
+            --line: rgba(0, 71, 171, 0.1);
+            --radius: 12px;
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Manrope', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--ink);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(700px circle at 10% 5%, rgba(0, 71, 171, 0.1), transparent 60%),
+                radial-gradient(600px circle at 95% 40%, rgba(0, 71, 171, 0.09), transparent 55%),
+                radial-gradient(650px circle at 15% 95%, rgba(0, 71, 171, 0.08), transparent 60%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(var(--line) 1px, transparent 1px),
+                linear-gradient(to right, var(--line) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+            background-size: 40px 40px, 40px 40px, 40px 40px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        nav {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--line);
+            background: rgba(249, 250, 251, 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--brand);
+        }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            border: 2.5px solid var(--brand);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-mark::after {
+            content: "";
+            width: 14px;
+            height: 14px;
+            background: var(--brand);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a,
+        .nav-item {
+            text-decoration: none;
+            color: var(--slate);
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-links a:hover,
+        .nav-item:hover {
+            color: var(--brand);
+        }
+
+        /* --- Mega Menu --- */
+        .nav-item-dropdown {
+            position: static;
+        }
+
+        .megamenu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            border-top: 1px solid var(--line);
+            border-bottom: 2px solid var(--brand);
+            /* Thick brand bottom edge */
+            box-shadow: 0 40px 80px -20px rgba(0, 71, 171, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1000;
+            padding: 0;
+            /* Changed to handle internal grid */
+            overflow: hidden;
+        }
+
+        /* Blueprint background for the menu */
+        .megamenu::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--line) 0.5px, transparent 0.5px);
+            background-size: 20px 20px;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .megamenu-main {
+            padding: 40px;
+            border-right: 1px solid var(--line);
+        }
+
+        .megamenu-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .megamenu-title {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--brand);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .megamenu-title::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: var(--line);
+        }
+
+        .megamenu-list {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+
+        .megamenu-link {
+            text-decoration: none;
+            display: flex;
+            gap: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            align-items: center;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .megamenu-link:hover {
+            background: var(--brand-light);
+            border-color: var(--line);
+        }
+
+        .megamenu-icon-wrap {
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        /* Technical corner accents on icons */
+        .megamenu-link:hover .megamenu-icon-wrap::after {
+            content: "";
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 6px;
+            height: 6px;
+            background: var(--brand);
+        }
+
+        .megamenu-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .megamenu-link-title {
+            display: block;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--ink);
+            transition: color 0.2s;
+        }
+
+        .megamenu-link-desc {
+            display: block;
+            font-size: 11px;
+            color: var(--slate);
+            line-height: 1.4;
+            opacity: 0.8;
+        }
+
+        .nav-item-dropdown:hover .megamenu,
+        .nav-item-dropdown.active .megamenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Remove the global display:none that was breaking hover */
+        .nav-item-dropdown .megamenu {
+            display: block;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            width: 42px;
+            height: 42px;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--brand);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: var(--font-display);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--brand);
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(0, 71, 171, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -10px rgba(0, 71, 171, 0.4);
+        }
+
+        .analytical-engine .hero-visual {
+            max-width: 720px;
+        }
+
+        .analytical-engine .hero-visual img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .analytical-engine .live-feed-badge {
+                display: none;
+            }
+        }
+
+        .hero {
+            padding: 80px 0 120px;
+            position: relative;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-tag {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--brand);
+            background: var(--brand-light);
+            padding: 6px 14px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 6vw, 76px);
+            line-height: 1.05;
+            margin-bottom: 24px;
+            letter-spacing: -3px;
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: var(--brand);
+            -webkit-text-stroke: 0;
+        }
+
+        .hero p.lead {
+            font-size: 20px;
+            color: var(--slate);
+            margin-bottom: 44px;
+            max-width: 540px;
+            line-height: 1.6;
+        }
+
+        .hero-visual-container {
+            position: relative;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-visual {
+            position: relative;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 12px;
+            box-shadow: 0 50px 100px -20px rgba(11, 23, 48, 0.15);
+            overflow: hidden;
+            width: 100%;
+            max-width: 440px;
+            z-index: 2;
+        }
+
+        .hero-visual img {
+            width: 100%;
+            height: 90%;
+            border-radius: 16px;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-svg {
+            position: absolute;
+            top: -120px;
+            right: -100px;
+            width: 340px;
+            height: 340px;
+            z-index: 5;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            border: 1.5px solid var(--line);
+            padding: 1px;
+            box-shadow: 0 40px 80px rgba(0, 71, 171, 0.15);
+        }
+
+        .tech-badge {
+            position: absolute;
+            bottom: -10px;
+            left: -10px;
+            background: var(--white);
+            border: 1.5px solid var(--brand);
+            padding: 14px 20px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 71, 171, 0.1);
+            z-index: 10;
+        }
+
+        @media (max-width: 820px) {
+            .hero-visual-container {
+                padding: 40px 12px 12px;
+            }
+
+            .hero-visual {
+                max-width: 280px;
+            }
+
+            .hero-svg {
+                position: absolute;
+                top: -30px;
+                right: 0;
+                width: 190px;
+                height: 190px;
+            }
+
+            .tech-badge {
+                padding: 10px 14px;
+                left: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-visual {
+                max-width: 220px;
+            }
+
+            .hero-svg {
+                width: 180px;
+                height: 180px;
+                top: -40px;
+                right: 5px;
+            }
+        }
+
+        .features {
+            padding: 120px 0;
+            background: var(--white);
+            border-top: 1px solid var(--line);
+        }
+
+        .automation-showcase,
+        .tracking-showcase,
+        .mobile-showcase,
+        .analytical-engine {
+            padding: 120px 0;
+        }
+
+        .section-head {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 80px;
+        }
+
+        .section-head h2 {
+            font-family: var(--font-display);
+            font-size: 48px;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+
+        .automation-showcase h1,
+        .tracking-showcase h1,
+        .mobile-showcase h1,
+        .analytical-engine h1 {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        /* --- Automation Showcase: richer background + timeline --- */
+        .automation-showcase {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .automation-showcase::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
+            background-size: 26px 26px;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .automation-showcase .blob,
+        .tracking-showcase .blob,
+        .mobile-showcase .blob,
+        .analytical-engine .blob,
+        .reviews .blob,
+        .cta-section .blob,
+        .contact-section .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(10px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .automation-showcase .blob-1 {
+            width: 420px;
+            height: 420px;
+            top: -180px;
+            left: -160px;
+            background: radial-gradient(circle, rgba(0, 71, 171, 0.14), transparent 70%);
+            animation: floatBlob 12s ease-in-out infinite;
+        }
+
+        .automation-showcase .blob-2 {
+            width: 380px;
+            height: 380px;
+            bottom: -160px;
+            right: -140px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.13), transparent 70%);
+            animation: floatBlob 14s ease-in-out infinite reverse;
+        }
+
+        @keyframes floatBlob {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(30px, 26px) scale(1.06);
+            }
+        }
+
+        .automation-showcase .hero-grid,
+        .tracking-showcase .hero-grid,
+        .mobile-showcase .hero-grid,
+        .analytical-engine .hero-grid {
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-track {
+            position: relative;
+            margin-top: 48px;
+            text-align: left;
+        }
+
+        .step-connector {
+            position: absolute;
+            left: 23px;
+            top: 56px;
+            bottom: 40px;
+            width: 2px;
+            background: repeating-linear-gradient(var(--line), var(--line) 5px, transparent 5px, transparent 10px);
+            z-index: 0;
+        }
+
+        .step-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-num {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--brand), #1e63c9);
+            border: 1px solid var(--brand);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-weight: 800;
+            color: var(--white);
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px -6px rgba(0, 71, 171, 0.5), 0 0 0 0 rgba(0, 71, 171, 0.25);
+            animation: pulseNum 3.6s ease-in-out infinite;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+            cursor: default;
+        }
+
+        .step-row:nth-child(2) .step-num {
+            animation-delay: 0.6s;
+            background: linear-gradient(135deg, #0e9f6e, var(--accent));
+            border-color: var(--accent);
+            animation-name: pulseNumGreen;
+        }
+
+        .step-row:nth-child(3) .step-num {
+            animation-delay: 1.2s;
+        }
+
+        .step-row:hover .step-num {
+            transform: rotate(-6deg) scale(1.12);
+            filter: brightness(1.1);
+        }
+
+        @keyframes pulseNum {
+
+            0%,
+            70%,
+            100% {
+                box-shadow: 0 8px 20px -6px rgba(0, 71, 171, 0.5), 0 0 0 0 rgba(0, 71, 171, 0.22);
+            }
+
+            35% {
+                box-shadow: 0 8px 20px -6px rgba(0, 71, 171, 0.5), 0 0 0 8px rgba(0, 71, 171, 0);
+            }
+        }
+
+        @keyframes pulseNumGreen {
+
+            0%,
+            70%,
+            100% {
+                box-shadow: 0 8px 20px -6px rgba(16, 185, 129, 0.5), 0 0 0 0 rgba(16, 185, 129, 0.25);
+            }
+
+            35% {
+                box-shadow: 0 8px 20px -6px rgba(16, 185, 129, 0.5), 0 0 0 8px rgba(16, 185, 129, 0);
+            }
+        }
+
+        .step-connector::before {
+            content: "";
+            position: absolute;
+            left: -3px;
+            top: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18), 0 0 12px rgba(16, 185, 129, 0.5);
+            animation: travelDown 3.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+        }
+
+        @keyframes travelDown {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+
+            8% {
+                opacity: 1;
+            }
+
+            92% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        .automation-viz-card {
+            background:
+                radial-gradient(circle at 12% 8%, rgba(0, 71, 171, 0.22), transparent 45%),
+                radial-gradient(circle at 90% 15%, rgba(16, 185, 129, 0.2), transparent 42%),
+                radial-gradient(circle at 85% 90%, rgba(0, 71, 171, 0.18), transparent 48%),
+                linear-gradient(155deg, #dbe7fb 0%, #eef2fb 45%, #d9f7ea 100%);
+            border: 1.5px solid var(--line);
+            border-radius: 40px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 40px 100px -20px rgba(0, 71, 171, 0.18);
+            overflow: hidden;
+            animation: cardBreathe 6s ease-in-out infinite;
+        }
+
+        @keyframes cardBreathe {
+
+            0%,
+            100% {
+                box-shadow: 0 40px 100px -20px rgba(0, 71, 171, 0.1);
+            }
+
+            50% {
+                box-shadow: 0 44px 110px -18px rgba(0, 71, 171, 0.22);
+            }
+        }
+
+        .automation-viz-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 15% 15%, rgba(0, 71, 171, 0.09), transparent 42%),
+                radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.09), transparent 42%);
+            pointer-events: none;
+        }
+
+        .automation-viz-card::after,
+        .tracking-viz-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 45%;
+            height: 100%;
+            background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+            transform: skewX(-18deg);
+            pointer-events: none;
+            animation: shimmerSweep 5.5s ease-in-out infinite;
+        }
+
+        .tracking-viz-card::after {
+            animation: shimmerSweep 6s ease-in-out infinite 1s;
+        }
+
+        @keyframes shimmerSweep {
+            0% {
+                left: -60%;
+            }
+
+            35%,
+            100% {
+                left: 130%;
+            }
+        }
+
+        /* Drifting particles across the section background */
+        .automation-showcase .particle,
+        .tracking-showcase .particle,
+        .mobile-showcase .particle,
+        .analytical-engine .particle,
+        .reviews .particle,
+        .cta-section .particle,
+        .contact-section .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0;
+            pointer-events: none;
+            animation: particleRise linear infinite;
+            z-index: 0;
+        }
+
+        .automation-showcase .particle:nth-child(3),
+        .mobile-showcase .particle:nth-child(3),
+        .reviews .particle:nth-child(3) {
+            background: var(--brand);
+        }
+
+        .automation-showcase .particle:nth-child(5),
+        .mobile-showcase .particle:nth-child(5),
+        .reviews .particle:nth-child(5) {
+            background: var(--brand);
+        }
+
+        @keyframes particleRise {
+            0% {
+                transform: translateY(0) scale(0.6);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.55;
+            }
+
+            85% {
+                opacity: 0.35;
+            }
+
+            100% {
+                transform: translateY(-260px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .viz-chip {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(6px);
+            border: 1px solid var(--line);
+            border-radius: 100px;
+            padding: 6px 12px;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--brand);
+            box-shadow: 0 10px 24px rgba(0, 71, 171, 0.08);
+            z-index: 2;
+            animation: chipFloat 5s ease-in-out infinite;
+        }
+
+        .viz-chip .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .viz-chip-1 {
+            top: 24px;
+            left: 40px;
+            animation-delay: 0s;
+            background: linear-gradient(90deg, rgba(0, 71, 171, 0.1), rgba(255, 255, 255, 0.92));
+            border-color: rgba(0, 71, 171, 0.25);
+        }
+
+        .viz-chip-2 {
+            bottom: 32px;
+            left: 48px;
+            animation-delay: 1.2s;
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.12), rgba(255, 255, 255, 0.92));
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #0e9f6e;
+        }
+
+        .viz-chip-2 .dot {
+            background: #0e9f6e;
+        }
+
+        .viz-chip-3 {
+            top: 24px;
+            right: 24px;
+            animation-delay: 0.6s;
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.12), rgba(255, 255, 255, 0.92));
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #0e9f6e;
+        }
+
+        .viz-chip-3 .dot {
+            background: #0e9f6e;
+        }
+
+        .viz-chip-4 {
+            bottom: 28px;
+            right: 24px;
+            animation-delay: 1.8s;
+            background: linear-gradient(90deg, rgba(0, 71, 171, 0.1), rgba(255, 255, 255, 0.92));
+            border-color: rgba(0, 71, 171, 0.25);
+        }
+
+        @keyframes chipFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .viz-chip {
+                display: none;
+            }
+        }
+
+        /* --- Tracking Showcase enhancements --- */
+        .tracking-showcase {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tracking-showcase::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
+            background-size: 26px 26px;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .tracking-showcase .blob-3 {
+            width: 400px;
+            height: 400px;
+            top: -160px;
+            right: -140px;
+            background: radial-gradient(circle, rgba(0, 71, 171, 0.14), transparent 70%);
+            animation: floatBlob 13s ease-in-out infinite;
+        }
+
+        .tracking-showcase .blob-4 {
+            width: 360px;
+            height: 360px;
+            bottom: -140px;
+            left: -120px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.13), transparent 70%);
+            animation: floatBlob 15s ease-in-out infinite reverse;
+        }
+
+        .info-card {
+            background: var(--white);
+            padding: 32px;
+            border-radius: 24px;
+            border: 1px solid var(--line);
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+        }
+
+        .info-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--brand);
+            box-shadow: 0 24px 50px -18px rgba(0, 71, 171, 0.22);
+        }
+
+        .info-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(0, 71, 171, 0.06), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        .info-card:hover::before {
+            opacity: 1;
+        }
+
+        .info-card iconify-icon {
+            display: inline-block;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .info-card:hover iconify-icon {
+            transform: scale(1.15) rotate(-6deg);
+        }
+
+        .tracking-viz-card {
+            background:
+                radial-gradient(circle at 90% 10%, rgba(0, 71, 171, 0.18), transparent 45%),
+                radial-gradient(circle at 8% 92%, rgba(16, 185, 129, 0.16), transparent 45%),
+                linear-gradient(160deg, #e6edfb 0%, #f5f7fc 55%, #e3faf0 100%);
+            border: 1.5px solid var(--line);
+            border-radius: 40px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 40px 100px -20px rgba(0, 71, 171, 0.16);
+            overflow: hidden;
+            animation: cardBreathe 6.4s ease-in-out infinite;
+        }
+
+        .tracking-live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--brand);
+            box-shadow: 0 0 0 3px rgba(0, 71, 171, 0.15);
+            animation: dotPulse 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes dotPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 3px rgba(0, 71, 171, 0.15);
+            }
+
+            50% {
+                box-shadow: 0 0 0 6px rgba(0, 71, 171, 0);
+            }
+        }
+
+        .geofence-badge {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: bold;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--brand), #1e63c9);
+            padding: 6px 14px;
+            border-radius: 100px;
+            box-shadow: 0 8px 18px -6px rgba(0, 71, 171, 0.45);
+        }
+
+        /* --- Mobile Showcase enhancements --- */
+        .mobile-showcase {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-showcase::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
+            background-size: 26px 26px;
+            opacity: 0.55;
+            pointer-events: none;
+        }
+
+        .mobile-showcase .blob-5 {
+            width: 380px;
+            height: 380px;
+            top: -150px;
+            right: -130px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.13), transparent 70%);
+            animation: floatBlob 13s ease-in-out infinite;
+        }
+
+        .mobile-showcase .blob-6 {
+            width: 340px;
+            height: 340px;
+            bottom: -140px;
+            left: -110px;
+            background: radial-gradient(circle, rgba(0, 71, 171, 0.13), transparent 70%);
+            animation: floatBlob 15.5s ease-in-out infinite reverse;
+        }
+
+        .mobile-viz-card {
+            background:
+                radial-gradient(circle at 88% 10%, rgba(16, 185, 129, 0.18), transparent 45%),
+                radial-gradient(circle at 8% 92%, rgba(0, 71, 171, 0.16), transparent 45%),
+                linear-gradient(160deg, #e6edfb 0%, #f4f6fc 55%, #e3faf0 100%);
+            border: 1.5px solid var(--line);
+            border-radius: 40px;
+            padding: 40px 28px;
+            position: relative;
+            box-shadow: 0 40px 100px -20px rgba(0, 71, 171, 0.16);
+            overflow: hidden;
+            animation: cardBreathe 6.3s ease-in-out infinite;
+        }
+
+        .mobile-viz-card .hero-visual {
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mobile-viz-card .hero-visual::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 45%;
+            height: 100%;
+            background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+            transform: skewX(-18deg);
+            pointer-events: none;
+            animation: shimmerSweep 6.5s ease-in-out infinite 0.6s;
+            z-index: 3;
+        }
+
+        /* --- Analytical Engine enhancements --- */
+        .analytical-engine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .analytical-engine::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
+            background-size: 26px 26px;
+            opacity: 0.55;
+            pointer-events: none;
+        }
+
+        .analytical-engine .blob-7 {
+            width: 400px;
+            height: 400px;
+            top: -160px;
+            left: -140px;
+            background: radial-gradient(circle, rgba(0, 71, 171, 0.13), transparent 70%);
+            animation: floatBlob 14s ease-in-out infinite;
+        }
+
+        .analytical-engine .blob-8 {
+            width: 360px;
+            height: 360px;
+            bottom: -150px;
+            right: -120px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.12), transparent 70%);
+            animation: floatBlob 16.5s ease-in-out infinite reverse;
+        }
+
+        .analytics-viz-card {
+            background:
+                radial-gradient(circle at 12% 10%, rgba(0, 71, 171, 0.18), transparent 45%),
+                radial-gradient(circle at 92% 90%, rgba(16, 185, 129, 0.16), transparent 45%),
+                linear-gradient(150deg, #dbe7fb 0%, #eef2fb 50%, #d9f7ea 100%);
+            border: 1.5px solid var(--line);
+            border-radius: 40px;
+            padding: 32px;
+            position: relative;
+            box-shadow: 0 40px 100px -20px rgba(0, 71, 171, 0.18);
+            overflow: visible;
+            animation: cardBreathe 6.7s ease-in-out infinite;
+        }
+
+        .analytics-viz-card .hero-visual {
+            position: relative;
+            z-index: 1;
+        }
+
+        .analytics-viz-card .hero-visual::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 45%;
+            height: 100%;
+            background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+            transform: skewX(-18deg);
+            pointer-events: none;
+            animation: shimmerSweep 7s ease-in-out infinite 1.2s;
+            z-index: 3;
+        }
+
+        .bento-item {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid var(--line);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .bento-content {
+            position: relative;
+            z-index: 5;
+        }
+
+        .bento-item:hover {
+            border-color: var(--brand);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px -15px rgba(0, 71, 171, 0.15);
+        }
+
+        .bento-item.large {
+            grid-column: span 7;
+        }
+
+        .bento-item.medium {
+            grid-column: span 5;
+        }
+
+        .bento-item.small {
+            grid-column: span 4;
+        }
+
+        .bento-item.full {
+            grid-column: span 12;
+        }
+
+        .bento-item h3 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+            color: var(--ink);
+        }
+
+        .bento-item p {
+            color: var(--slate);
+            line-height: 1.6;
+            font-size: 15px;
+            max-width: 260px;
+        }
+
+        .bento-icon {
+            font-size: 40px;
+            color: var(--brand);
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .bento-item .step-indicator {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--line);
+        }
+
+        .stats-band {
+            padding: 80px 0;
+            background: var(--brand);
+            color: white;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item b {
+            display: block;
+            font-size: 56px;
+            font-family: var(--font-display);
+            margin-bottom: 8px;
+            letter-spacing: -2px;
+        }
+
+        .stat-item span {
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            font-size: 11px;
+            opacity: 0.7;
+            letter-spacing: 2px;
+        }
+
+        .cta-section {
+            padding: 120px 0;
+            background: var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
+            background-size: 26px 26px;
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .cta-section .blob-11 {
+            width: 400px;
+            height: 400px;
+            top: -150px;
+            right: -130px;
+            background: radial-gradient(circle, rgba(0, 71, 171, 0.1), transparent 70%);
+            animation: floatBlob 14s ease-in-out infinite;
+        }
+
+        .cta-card {
+            background: var(--ink);
+            border-radius: 32px;
+            padding: 80px 60px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 40px 80px -20px rgba(11, 23, 48, 0.4);
+        }
+
+        .cta-card h2 {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .cta-card p {
+            font-size: 18px;
+            opacity: 0.7;
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        .reviews {
+            padding: 120px 0;
+            background:
+                radial-gradient(900px circle at 90% 0%, rgba(0, 71, 171, 0.11), transparent 55%),
+                radial-gradient(800px circle at 5% 100%, rgba(0, 71, 171, 0.09), transparent 50%),
+                var(--white);
+            border-top: 1px solid var(--line);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .reviews::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
+            background-size: 26px 26px;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .reviews .blob-9 {
+            width: 420px;
+            height: 420px;
+            top: -180px;
+            right: -160px;
+            background: radial-gradient(circle, rgba(0, 71, 171, 0.12), transparent 70%);
+            animation: floatBlob 15s ease-in-out infinite;
+        }
+
+        .reviews .blob-10 {
+            width: 380px;
+            height: 380px;
+            bottom: -160px;
+            left: -140px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1), transparent 70%);
+            animation: floatBlob 18s ease-in-out infinite reverse;
+        }
+
+        .review-carousel {
+            position: relative;
+            margin-top: 60px;
+        }
+
+        .review-track {
+            display: flex;
+            gap: 32px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 20px 4px 60px;
+            scrollbar-width: none;
+        }
+
+        .review-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .review-card {
+            flex: 0 0 400px;
+            scroll-snap-align: center;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .review-card:hover {
+            border-color: var(--brand);
+            box-shadow: 0 20px 40px rgba(0, 71, 171, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .review-quote {
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            color: var(--ink);
+            font-family: var(--font-body);
+            font-style: italic;
+        }
+
+        .review-user {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .review-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--brand-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .review-info h4 {
+            font-family: var(--font-display);
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .review-info span {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--slate);
+            letter-spacing: 1px;
+        }
+
+        .review-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: -20px;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--line);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            width: 24px;
+            border-radius: 4px;
+            background: var(--brand);
+        }
+
+        @media (max-width: 768px) {
+            .review-card {
+                flex: 0 0 85%;
+                padding: 30px;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-zoom {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-fade {
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .reveal.visible,
+        .reveal-left.visible,
+        .reveal-right.visible,
+        .reveal-zoom.visible,
+        .reveal-fade.visible {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        .contact-section {
+            padding: 120px 0;
+            background: radial-gradient(1000px circle at 100% 0%, rgba(0, 71, 171, 0.1), transparent 55%), var(--white);
+            border-top: 1px solid var(--line);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--line) 1.2px, transparent 1.2px);
+            background-size: 26px 26px;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .contact-section .blob-12 {
+            width: 450px;
+            height: 450px;
+            bottom: -200px;
+            left: -150px;
+            background: radial-gradient(circle, rgba(0, 71, 171, 0.12), transparent 70%);
+            animation: floatBlob 16s ease-in-out infinite;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        .form-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--brand);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-input,
+        .form-select {
+            background: var(--bg);
+            border: 1.5px solid var(--line);
+            padding: 14px 16px;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 15px;
+            color: var(--ink);
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--brand);
+            background: var(--white);
+            box-shadow: 0 0 0 4px var(--brand-light);
+        }
+
+        .form-input::placeholder {
+            color: var(--slate);
+            opacity: 0.4;
+        }
+
+        .phone-input-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .phone-prefix {
+            background: var(--brand-light);
+            border: 1.5px solid var(--line);
+            padding: 0 16px;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--brand);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .compare-table-wrap {
+            margin-top: 48px;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px -20px rgba(0, 71, 171, 0.12);
+        }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .compare-table th,
+        .compare-table td {
+            padding: 18px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .compare-table thead th {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--slate);
+            background: var(--bg);
+        }
+
+        .compare-table thead th.col-teksoi {
+            color: var(--brand);
+            background: var(--brand-light);
+        }
+
+        .compare-table tbody td.col-teksoi {
+            background: rgba(0, 71, 171, 0.04);
+            font-weight: 700;
+            color: var(--brand);
+        }
+
+        .compare-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .compare-table tbody td:first-child {
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        @media (max-width: 768px) {
+            .compare-table-wrap {
+                overflow-x: auto;
+            }
+
+            .compare-table {
+                min-width: 640px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 60px;
+                direction: ltr !important;
+            }
+
+            .hero p.lead {
+                margin: 0 auto 44px;
+            }
+
+            .bento-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+
+            .bento-item {
+                grid-column: span 12 !important;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .analytical-engine .hero-grid {
+                grid-template-columns: 2.2fr 1fr;
+                gap: 40px;
+            }
+
+            .hero-visual-container {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .nav-item-dropdown .megamenu {
+                display: none;
+            }
+
+            .nav-item-dropdown:hover .megamenu {
+                display: none;
+            }
+
+            .nav-item-dropdown.active {
+                flex-wrap: wrap;
+            }
+
+            .nav-item-dropdown.active .megamenu {
+                display: block;
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                padding: 20px 0;
+                border: none;
+                overflow: visible;
+                flex: 0 0 100%;
+            }
+
+            .megamenu-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .megamenu-cta {
+                display: none;
+            }
+
+            .megamenu-footer {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: var(--white);
+                border-bottom: 1px solid var(--line);
+                box-shadow: 0 20px 40px rgba(11, 23, 48, 0.08);
+                padding: 8px 24px 20px;
+                max-height: calc(100vh - 80px);
+                overflow-y: auto;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a,
+            .nav-item {
+                padding: 14px 0;
+                border-bottom: 1px solid var(--line);
+                font-size: 16px;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            nav .wrap>div:last-of-type .btn:not(.btn-primary) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 0 80px;
+            }
+
+            .features,
+            .analytical-engine,
+            .automation-showcase,
+            .mobile-showcase,
+            .tracking-showcase,
+            .reviews,
+            .contact-section,
+            .cta-section {
+                padding: 60px 0;
+            }
+
+            .stats-band {
+                padding: 48px 0;
+            }
+
+            .hero-grid {
+                gap: 40px;
+            }
+
+            .analytical-engine .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .analytical-engine .hero-visual-container {
+                order: -1;
+            }
+
+            .hero p.lead {
+                font-size: 17px;
+            }
+
+            .section-head {
+                margin: 0 auto 48px;
+            }
+
+            .section-head h2 {
+                font-size: 32px;
+            }
+
+            .automation-showcase h1,
+            .tracking-showcase h1,
+            .mobile-showcase h1,
+            .analytical-engine h1 {
+                font-size: 32px;
+            }
+
+            .bento-grid {
+                gap: 16px;
+            }
+
+            .bento-item {
+                padding: 24px;
+                border-radius: 20px;
+                min-height: 220px;
+            }
+
+            .bento-item img {
+                display: none;
+            }
+
+            .stats-grid {
+                gap: 24px;
+            }
+
+            .stat-item b {
+                font-size: 38px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .contact-form {
+                grid-template-columns: 1fr;
+                padding: 28px !important;
+            }
+
+            .form-group.full {
+                grid-column: span 1;
+            }
+
+            .automation-viz-card,
+            .tracking-viz-card,
+            .mobile-viz-card,
+            .analytics-viz-card {
+                padding: 20px !important;
+                border-radius: 24px !important;
+            }
+
+            .live-feed-badge {
+                display: none;
+            }
+
+            .cta-card h2,
+            .contact-section h2 {
+                font-size: 32px !important;
+            }
+
+            .cta-card {
+                padding: 48px 24px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .footer-main {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .footer-links {
+                gap: 40px !important;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .stat-item b {
+                font-size: 30px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1.5px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .hero-visual-container {
+                padding: 8px;
+            }
+
+            .cta-buttons {
+                width: 100%;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            nav .wrap {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="wrap"
+         style="display:flex; justify-content:space-between; align-items:center; width:100%; position:relative;">
+        <a href="index.html" class="logo" style="text-decoration: none;">
+            <div class="logo-mark"></div>
+            Teksoi
+        </a>
+        <div class="nav-links" id="navLinks">
+            <div class="nav-item nav-item-dropdown">
+                Solutions <iconify-icon icon="solar:alt-arrow-down-linear" style="font-size: 12px;"></iconify-icon>
+                <div class="megamenu">
+                    <div class="wrap" style="max-width: 1400px; padding: 0;">
+                        <div class="megamenu-main">
+                            <div class="megamenu-columns">
+                                <div>
+                                    <span class="megamenu-title">Industrial Solutions</span>
+                                    <ul class="megamenu-list">
+                                        <li>
+                                            <a href="construction.html" class="megamenu-link">
+                                                <div class="megamenu-icon-wrap">
+                                                    <iconify-icon icon="solar:buildings-3-linear"
+                                                                  style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                </div>
+                                                <div>
+                                                    <span class="megamenu-link-title">Construction</span>
+                                                    <span class="megamenu-link-desc">Geofenced job-site
+                                                            tracking with instant crew check-in verification.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="megamenu-link">
+                                                <div class="megamenu-icon-wrap">
+                                                    <iconify-icon icon="solar:medical-kit-linear"
+                                                                  style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                </div>
+                                                <div>
+                                                    <span class="megamenu-link-title">Healthcare</span>
+                                                    <span class="megamenu-link-desc">Staff shift & rotation
+                                                            logs synced across every ward in real time.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="megamenu-link">
+                                                <div class="megamenu-icon-wrap">
+                                                    <iconify-icon icon="solar:settings-linear"
+                                                                  style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                </div>
+                                                <div>
+                                                    <span class="megamenu-link-title">Manufacturing</span>
+                                                    <span class="megamenu-link-desc">Production-line
+                                                            attendance with automatic shift and overtime capture.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="megamenu-link">
+                                                <div class="megamenu-icon-wrap">
+                                                    <iconify-icon icon="solar:shop-linear"
+                                                                  style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                </div>
+                                                <div>
+                                                    <span class="megamenu-link-title">Hotels & Retail</span>
+                                                    <span class="megamenu-link-desc">Multi-branch staff
+                                                            management across every outlet and shift.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="megamenu-title">Field Services</span>
+                                    <ul class="megamenu-list">
+                                        <li>
+                                            <a href="index.html" class="megamenu-link">
+                                                <div class="megamenu-icon-wrap">
+                                                    <iconify-icon icon="solar:user-id-linear"
+                                                                  style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                </div>
+                                                <div>
+                                                    <span class="megamenu-link-title">Office Attendance</span>
+                                                    <span class="megamenu-link-desc">Geofenced check-ins and
+                                                            automated timesheets for corporate staff.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="sales-representative.html" class="megamenu-link">
+                                                <div class="megamenu-icon-wrap">
+                                                    <iconify-icon icon="solar:routing-2-linear"
+                                                                  style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                </div>
+                                                <div>
+                                                    <span class="megamenu-link-title">Sales Representative</span>
+                                                    <span class="megamenu-link-desc">Verified visit-site
+                                                            check-ins for every client call, logged
+                                                            automatically.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="megamenu-link">
+                                                <div class="megamenu-icon-wrap">
+                                                    <iconify-icon icon="solar:square-academic-cap-linear"
+                                                                  style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                </div>
+                                                <div>
+                                                    <span class="megamenu-link-title">Education</span>
+                                                    <span class="megamenu-link-desc">Campus-wide
+                                                            verification for faculty, staff, and visiting
+                                                            instructors.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="megamenu-link">
+                                                <div class="megamenu-icon-wrap">
+                                                    <iconify-icon icon="solar:ticket-linear"
+                                                                  style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                </div>
+                                                <div>
+                                                    <span class="megamenu-link-title">Events</span>
+                                                    <span class="megamenu-link-desc">Live venue crew
+                                                            monitoring from load-in to tear-down.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="megamenu-link">
+                                                <div class="megamenu-icon-wrap">
+                                                    <iconify-icon icon="solar:shield-keyhole-linear"
+                                                                  style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                </div>
+                                                <div>
+                                                    <span class="megamenu-link-title">Security</span>
+                                                    <span class="megamenu-link-desc">Real-time post
+                                                            verification with instant patrol and checkpoint
+                                                            alerts.</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#automation">How it Works</a>
+            <a href="#features">Compare</a>
+            <a href="#reports">Insights</a>
+            <a href="#contact">Get Started</a>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <a href="#contact" class="btn btn-primary">Request a Demo</a>
+            <a href="https://iot.teksoi.com/signup" target="_blank" rel="noopener noreferrer" class="btn"
+               style="border: 1px solid var(--line); color: var(--ink); background: transparent;">
+                Create Account
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <iconify-icon icon="solar:hamburger-menu-linear" id="navToggleIcon"></iconify-icon>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="wrap">
+        <div class="hero-grid">
+            <div class="reveal">
+                <span class="hero-tag">Built For The Jobsite</span>
+                <h1 style="text-transform: capitalize;"><span>Every Hour</span> <br> on-site, verified</h1>
+                <p class="lead">Geofenced clock-ins, offline-ready tracking, and payroll-ready timesheets built for
+                    the punch lists, long days, and patchy reception of a real construction site.</p>
+
+                <div style="display:flex; gap:16px; margin-bottom: 60px; flex-wrap: wrap; justify-content: center;">
+                    <a href="#contact" class="btn btn-primary">Request a Demo</a>
+                    <a href="https://iot.teksoi.com/signup" target="_blank" rel="noopener noreferrer" class="btn"
+                       style="border: 1px solid var(--line); color: var(--ink); background: transparent;">
+                        Create Account
+                    </a>
+                </div>
+
+                <div
+                        style="display:grid; grid-template-columns: 1fr 1fr; gap:32px; padding-top: 40px; border-top: 1px solid var(--line);">
+                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--slate);">
+                        <b style="color:var(--brand); display:block; font-size: 16px; margin-bottom:6px;">100%
+                            Site-Verified</b>
+                        GPS-backed clock-in logs
+                    </div>
+                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--slate);">
+                        <b style="color:var(--brand); display:block; font-size: 16px; margin-bottom:6px;">Offline-Ready</b>
+                        Syncs the moment signal returns
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual-container reveal-zoom" style="animation-delay: 0.2s;">
+                <!-- Advanced Geofence & Movement Tracking SVG -->
+                <svg class="hero-svg" width="300" height="300" viewBox="0 0 200 200" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern id="grid-hero" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--line)" stroke-width="0.5" />
+                        </pattern>
+                    </defs>
+                    <rect width="200" height="200" fill="url(#grid-hero)" />
+
+                    <rect x="60" y="60" width="80" height="80" rx="4" stroke="var(--brand)" stroke-width="2"
+                          fill="var(--brand)" fill-opacity="0.05" />
+                    <path d="M60 80H140M60 100H140M60 120H140M80 60V140M100 60V140M120 60V140" stroke="var(--brand)"
+                          stroke-width="0.5" opacity="0.1" />
+                    <text x="60" y="55" fill="var(--brand)" font-family="var(--font-mono)" font-size="7"
+                          font-weight="bold">SITE PERIMETER
+                    </text>
+
+                    <circle cx="100" cy="100" r="75" stroke="var(--brand)" stroke-width="1" stroke-dasharray="4 2"
+                            opacity="0.3" />
+
+                    <path id="trackPath" d="M30 170 C 50 150, 40 130, 70 110 S 90 90, 105 85" fill="none"
+                          stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 3" opacity="0.5" />
+
+                    <g>
+                        <circle r="5" fill="var(--accent)">
+                            <animateMotion dur="5s" repeatCount="indefinite"
+                                           path="M30 170 C 50 150, 40 130, 70 110 S 90 90, 105 85" />
+                        </circle>
+                        <circle r="10" stroke="var(--accent)" stroke-width="1" opacity="0.4">
+                            <animateMotion dur="5s" repeatCount="indefinite"
+                                           path="M30 170 C 50 150, 40 130, 70 110 S 90 90, 105 85" />
+                            <animate attributeName="r" from="5" to="15" dur="1.5s" repeatCount="indefinite" />
+                            <animate attributeName="opacity" from="0.4" to="0" dur="1.5s"
+                                     repeatCount="indefinite" />
+                        </circle>
+                    </g>
+
+                    <rect x="10" y="10" width="100" height="55" rx="6" fill="var(--ink)" />
+                    <text x="18" y="26" fill="white" font-family="var(--font-mono)" font-size="8"
+                          font-weight="bold">AUTO CREW LOG
+                    </text>
+                    <text x="18" y="38" fill="var(--accent)" font-family="var(--font-mono)" font-size="7">●
+                        LIVE TRACKING
+                    </text>
+                    <text x="18" y="50" fill="rgba(255,255,255,0.6)" font-family="var(--font-mono)"
+                          font-size="6">CREW ID: CW-1187
+                    </text>
+                    <text x="18" y="58" fill="rgba(255,255,255,0.6)" font-family="var(--font-mono)" font-size="6">
+                        BOUNDARY:
+                        <tspan fill="rgba(255,255,255,0.4)">
+                            <animate attributeName="opacity" values="1; 1; 0; 0" keyTimes="0; 0.48; 0.49; 1"
+                                     dur="5s" repeatCount="indefinite" />
+                            OUTSIDE
+                        </tspan>
+                        <tspan fill="var(--accent)" font-weight="bold" x="55" y="58">
+                            <animate attributeName="opacity" values="0; 0; 1; 1" keyTimes="0; 0.48; 0.49; 1"
+                                     dur="5s" repeatCount="indefinite" />
+                            WITHIN
+                        </tspan>
+                    </text>
+
+                    <g transform="translate(150, 30)">
+                        <circle r="20" fill="white" stroke="var(--line)" stroke-width="1.5">
+                            <animate attributeName="fill" values="white; white; #10B981; #10B981"
+                                     keyTimes="0; 0.48; 0.52; 1" dur="5s" repeatCount="indefinite" />
+                            <animate attributeName="stroke" values="var(--line); var(--line); #10B981; #10B981"
+                                     keyTimes="0; 0.48; 0.52; 1" dur="5s" repeatCount="indefinite" />
+                        </circle>
+                        <path d="M-8 0 L-2 6 L8 -6" stroke="white" stroke-width="3" fill="none"
+                              stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="30"
+                              stroke-dashoffset="30">
+                            <animate attributeName="stroke-dashoffset" values="30; 30; 0; 0"
+                                     keyTimes="0; 0.52; 0.6; 1" dur="5s" repeatCount="indefinite" />
+                            <animate attributeName="opacity" values="0; 0; 1; 1" keyTimes="0; 0.51; 0.52; 1"
+                                     dur="5s" repeatCount="indefinite" />
+                        </path>
+
+                    </g>
+                </svg>
+
+                <div class="hero-visual">
+                    <img src="web_image_3.png" alt="Teksoi Construction Crew App Interface">
+                </div>
+
+                <div class="tech-badge">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <iconify-icon icon="solar:shield-keyhole-bold"
+                                      style="color:var(--accent); font-size:28px;"></iconify-icon>
+                        <div style="font-family: var(--font-mono); font-size: 10px;">
+                            <span style="display:block; opacity:0.6; font-weight: 700;">DATA INTEGRITY</span>
+                            <b style="color:var(--brand)">SECURE LOCATION</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats-band">
+    <div class="wrap">
+        <div class="stats-grid">
+            <div class="stat-item reveal-zoom">
+                <b>31</b>
+                <span>Verified Features</span>
+            </div>
+            <div class="stat-item reveal-zoom" style="transition-delay: 0.1s;">
+                <b>100%</b>
+                <span>SSL Security</span>
+            </div>
+            <div class="stat-item reveal-zoom" style="transition-delay: 0.2s;">
+                <b>&lt;3s</b>
+                <span>Auth Speed</span>
+            </div>
+            <div class="stat-item reveal-zoom" style="transition-delay: 0.3s;">
+                <b>24/7</b>
+                <span>Offline-Safe Sync</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="automation-showcase" id="automation">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <span class="particle" style="left: 8%; bottom: 10%; animation-duration: 7s; animation-delay: 0s;"></span>
+    <span class="particle" style="left: 22%; bottom: 5%; animation-duration: 9s; animation-delay: 1.5s;"></span>
+    <span class="particle" style="left: 48%; bottom: 0%; animation-duration: 8s; animation-delay: 3s;"></span>
+    <span class="particle" style="left: 68%; bottom: 8%; animation-duration: 10s; animation-delay: 0.8s;"></span>
+    <span class="particle" style="left: 88%; bottom: 4%; animation-duration: 7.5s; animation-delay: 2.2s;"></span>
+    <div class="wrap">
+        <div class="hero-grid" style="align-items: center;">
+            <div class="reveal-left">
+                <h1>Foolproof For The Crew</h1>
+                <p class="lead">Even the crew members who hate apps end up using this one. No paper punch cards, no
+                    chasing hours at the end of the week — just an accurate record of who was on site and when.</p>
+
+                <div class="step-track">
+                    <div class="step-connector"></div>
+                    <div class="step-row">
+                        <div class="step-num">01</div>
+                        <div>
+                            <h4 style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px;">
+                                Geofenced Clock-In</h4>
+                            <p style="color: var(--slate); font-size: 15px;">Crews are checked in the moment they
+                                step inside the site perimeter — no punch card, no supervisor sign-off needed.</p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">02</div>
+                        <div>
+                            <h4 style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px;">
+                                Face-Verified Identity</h4>
+                            <p style="color: var(--slate); font-size: 15px;">On-device face recognition stops
+                                buddy punching, so every hour logged belongs to the person who actually worked
+                                it.</p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">03</div>
+                        <div>
+                            <h4 style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px;">
+                                Payroll-Ready Hours</h4>
+                            <p style="color: var(--slate); font-size: 15px;">Regular hours, overtime, and breaks
+                                are calculated automatically against the rules you set, ready to export straight
+                                to payroll.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal-right" style="animation-delay: 0.2s;">
+                <div class="automation-viz-card">
+                    <div class="viz-chip viz-chip-1"><span class="dot"></span>GEO-VERIFIED</div>
+                    <div class="viz-chip viz-chip-2"><span class="dot"></span>SYNCED 0.4s AGO</div>
+                    <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"
+                         style="width: 100%; height: auto; position: relative; z-index: 1;">
+                        <defs>
+                            <pattern id="viz-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--line)" stroke-width="0.5" />
+                            </pattern>
+                        </defs>
+                        <rect width="400" height="400" fill="url(#viz-grid)" />
+                        <rect width="400" height="400" rx="24" fill="var(--white)" fill-opacity="0.6" />
+                        <circle cx="200" cy="200" r="120" stroke="var(--brand)" stroke-width="1.75"
+                                stroke-dasharray="8 4" opacity="0.75" />
+                        <circle cx="200" cy="200" r="120" fill="var(--brand)" fill-opacity="0.06" />
+                        <g style="transform-origin: 200px 200px;">
+                            <circle cx="200" cy="200" r="140" fill="none" stroke="var(--accent)" stroke-width="1.75"
+                                    stroke-dasharray="2 14" opacity="0.7">
+                                <animateTransform attributeName="transform" type="rotate" from="0 200 200"
+                                                  to="360 200 200" dur="14s" repeatCount="indefinite" />
+                            </circle>
+                            <circle cx="200" cy="200" r="150" fill="none" stroke="var(--brand)" stroke-width="1.25"
+                                    stroke-dasharray="1 22" opacity="0.5">
+                                <animateTransform attributeName="transform" type="rotate" from="360 200 200"
+                                                  to="0 200 200" dur="22s" repeatCount="indefinite" />
+                            </circle>
+                        </g>
+                        <g transform="translate(170, 170)">
+                            <rect width="60" height="60" rx="12" fill="var(--white)" stroke="var(--brand)"
+                                  stroke-width="2.5" />
+                            <rect x="15" y="15" width="30" height="10" rx="2" fill="var(--line)" />
+                            <rect x="15" y="35" width="30" height="10" rx="2" fill="var(--line)" />
+                        </g>
+                        <text x="200" y="250" text-anchor="middle" fill="var(--brand)"
+                              font-family="var(--font-mono)" font-size="10" font-weight="bold">JOBSITE PERIMETER</text>
+                        <path id="entryPath" d="M20 380 Q 100 350, 120 250 T 200 200" fill="none" />
+                        <path id="exitPath" d="M200 200 Q 280 150, 320 100 T 380 20" fill="none" />
+                        <g>
+                            <circle r="8" fill="var(--accent)">
+                                <animateMotion dur="8s" repeatCount="indefinite"
+                                               path="M20 380 Q 100 350, 120 250 T 200 200 Q 280 150, 320 100 T 380 20" />
+                            </circle>
+                            <circle r="15" stroke="var(--accent)" stroke-width="1" opacity="0.3">
+                                <animate attributeName="r" from="8" to="22" dur="1.5s" repeatCount="indefinite" />
+                                <animate attributeName="opacity" from="0.3" to="0" dur="1.5s"
+                                         repeatCount="indefinite" />
+                                <animateMotion dur="8s" repeatCount="indefinite"
+                                               path="M20 380 Q 100 350, 120 250 T 200 200 Q 280 150, 320 100 T 380 20" />
+                            </circle>
+                        </g>
+                        <rect x="230" y="30" width="140" height="70" rx="12" fill="var(--ink)" />
+                        <text x="245" y="55" fill="rgba(255,255,255,0.5)" font-family="var(--font-mono)"
+                              font-size="9">CREW_STATUS</text>
+                        <g>
+                            <text x="245" y="80" fill="var(--white)" font-family="var(--font-mono)" font-size="12"
+                                  font-weight="bold">
+                                <animate attributeName="opacity" values="1;1;0;0;0;0;1" dur="8s"
+                                         repeatCount="indefinite" />
+                                SEARCHING...
+                            </text>
+                            <text x="245" y="80" fill="var(--accent)" font-family="var(--font-mono)" font-size="12"
+                                  font-weight="bold" opacity="0">
+                                <animate attributeName="opacity" values="0;0;1;1;1;0;0" dur="8s"
+                                         repeatCount="indefinite" />
+                                Check-In: 07:02
+                            </text>
+                            <text x="245" y="80" fill="#EF4444" font-family="var(--font-mono)" font-size="12"
+                                  font-weight="bold" opacity="0">
+                                <animate attributeName="opacity" values="0;0;0;0;0;1;0" dur="8s"
+                                         repeatCount="indefinite" />
+                                Check-Out: 17:30
+                            </text>
+                        </g>
+                    </svg>
+                    <div class="dim-line h"
+                         style="position: absolute; top: 20px; left: 0; right: 0; height: 1px; background: var(--line);">
+                    </div>
+                    <div class="dim-line v"
+                         style="position: absolute; top: 0; bottom: 0; left: 20px; width: 1px; background: var(--line);">
+                    </div>
+                    <div
+                            style="position: absolute; top: 8px; left: 30px; font-family: var(--font-mono); font-size: 8px; color: var(--brand); opacity: 0.5;">
+                        AUTO VERIFY ACTIVE</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tracking-showcase" id="tracking" style="border-top: 1px solid var(--line); position: relative;">
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+    <span class="particle" style="left: 15%; top: 20%; animation-duration: 8s; animation-delay: 0.5s;"></span>
+    <span class="particle" style="right: 10%; bottom: 15%; animation-duration: 10s; animation-delay: 2s;"></span>
+    <span class="particle" style="left: 40%; bottom: 5%; animation-duration: 7s; animation-delay: 1.2s;"></span>
+    <div class="wrap">
+        <div class="hero-grid" style="align-items: center; direction: rtl;">
+            <div class="reveal-right" style="direction: ltr;">
+                <h1>Different Sites. Different Crews. Different Shifts.</h1>
+                <p class="lead">Generic time trackers fall apart the moment a crew leaves the office. Teksoi is
+                    built for the punch lists, the long days, and the patchy reception that come with the
+                    territory.</p>
+
+                <div style="margin-top: 40px; text-align: left;">
+                    <div class="info-card">
+                        <div
+                                style="display: flex; gap: 20px; align-items: flex-start; position: relative; z-index: 1;">
+                            <iconify-icon icon="solar:map-point-wave-bold-duotone"
+                                          style="color: var(--brand); font-size: 32px;"></iconify-icon>
+                            <div>
+                                <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
+                                    Hours That Match The Work Site</h4>
+                                <p style="font-size: 14px; color: var(--slate); max-width: 100%;">
+                                    Geofence every job and only let crews clock in when they're inside the
+                                    perimeter — no more guessing how long anyone was on which site.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div
+                                style="display: flex; gap: 20px; align-items: flex-start; position: relative; z-index: 1;">
+                            <iconify-icon icon="solar:wi-fi-router-minimalistic-bold-duotone"
+                                          style="color: var(--accent); font-size: 32px;"></iconify-icon>
+                            <div>
+                                <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
+                                    Works When The Signal Doesn't</h4>
+                                <p style="font-size: 14px; color: var(--slate); max-width: 100%;">
+                                    Basements, tunnels, remote builds — Teksoi keeps tracking time even without
+                                    connectivity and syncs everything the moment you're back online.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="reveal-left" style="direction: ltr; animation-delay: 0.2s;">
+                <div class="tracking-viz-card">
+                    <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; position: relative; z-index: 1;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="tracking-live-dot"></span>
+                            <span
+                                    style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--slate); text-transform: uppercase;">Geofence
+                                    &middot; Purbachal Site B</span>
+                        </div>
+                        <span class="geofence-badge">LIVE</span>
+                    </div>
+                    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg"
+                         style="width: 100%; height: auto; overflow: visible; position: relative; z-index: 1;">
+                        <defs>
+                            <pattern id="tracking-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+                                <path d="M 28 0 L 0 0 0 28" fill="none" stroke="var(--line)" stroke-width="0.5" />
+                            </pattern>
+                            <clipPath id="fence-clip">
+                                <path d="M30 40 L370 25 L385 200 L260 275 L45 260 Z" />
+                            </clipPath>
+                        </defs>
+                        <rect width="400" height="300" fill="url(#tracking-grid)" />
+                        <rect width="400" height="300" rx="20" fill="var(--white)" fill-opacity="0.6" />
+                        <path d="M30 40 L370 25 L385 200 L260 275 L45 260 Z" fill="var(--brand)" fill-opacity="0.05"
+                              stroke="var(--brand)" stroke-width="1.75" stroke-dasharray="6 5" opacity="0.75" />
+                        <text x="60" y="55" fill="var(--brand)" font-family="var(--font-mono)" font-size="8"
+                              letter-spacing="0.05em" opacity="0.85">ASSIGNED JOBSITE</text>
+                        <g clip-path="url(#fence-clip)">
+                            <path id="motion-path"
+                                  d="M70 235 L70 185 L135 185 L135 225 L200 225 L200 145 L155 145 L155 100 L260 100 L260 180 L300 180 L300 65"
+                                  stroke="var(--slate)" stroke-width="1.75" stroke-linecap="round"
+                                  stroke-linejoin="round" opacity="0.55" />
+                        </g>
+                        <g font-family="var(--font-mono)">
+                            <circle cx="70" cy="235" r="4" fill="var(--white)" stroke="var(--ink)"
+                                    stroke-width="1.5" />
+                            <text x="70" y="220" text-anchor="middle" font-size="9" font-weight="bold"
+                                  fill="var(--ink)">Site Gate</text>
+                            <text x="70" y="252" text-anchor="middle" font-size="7" fill="var(--slate)">07:00</text>
+                            <circle cx="200" cy="225" r="4" fill="var(--white)" stroke="var(--ink)"
+                                    stroke-width="1.5" />
+                            <text x="220" y="230" text-anchor="start" font-size="9" font-weight="bold"
+                                  fill="var(--ink)">Material Yard</text>
+                            <text x="220" y="243" text-anchor="start" font-size="7" fill="var(--slate)">10:15</text>
+                            <circle cx="300" cy="65" r="4" fill="var(--white)" stroke="var(--ink)"
+                                    stroke-width="1.5" />
+                            <text x="300" y="50" text-anchor="middle" font-size="9" font-weight="bold"
+                                  fill="var(--ink)">Tower Block A</text>
+                            <text x="300" y="37" text-anchor="middle" font-size="7" fill="var(--slate)">14:40</text>
+                        </g>
+                        <g id="pin">
+                            <path
+                                    d="M0,-14 C7,-14 12,-9 12,-3 C12,7 0,18 0,18 C0,18 -12,7 -12,-3 C-12,-9 -7,-14 0,-14 Z"
+                                    fill="var(--accent)" stroke="var(--white)" stroke-width="1" />
+                            <circle cx="0" cy="-3" r="4" fill="var(--white)" />
+                            <animateMotion dur="9s" repeatCount="indefinite">
+                                <mpath href="#motion-path" />
+                            </animateMotion>
+                        </g>
+                    </svg>
+                    <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); position: relative; z-index: 1;">
+                        <div style="font-family: var(--font-mono); font-size: 10px; color: var(--slate);">18
+                            CLOCK-INS &middot; 0 EXITS TODAY</div>
+                        <div
+                                style="font-family: var(--font-mono); font-size: 10px; color: var(--brand); font-weight: bold;">
+                            WITHIN GEOFENCE</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mobile-showcase"
+         style="background: radial-gradient(1100px circle at 0% 100%, rgba(0, 71, 171, 0.12), transparent 55%), var(--white);">
+    <div class="blob blob-5"></div>
+    <div class="blob blob-6"></div>
+    <span class="particle" style="left: 12%; bottom: 8%; animation-duration: 8s; animation-delay: 0.4s;"></span>
+    <span class="particle" style="left: 30%; bottom: 2%; animation-duration: 9.5s; animation-delay: 2s;"></span>
+    <span class="particle" style="left: 55%; bottom: 6%; animation-duration: 7.5s; animation-delay: 1s;"></span>
+    <span class="particle" style="left: 78%; bottom: 0%; animation-duration: 10s; animation-delay: 2.6s;"></span>
+    <div class="wrap">
+        <div class="hero-grid" style="align-items: center;">
+            <div class="hero-visual-container reveal-left">
+                <div class="mobile-viz-card">
+                    <div class="viz-chip viz-chip-3"><span class="dot"></span>GPS LOCKED</div>
+                    <div class="viz-chip viz-chip-4"><span class="dot"></span>OFFLINE-SAFE</div>
+                    <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; position: relative; z-index: 1;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="tracking-live-dot"></span>
+                            <span
+                                    style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--slate); text-transform: uppercase;">Crew
+                                    App &middot; CW-1187</span>
+                        </div>
+                        <span class="geofence-badge">ACTIVE</span>
+                    </div>
+                    <div class="hero-visual"
+                         style="max-width: 260px; border-radius: 40px; padding: 10px; border: 8px solid var(--ink);">
+                        <img src="User%20Home.jpeg" alt="Teksoi Construction Crew Mobile App" style="border-radius: 30px;"
+                             loading="lazy">
+                    </div>
+                    <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); position: relative; z-index: 1;">
+                        <div style="font-family: var(--font-mono); font-size: 10px; color: var(--slate);">
+                            CLOCKED IN 07:02</div>
+                        <div
+                                style="font-family: var(--font-mono); font-size: 10px; color: var(--brand); font-weight: bold;">
+                            WITHIN GEOFENCE</div>
+                    </div>
+                    <div class="dim-line h"
+                         style="position: absolute; top: 20px; left: 0; right: 0; height: 1px; background: var(--line);">
+                    </div>
+                    <div class="dim-line v"
+                         style="position: absolute; top: 0; bottom: 0; left: 20px; width: 1px; background: var(--line);">
+                    </div>
+                    <div
+                            style="position: absolute; top: 8px; left: 30px; font-family: var(--font-mono); font-size: 8px; color: var(--brand); opacity: 0.5;">
+                        TAP-FREE ACTIVE</div>
+                </div>
+            </div>
+            <div class="reveal-right" style="animation-delay: 0.2s;">
+                <span class="hero-tag">Mobile Experience</span>
+                <h1>A Time Clock That Fits In Your Hard Hat</h1>
+                <p class="lead">Turn any phone into a portable, rugged-proof time clock. Crews clock in, track
+                    time, and manage their day no matter where the work takes them — even without a smartphone,
+                    with shared kiosk mode on any tablet at the site office.</p>
+
+                <ul style="list-style: none; margin-top: 32px; text-align: left;">
+                    <li
+                            style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; font-family: var(--font-display); font-weight: 600;">
+                        <iconify-icon icon="solar:check-circle-linear"
+                                      style="color: var(--accent); font-size: 24px; flex-shrink: 0;"></iconify-icon>
+                        Instant Clock-in/Clock-out
+                    </li>
+                    <li
+                            style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; font-family: var(--font-display); font-weight: 600;">
+                        <iconify-icon icon="solar:scanner-linear"
+                                      style="color: var(--accent); font-size: 24px; flex-shrink: 0;"></iconify-icon>
+                        On-Device Face Recognition
+                    </li>
+                    <li
+                            style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; font-family: var(--font-display); font-weight: 600;">
+                        <iconify-icon icon="solar:wi-fi-router-minimalistic-linear"
+                                      style="color: var(--accent); font-size: 24px; flex-shrink: 0;"></iconify-icon>
+                        Offline Mode With Auto-Sync
+                    </li>
+                    <li
+                            style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; font-family: var(--font-display); font-weight: 600;">
+                        <iconify-icon icon="solar:tablet-linear"
+                                      style="color: var(--accent); font-size: 24px; flex-shrink: 0;"></iconify-icon>
+                        Shared Kiosk Mode For Site Offices
+                    </li>
+                    <li
+                            style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; font-family: var(--font-display); font-weight: 600;">
+                        <iconify-icon icon="solar:route-linear"
+                                      style="color: var(--accent); font-size: 24px; flex-shrink: 0;"></iconify-icon>
+                        Leave & Overtime Requests
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="analytical-engine" id="reports"
+         style="background: radial-gradient(1100px circle at 100% 100%, rgba(0, 71, 171, 0.12), transparent 55%), var(--bg); border-top: 1px solid var(--line);">
+    <div class="blob blob-7"></div>
+    <div class="blob blob-8"></div>
+    <span class="particle" style="left: 5%; top: 30%; animation-duration: 9s; animation-delay: 0s;"></span>
+    <span class="particle" style="right: 15%; top: 10%; animation-duration: 11s; animation-delay: 3s;"></span>
+    <span class="particle" style="left: 50%; bottom: 10%; animation-duration: 8.5s; animation-delay: 1.5s;"></span>
+    <div class="wrap">
+        <div class="hero-grid" style="direction: rtl;">
+            <div class="hero-visual-container reveal-right" style="direction: ltr;">
+                <div class="analytics-viz-card">
+                    <div class="viz-chip viz-chip-1"><span class="dot"></span>AUTO-REFRESH 30s</div>
+                    <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; position: relative; z-index: 1;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="tracking-live-dot"></span>
+                            <span
+                                    style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--slate); text-transform: uppercase;">Admin
+                                    Dashboard &middot; Multi-Site Overview</span>
+                        </div>
+                        <span class="geofence-badge">LIVE</span>
+                    </div>
+                    <div class="hero-visual">
+                        <img src="Dashboard.png" alt="Construction Site Admin Analytics Dashboard" loading="lazy">
+                    </div>
+                    <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); position: relative; z-index: 1;">
+                        <div style="font-family: var(--font-mono); font-size: 10px; color: var(--slate);">
+                            REFRESHED 12s AGO</div>
+                        <div
+                                style="font-family: var(--font-mono); font-size: 10px; color: var(--brand); font-weight: bold;">
+                            ALL SITES SYNCED</div>
+                    </div>
+                    <div class="dim-line h"
+                         style="position: absolute; top: 20px; left: 0; right: 0; height: 1px; background: var(--line);">
+                    </div>
+                    <div class="dim-line v"
+                         style="position: absolute; top: 0; bottom: 0; left: 20px; width: 1px; background: var(--line);">
+                    </div>
+                    <div
+                            style="position: absolute; top: 8px; left: 30px; font-family: var(--font-mono); font-size: 8px; color: var(--brand); opacity: 0.5;">
+                        DASHBOARD SYNCED</div>
+                </div>
+                <div class="live-feed-badge"
+                     style="position: absolute; top: 30px; right: -20px; background: var(--white); border: 1.5px solid var(--brand); padding: 20px; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,71,171,0.2); z-index: 10; width: 200px;">
+                    <div
+                            style="font-family: var(--font-mono); font-size: 10px; color: var(--brand); margin-bottom: 12px; font-weight: 700;">
+                        LIVE DATA FEED
+                    </div>
+                    <div style="height: 60px; display: flex; align-items: flex-end; gap: 4px;">
+                        <div style="flex: 1; background: var(--brand); height: 40%; border-radius: 2px;"></div>
+                        <div style="flex: 1; background: var(--brand); height: 70%; border-radius: 2px;"></div>
+                        <div style="flex: 1; background: var(--accent); height: 90%; border-radius: 2px;"></div>
+                        <div style="flex: 1; background: var(--brand); height: 55%; border-radius: 2px;"></div>
+                        <div style="flex: 1; background: var(--brand); height: 85%; border-radius: 2px;"></div>
+                        <div style="flex: 1; background: var(--brand); height: 45%; border-radius: 2px;"></div>
+                    </div>
+                    <div
+                            style="display: flex; justify-content: space-between; margin-top: 8px; font-family: var(--font-mono); font-size: 9px; opacity: 0.6;">
+                        <span>T-12H</span>
+                        <span>CURRENT</span>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal-left" style="direction: ltr; animation-delay: 0.2s;">
+                <span class="hero-tag">Admin Intelligence</span>
+                <h1>Built For Multi-Site Reporting</h1>
+                <p class="lead">Turn raw clock-in data into detailed reports you can use to streamline payroll,
+                    track labor cost by project, and see exactly which sites are on schedule — all from one
+                    dashboard.</p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px;">
+                    <div
+                            style="background: var(--white); padding: 24px; border-radius: 16px; border: 1px solid var(--line); text-align: left;">
+                        <iconify-icon icon="solar:calendar-mark-linear"
+                                      style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
+                        <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
+                            Attendance Reports</h4>
+                        <p style="font-size: 13px; color: var(--slate);">Track daily check-ins, absences, and
+                            working hours across every crew and every site at a glance.</p>
+                    </div>
+                    <div
+                            style="background: var(--white); padding: 24px; border-radius: 16px; border: 1px solid var(--line); text-align: left;">
+                        <iconify-icon icon="solar:wallet-money-linear"
+                                      style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
+                        <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
+                            Overtime & Payroll</h4>
+                        <p style="font-size: 13px; color: var(--slate);">Custom overtime rules calculate hours and
+                            pay with pinpoint accuracy, ready to export to payroll.</p>
+                    </div>
+                    <div
+                            style="background: var(--white); padding: 24px; border-radius: 16px; border: 1px solid var(--line); text-align: left;">
+                        <iconify-icon icon="solar:buildings-2-linear"
+                                      style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
+                        <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Labor Cost By Project</h4>
+                        <p style="font-size: 13px; color: var(--slate);">See work hours broken down by project or
+                            site to keep every build on budget.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="reviews" id="reviews">
+    <div class="blob blob-9"></div>
+    <div class="blob blob-10"></div>
+    <span class="particle" style="left: 10%; top: 15%; animation-duration: 7s; animation-delay: 0.2s;"></span>
+    <span class="particle" style="right: 20%; bottom: 20%; animation-duration: 9s; animation-delay: 1s;"></span>
+    <div class="wrap">
+        <div class="section-head reveal-fade">
+            <h2>Validated By Site Managers</h2>
+            <p>See how Teksoi is transforming crew attendance for construction teams on the ground.</p>
+        </div>
+
+        <div class="review-carousel reveal" style="animation-delay: 0.2s;">
+            <div class="review-track" id="reviewTrack">
+                <!-- Review 1 -->
+                <div class="review-card">
+                    <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                    </div>
+                    <div
+                            style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
+                        &ldquo;
+                    </div>
+                    <p class="review-quote">"Since we work across scattered site locations, Teksoi's mobile clock
+                        has been essential for tracking crews doing off-site work."</p>
+                    <div class="review-user">
+                        <div class="review-avatar">MH</div>
+                        <div class="review-info">
+                            <h4>Mahmud Hossain</h4>
+                            <span>Site Manager, BuildRight Construction</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="review-card">
+                    <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                    </div>
+                    <div
+                            style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
+                        &ldquo;
+                    </div>
+                    <p class="review-quote">"We had a crew member fiddling with paper timesheets before. Teksoi
+                        made that impossible and it's fair for everyone on the site."</p>
+                    <div class="review-user">
+                        <div class="review-avatar">SA</div>
+                        <div class="review-info">
+                            <h4>Shirin Akter</h4>
+                            <span>Office Manager, Northline Builders</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="review-card">
+                    <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                    </div>
+                    <div
+                            style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
+                        &ldquo;
+                    </div>
+                    <p class="review-quote">"Geofence accuracy is remarkable and the offline mode has saved us
+                        more than once on our tunnel sites with no signal."</p>
+                    <div class="review-user">
+                        <div class="review-avatar">RI</div>
+                        <div class="review-info">
+                            <h4>Rafiqul Islam</h4>
+                            <span>Project Manager, Civil Engineering</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="review-card">
+                    <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                        <iconify-icon icon="solar:star-bold"></iconify-icon>
+                    </div>
+                    <div
+                            style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
+                        &ldquo;
+                    </div>
+                    <p class="review-quote">"Onboarding was flawless. Our crew started clocking in immediately
+                        without any training and payroll closes days faster now."</p>
+                    <div class="review-user">
+                        <div class="review-avatar">TK</div>
+                        <div class="review-info">
+                            <h4>Tarek Kabir</h4>
+                            <span>CEO, Kabir Construction Group</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-nav">
+                <div class="nav-dot active"></div>
+                <div class="nav-dot"></div>
+                <div class="nav-dot"></div>
+                <div class="nav-dot"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="blob blob-11"></div>
+    <span class="particle" style="left: 5%; bottom: 10%; animation-duration: 8s; animation-delay: 0s;"></span>
+    <span class="particle" style="right: 10%; top: 15%; animation-duration: 10s; animation-delay: 2s;"></span>
+    <div class="wrap">
+        <div class="cta-card reveal-zoom">
+            <div
+                    style="font-family: var(--font-mono); font-size: 12px; margin-bottom: 24px; color: var(--brand-light); opacity: 0.6;">
+                System Ready for Setup
+            </div>
+            <h2>Ready to Get Your Sites in Sync?</h2>
+            <p>Join construction teams using Teksoi to automate crew attendance, overtime, and payroll across every
+                jobsite with ease and reliability.</p>
+            <div class="cta-buttons" style="display:flex; gap:20px; justify-content: center;">
+                <a href="#contact" class="btn btn-primary"
+                   style="background: white; color: var(--ink); padding: 18px 40px; font-size: 16px;">Start Your
+                    Setup</a>
+                <a href="#" class="btn" style="border: 1px solid rgba(255,255,255,0.2); color: white;">Customer
+                    Support</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-section" id="contact">
+    <div class="blob blob-12"></div>
+    <span class="particle" style="left: 15%; top: 25%; animation-duration: 9s; animation-delay: 0.5s;"></span>
+    <span class="particle" style="right: 10%; bottom: 10%; animation-duration: 11s; animation-delay: 1.5s;"></span>
+    <div
+            style="position: absolute; top: 0; right: 0; width: 300px; height: 300px; opacity: 0.05; pointer-events: none;">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="contact-grid-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <path d="M 10 0 L 0 0 0 10" fill="none" stroke="var(--brand)" stroke-width="0.5" />
+                </pattern>
+            </defs>
+            <rect width="100" height="100" fill="url(#contact-grid-pattern)" />
+        </svg>
+    </div>
+
+    <div class="wrap">
+        <div class="contact-grid">
+            <div class="reveal-left">
+                <h2
+                        style="font-family: var(--font-display); font-size: 48px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px;">
+                    Transform Your Jobsite Attendance.</h2>
+                <p class="lead" style="margin-bottom: 48px;">Share your needs and our team will help you set up your
+                    account within 24 hours.</p>
+
+                <div style="display: grid; gap: 32px; position: relative;">
+                    <div
+                            style="position: absolute; left: 15px; top: 40px; bottom: 0; width: 1px; background: var(--line); z-index: 0;">
+                    </div>
+
+                    <div
+                            style="display: flex; gap: 20px; background: var(--white); position: relative; z-index: 1;">
+                        <iconify-icon icon="solar:shield-check-bold-duotone"
+                                      style="color: var(--brand); font-size: 32px; background: var(--white); padding-bottom: 8px; flex-shrink: 0;"></iconify-icon>
+                        <div>
+                            <h4 style="font-family: var(--font-display); margin-bottom: 4px;">
+                                Reliable Data Security</h4>
+                            <p style="font-size: 14px; color: var(--slate);">Your privacy is our priority with
+                                enterprise-grade data protection.</p>
+                            <span
+                                    style="font-family: var(--font-mono); font-size: 8px; color: var(--brand); opacity: 0.5;">SECURE
+                                    DATA PROTECTION</span>
+                        </div>
+                    </div>
+                    <div
+                            style="display: flex; gap: 20px; background: var(--white); position: relative; z-index: 1;">
+                        <iconify-icon icon="solar:globus-bold-duotone"
+                                      style="color: var(--brand); font-size: 32px; background: var(--white); padding-bottom: 8px; flex-shrink: 0;"></iconify-icon>
+                        <div>
+                            <h4 style="font-family: var(--font-display); margin-bottom: 4px;">
+                                Scalable Solution</h4>
+                            <p style="font-size: 14px; color: var(--slate);">Built to support one jobsite or a
+                                hundred, from small crews to national contracting firms.</p>
+                            <span
+                                    style="font-family: var(--font-mono); font-size: 8px; color: var(--brand); opacity: 0.5;">READY
+                                    FOR SCALE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal-right" style="animation-delay: 0.2s; position: relative;">
+                <form class="contact-form"
+                      style="background: var(--white); padding: 40px; border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 40px 80px -20px rgba(0,71,171,0.1);">
+                    <div class="form-group">
+                        <label class="form-label">First Name*</label>
+                        <input type="text" class="form-input" placeholder="John" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Name*</label>
+                        <input type="text" class="form-input" placeholder="Penn" required>
+                    </div>
+                    <div class="form-group full">
+                        <label class="form-label">Work Email*</label>
+                        <input type="email" class="form-input" placeholder="john.penn@acmecorp.com" required>
+                    </div>
+                    <div class="form-group full">
+                        <label class="form-label">Phone Number*</label>
+                        <div class="phone-input-group">
+                            <input type="tel" class="form-input" placeholder="01XXX-XXXXXX" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Company Name</label>
+                        <input type="text" class="form-input" placeholder="Acme Corporation">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Crew Size</label>
+                        <select class="form-select">
+                            <option>1 - 25 Workers</option>
+                            <option selected>26 - 150 Workers</option>
+                            <option>150+ Workers</option>
+                        </select>
+                    </div>
+                    <div class="form-group full">
+                        <label class="form-label">Project Type</label>
+                        <select class="form-select">
+                            <option selected>Residential & Commercial Building</option>
+                            <option>Civil & Infrastructure</option>
+                            <option>Industrial & Energy</option>
+                            <option>Renovation & Fit-Out</option>
+                        </select>
+                    </div>
+                    <div class="form-group full" style="margin-top: 12px;">
+                        <button type="submit" class="btn btn-primary"
+                                style="width: 100%; justify-content: center; padding: 16px;">
+                            Get Started
+                            <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer style="padding: 80px 0 40px; border-top: 1px solid var(--line);">
+    <div class="wrap">
+        <div class="footer-main"
+             style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 60px;">
+            <div>
+                <a href="index.html" class="logo" style="margin-bottom: 20px; text-decoration: none;">
+                    <div class="logo-mark"></div>
+                    Teksoi
+                </a>
+                <p style="color: var(--slate); font-size: 14px; max-width: 300px;">Smart Site Attendance,
+                    Simplified. The industry standard for construction workforce management.</p>
+            </div>
+            <div class="footer-links" style="display:flex; gap:80px;">
+                <div style="font-family: var(--font-mono); font-size: 12px;">
+                    <div style="color: var(--brand); margin-bottom: 20px; font-weight: 700;">
+                        PRODUCT
+                    </div>
+                    <a href="#"
+                       style="display:block; text-decoration:none; color: var(--slate); margin-bottom: 12px;">Dashboard</a>
+                    <a href="#"
+                       style="display:block; text-decoration:none; color: var(--slate); margin-bottom: 12px;">Help
+                        Center</a>
+                    <a href="#" style="display:block; text-decoration:none; color: var(--slate);">Security
+                        Compliance</a>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 12px;">
+                    <div style="color: var(--brand); margin-bottom: 20px; font-weight: 700;">
+                        RESOURCES
+                    </div>
+                    <a href="#"
+                       style="display:block; text-decoration:none; color: var(--slate); margin-bottom: 12px;">Feature
+                        List</a>
+                    <a href="#"
+                       style="display:block; text-decoration:none; color: var(--slate); margin-bottom: 12px;">Support</a>
+                    <a href="#" style="display:block; text-decoration:none; color: var(--slate);">Privacy v4.0</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom"
+             style="display:flex; justify-content:space-between; align-items:center; padding-top: 40px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 11px; color: var(--slate); opacity: 0.6;">
+            <div>© 2026 Teksoi. ALL RIGHTS RESERVED.</div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Dropdown Toggle Logic
+    const dropdownToggle = document.querySelector('.nav-item-dropdown');
+    dropdownToggle.addEventListener('click', (e) => {
+        dropdownToggle.classList.toggle('active');
+        e.stopPropagation();
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+        dropdownToggle.classList.remove('active');
+    });
+
+    // Prevent megamenu clicks from closing itself
+    const megamenu = document.querySelector('.megamenu');
+    megamenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    const navToggleIcon = document.getElementById('navToggleIcon');
+
+    navToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        navToggleIcon.setAttribute('icon', isOpen ? 'solar:close-circle-linear' : 'solar:hamburger-menu-linear');
+    });
+
+    // Close mobile menu after tapping a link
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            navToggleIcon.setAttribute('icon', 'solar:hamburger-menu-linear');
+        });
+    });
+
+    // Continuous Carousel Logic
+    const track = document.getElementById('reviewTrack');
+    const dots = document.querySelectorAll('.nav-dot');
+    const originalCards = Array.from(track.children);
+    const cardCount = originalCards.length;
+    let isPaused = false;
+
+    // Clone cards to create a seamless infinite loop
+    originalCards.forEach(card => {
+        const clone = card.cloneNode(true);
+        track.appendChild(clone);
+    });
+
+    const getCardWidth = () => {
+        const card = track.querySelector('.review-card');
+        const style = window.getComputedStyle(track);
+        const gap = parseInt(style.gap) || 32;
+        return card.offsetWidth + gap;
+    };
+
+    const updateDots = () => {
+        const cardWidth = getCardWidth();
+        const scrollLeft = track.scrollLeft;
+        const activeIndex = Math.round(scrollLeft / cardWidth) % cardCount;
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === activeIndex);
+        });
+    };
+
+    // Scroll listener for seamless reset
+    track.addEventListener('scroll', () => {
+        const cardWidth = getCardWidth();
+
+        if (track.scrollLeft >= cardCount * cardWidth) {
+            track.scrollLeft = 0;
+        } else if (track.scrollLeft < 0) {
+            track.scrollLeft = cardCount * cardWidth;
+        }
+
+        updateDots();
+    });
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            const cardWidth = getCardWidth();
+            track.scrollTo({
+                left: i * cardWidth,
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    const autoScroll = () => {
+        if (isPaused) return;
+
+        const cardWidth = getCardWidth();
+        const currentPos = Math.round(track.scrollLeft / cardWidth);
+
+        track.scrollTo({
+            left: (currentPos + 1) * cardWidth,
+            behavior: 'smooth'
+        });
+    };
+
+    let scrollInterval = setInterval(autoScroll, 4000);
+
+    // Pause on interaction
+    track.addEventListener('mouseenter', () => isPaused = true);
+    track.addEventListener('mouseleave', () => isPaused = false);
+    track.addEventListener('touchstart', () => isPaused = true);
+    track.addEventListener('touchend', () => setTimeout(() => isPaused = false, 2000));
+
+    // Re-calculate on resize
+    window.addEventListener('resize', updateDots);
+
+    // Reveal on Scroll Logic
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom, .reveal-fade').forEach(el => {
+        revealObserver.observe(el);
+    });
+</script>
+</body>
+
+</html>

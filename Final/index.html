@@ -1768,9 +1768,17 @@
         }
 
         @media (max-width: 900px) {
-            .nav-item-dropdown .megamenu { display: none; }
-            .nav-item-dropdown:hover .megamenu { display: none; }
-            .nav-item-dropdown.active { flex-wrap: wrap; }
+            .nav-item-dropdown .megamenu {
+                display: none;
+            }
+
+            .nav-item-dropdown:hover .megamenu {
+                display: none;
+            }
+
+            .nav-item-dropdown.active {
+                flex-wrap: wrap;
+            }
 
             .nav-item-dropdown.active .megamenu {
                 display: block;
@@ -1785,9 +1793,18 @@
                 flex: 0 0 100%;
             }
 
-            .megamenu-columns { grid-template-columns: 1fr; }
-            .megamenu-cta { display: none; }
-            .megamenu-footer { flex-direction: column; gap: 15px; }
+            .megamenu-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .megamenu-cta {
+                display: none;
+            }
+
+            .megamenu-footer {
+                flex-direction: column;
+                gap: 15px;
+            }
 
             .nav-links {
                 display: none;
@@ -1805,9 +1822,12 @@
                 overflow-y: auto;
             }
 
-            .nav-links.open { display: flex; }
+            .nav-links.open {
+                display: flex;
+            }
 
-            .nav-links a, .nav-item {
+            .nav-links a,
+            .nav-item {
                 padding: 14px 0;
                 border-bottom: 1px solid var(--line);
                 font-size: 16px;
@@ -1815,9 +1835,17 @@
                 justify-content: space-between;
             }
 
-            .nav-links a:last-child { border-bottom: none; }
-            .nav-toggle { display: flex; }
-            nav .wrap>div:last-of-type .btn:not(.btn-primary) { display: none; }
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            nav .wrap>div:last-of-type .btn:not(.btn-primary) {
+                display: none;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1991,11 +2019,11 @@
 
     <nav>
         <div class="wrap"
-             style="display:flex; justify-content:space-between; align-items:center; width:100%; position:relative;">
-            <div class="logo">
+            style="display:flex; justify-content:space-between; align-items:center; width:100%; position:relative;">
+            <a href="index.html" class="logo" style="text-decoration: none;">
                 <div class="logo-mark"></div>
                 Teksoi
-            </div>
+            </a>
             <div class="nav-links" id="navLinks">
                 <div class="nav-item nav-item-dropdown">
                     Solutions <iconify-icon icon="solar:alt-arrow-down-linear" style="font-size: 12px;"></iconify-icon>
@@ -2010,7 +2038,7 @@
                                                 <a href="index.html" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:buildings-3-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Construction</span>
@@ -2023,7 +2051,7 @@
                                                 <a href="#" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:medical-kit-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Healthcare</span>
@@ -2036,7 +2064,7 @@
                                                 <a href="#" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:settings-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Manufacturing</span>
@@ -2049,7 +2077,7 @@
                                                 <a href="#" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:shop-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Hotels & Retail</span>
@@ -2067,7 +2095,7 @@
                                                 <a href="index.html" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:user-id-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Office Attendance</span>
@@ -2080,12 +2108,13 @@
                                                 <a href="sales-representative.html" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:routing-2-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Sales Representative</span>
                                                         <span class="megamenu-link-desc">Verified visit-site
-                                                            check-ins for every client call, logged automatically.</span>
+                                                            check-ins for every client call, logged
+                                                            automatically.</span>
                                                     </div>
                                                 </a>
                                             </li>
@@ -2093,12 +2122,13 @@
                                                 <a href="#" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:square-academic-cap-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Education</span>
                                                         <span class="megamenu-link-desc">Campus-wide
-                                                            verification for faculty, staff, and visiting instructors.</span>
+                                                            verification for faculty, staff, and visiting
+                                                            instructors.</span>
                                                     </div>
                                                 </a>
                                             </li>
@@ -2106,7 +2136,7 @@
                                                 <a href="#" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:ticket-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Events</span>
@@ -2119,12 +2149,13 @@
                                                 <a href="#" class="megamenu-link">
                                                     <div class="megamenu-icon-wrap">
                                                         <iconify-icon icon="solar:shield-keyhole-linear"
-                                                                      style="color: var(--brand); font-size: 20px;"></iconify-icon>
+                                                            style="color: var(--brand); font-size: 20px;"></iconify-icon>
                                                     </div>
                                                     <div>
                                                         <span class="megamenu-link-title">Security</span>
                                                         <span class="megamenu-link-desc">Real-time post
-                                                            verification with instant patrol and checkpoint alerts.</span>
+                                                            verification with instant patrol and checkpoint
+                                                            alerts.</span>
                                                     </div>
                                                 </a>
                                             </li>
@@ -2142,11 +2173,8 @@
             </div>
             <div style="display: flex; gap: 12px; align-items: center;">
                 <a href="#contact" class="btn btn-primary">Request a Demo</a>
-                <a href="https://iot.teksoi.com/signup"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="btn"
-                   style="border: 1px solid var(--line); color: var(--ink); background: transparent;">
+                <a href="https://iot.teksoi.com/signup" target="_blank" rel="noopener noreferrer" class="btn"
+                    style="border: 1px solid var(--line); color: var(--ink); background: transparent;">
                     Create Account
                 </a>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -2166,11 +2194,8 @@
 
                     <div style="display:flex; gap:16px; margin-bottom: 60px; flex-wrap: wrap; justify-content: center;">
                         <a href="#contact" class="btn btn-primary">Request a Demo</a>
-                        <a href="https://iot.teksoi.com/signup"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="btn"
-                           style="border: 1px solid var(--line); color: var(--ink); background: transparent;">
+                        <a href="https://iot.teksoi.com/signup" target="_blank" rel="noopener noreferrer" class="btn"
+                            style="border: 1px solid var(--line); color: var(--ink); background: transparent;">
                             Create Account
                         </a>
                     </div>
@@ -2995,10 +3020,10 @@
             <div class="footer-main"
                 style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 60px;">
                 <div>
-                    <div class="logo" style="margin-bottom: 20px;">
+                    <a href="index.html" class="logo" style="margin-bottom: 20px; text-decoration: none;">
                         <div class="logo-mark"></div>
                         Teksoi
-                    </div>
+                    </a>
                     <p style="color: var(--slate); font-size: 14px; max-width: 300px;">Smart Attendance, Simplified. The
                         industry standard for workforce management.</p>
                 </div>
