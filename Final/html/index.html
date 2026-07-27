@@ -4,20 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teksoi — Field Sales Tracking & Route Intelligence</title>
+    <title>Teksoi — Smart Attendance Solutions</title>
 
-    <!-- Fonts: Outfit for display, Manrope for body, IBM Plex Mono for technical accents -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Manrope:wght@400;500;700&family=IBM+Plex+Mono&display=swap"
         rel="stylesheet">
 
-    <!-- Icons: Solar Icons for a modern, distinctive look -->
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
     <style>
         :root {
-            /* Palette: "Draftsman's Ink" — kept identical to the suite for brand consistency */
             --brand: #0047AB;
             --brand-light: #E0E7FF;
             --ink: #0B1730;
@@ -432,8 +429,8 @@
 
         .hero-svg {
             position: absolute;
-            top: -120px;
-            right: -100px;
+            top: -110px;
+            right: -90px;
             width: 340px;
             height: 340px;
             z-index: 5;
@@ -441,7 +438,7 @@
             backdrop-filter: blur(12px);
             border-radius: 28px;
             border: 1.5px solid var(--line);
-            padding: 1px;
+            padding: 15px;
             box-shadow: 0 40px 80px rgba(0, 71, 171, 0.15);
         }
 
@@ -468,10 +465,10 @@
 
             .hero-svg {
                 position: absolute;
-                top: -30px;
-                right: 0;
-                width: 190px;
-                height: 190px;
+                top: -36px;
+                right: -4px;
+                width: 240px;
+                height: 240px;
             }
 
             .tech-badge {
@@ -486,10 +483,10 @@
             }
 
             .hero-svg {
-                width: 180px;
-                height: 180px;
-                top: -40px;
-                right: 5px;
+                width: 200px;
+                height: 200px;
+                top: -34px;
+                right: 2px;
             }
         }
 
@@ -547,13 +544,7 @@
             pointer-events: none;
         }
 
-        .automation-showcase .blob,
-        .tracking-showcase .blob,
-        .mobile-showcase .blob,
-        .analytical-engine .blob,
-        .reviews .blob,
-        .cta-section .blob,
-        .contact-section .blob {
+        .automation-showcase .blob {
             position: absolute;
             border-radius: 50%;
             filter: blur(10px);
@@ -591,10 +582,7 @@
             }
         }
 
-        .automation-showcase .hero-grid,
-        .tracking-showcase .hero-grid,
-        .mobile-showcase .hero-grid,
-        .analytical-engine .hero-grid {
+        .automation-showcase .hero-grid {
             position: relative;
             z-index: 1;
         }
@@ -642,19 +630,22 @@
             flex-shrink: 0;
             box-shadow: 0 8px 20px -6px rgba(0, 71, 171, 0.5), 0 0 0 0 rgba(0, 71, 171, 0.25);
             animation: pulseNum 3.6s ease-in-out infinite;
-            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
-            cursor: default;
         }
 
         .step-row:nth-child(2) .step-num {
             animation-delay: 0.6s;
             background: linear-gradient(135deg, #0e9f6e, var(--accent));
             border-color: var(--accent);
-            animation-name: pulseNumGreen;
+            box-shadow: 0 8px 20px -6px rgba(16, 185, 129, 0.5), 0 0 0 0 rgba(16, 185, 129, 0.25);
         }
 
         .step-row:nth-child(3) .step-num {
             animation-delay: 1.2s;
+        }
+
+        .step-num {
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+            cursor: default;
         }
 
         .step-row:hover .step-num {
@@ -675,6 +666,10 @@
             }
         }
 
+        .step-row:nth-child(2) .step-num {
+            animation-name: pulseNumGreen;
+        }
+
         @keyframes pulseNumGreen {
 
             0%,
@@ -688,6 +683,7 @@
             }
         }
 
+        /* Traveling signal dot running down the timeline connector */
         .step-connector::before {
             content: "";
             position: absolute;
@@ -758,8 +754,7 @@
             pointer-events: none;
         }
 
-        .automation-viz-card::after,
-        .tracking-viz-card::after {
+        .automation-viz-card::after {
             content: "";
             position: absolute;
             top: 0;
@@ -770,10 +765,6 @@
             transform: skewX(-18deg);
             pointer-events: none;
             animation: shimmerSweep 5.5s ease-in-out infinite;
-        }
-
-        .tracking-viz-card::after {
-            animation: shimmerSweep 6s ease-in-out infinite 1s;
         }
 
         @keyframes shimmerSweep {
@@ -885,27 +876,6 @@
             background: #0e9f6e;
         }
 
-        .viz-chip-3 {
-            top: 24px;
-            right: 24px;
-            animation-delay: 0.6s;
-            background: linear-gradient(90deg, rgba(16, 185, 129, 0.12), rgba(255, 255, 255, 0.92));
-            border-color: rgba(16, 185, 129, 0.3);
-            color: #0e9f6e;
-        }
-
-        .viz-chip-3 .dot {
-            background: #0e9f6e;
-        }
-
-        .viz-chip-4 {
-            bottom: 28px;
-            right: 24px;
-            animation-delay: 1.8s;
-            background: linear-gradient(90deg, rgba(0, 71, 171, 0.1), rgba(255, 255, 255, 0.92));
-            border-color: rgba(0, 71, 171, 0.25);
-        }
-
         @keyframes chipFloat {
 
             0%,
@@ -940,6 +910,14 @@
             pointer-events: none;
         }
 
+        .tracking-showcase .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(10px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
         .tracking-showcase .blob-3 {
             width: 400px;
             height: 400px;
@@ -956,6 +934,11 @@
             left: -120px;
             background: radial-gradient(circle, rgba(16, 185, 129, 0.13), transparent 70%);
             animation: floatBlob 15s ease-in-out infinite reverse;
+        }
+
+        .tracking-showcase .hero-grid {
+            position: relative;
+            z-index: 1;
         }
 
         .info-card {
@@ -1016,6 +999,19 @@
             animation: cardBreathe 6.4s ease-in-out infinite;
         }
 
+        .tracking-viz-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 45%;
+            height: 100%;
+            background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+            transform: skewX(-18deg);
+            pointer-events: none;
+            animation: shimmerSweep 6s ease-in-out infinite 1s;
+        }
+
         .tracking-live-dot {
             width: 6px;
             height: 6px;
@@ -1049,7 +1045,7 @@
             box-shadow: 0 8px 18px -6px rgba(0, 71, 171, 0.45);
         }
 
-        /* --- Mobile Showcase enhancements --- */
+        /* --- Mobile Showcase enhancements (matches automation/tracking pattern) --- */
         .mobile-showcase {
             position: relative;
             overflow: hidden;
@@ -1063,6 +1059,14 @@
             background-size: 26px 26px;
             opacity: 0.55;
             pointer-events: none;
+        }
+
+        .mobile-showcase .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(10px);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .mobile-showcase .blob-5 {
@@ -1081,6 +1085,12 @@
             left: -110px;
             background: radial-gradient(circle, rgba(0, 71, 171, 0.13), transparent 70%);
             animation: floatBlob 15.5s ease-in-out infinite reverse;
+        }
+
+
+        .mobile-showcase .hero-grid {
+            position: relative;
+            z-index: 1;
         }
 
         .mobile-viz-card {
@@ -1117,7 +1127,7 @@
             z-index: 3;
         }
 
-        /* --- Analytical Engine enhancements --- */
+        /* --- Analytical Engine enhancements (matches automation/tracking pattern) --- */
         .analytical-engine {
             position: relative;
             overflow: hidden;
@@ -1131,6 +1141,14 @@
             background-size: 26px 26px;
             opacity: 0.55;
             pointer-events: none;
+        }
+
+        .analytical-engine .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(10px);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .analytical-engine .blob-7 {
@@ -1149,6 +1167,11 @@
             right: -120px;
             background: radial-gradient(circle, rgba(16, 185, 129, 0.12), transparent 70%);
             animation: floatBlob 16.5s ease-in-out infinite reverse;
+        }
+
+        .analytical-engine .hero-grid {
+            position: relative;
+            z-index: 1;
         }
 
         .analytics-viz-card {
@@ -1182,6 +1205,35 @@
             pointer-events: none;
             animation: shimmerSweep 7s ease-in-out infinite 1.2s;
             z-index: 3;
+        }
+
+        /* --- Shared corner chip variants (right-side placements) --- */
+        .viz-chip-3 {
+            top: 24px;
+            right: 24px;
+            animation-delay: 0.6s;
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.12), rgba(255, 255, 255, 0.92));
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #0e9f6e;
+        }
+
+        .viz-chip-3 .dot {
+            background: #0e9f6e;
+        }
+
+        .viz-chip-4 {
+            bottom: 28px;
+            right: 24px;
+            animation-delay: 1.8s;
+            background: linear-gradient(90deg, rgba(0, 71, 171, 0.1), rgba(255, 255, 255, 0.92));
+            border-color: rgba(0, 71, 171, 0.25);
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 320px;
+            gap: 24px;
         }
 
         .bento-item {
@@ -1394,7 +1446,7 @@
 
         .review-card {
             flex: 0 0 400px;
-            scroll-snap-align: center;
+            scroll-snap-align: start;
             background: var(--white);
             border: 1px solid var(--line);
             border-radius: 24px;
@@ -1478,6 +1530,62 @@
             .review-card {
                 flex: 0 0 85%;
                 padding: 30px;
+            }
+        }
+
+        .nav-item-dropdown.active .megamenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-item-dropdown .megamenu {
+            display: block;
+        }
+
+        .nav-item-dropdown:hover .megamenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 900px) {
+            .nav-item-dropdown .megamenu {
+                display: none;
+            }
+
+            .nav-item-dropdown:hover .megamenu {
+                display: none;
+            }
+
+            .nav-item-dropdown.active {
+                flex-wrap: wrap;
+            }
+
+            .nav-item-dropdown.active .megamenu {
+                display: block;
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                padding: 20px 0;
+                border: none;
+                overflow: visible;
+                flex: 0 0 100%;
+            }
+
+            .megamenu-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .megamenu-cta {
+                display: none;
+            }
+
+            .megamenu-footer {
+                flex-direction: column;
+                gap: 15px;
             }
         }
 
@@ -1912,7 +2020,7 @@
     <nav>
         <div class="wrap"
             style="display:flex; justify-content:space-between; align-items:center; width:100%; position:relative;">
-            <a href="index.html" class="logo">
+            <a href="index.html" class="logo" style="text-decoration: none;">
                 <div class="logo-mark"></div>
                 Teksoi
             </a>
@@ -2064,7 +2172,7 @@
                 <a href="#contact">Get Started</a>
             </div>
             <div style="display: flex; gap: 12px; align-items: center;">
-                <a href="https://iot.teksoi.com/signup" class="btn btn-primary">Request a Demo</a>
+                <a href="#contact" class="btn btn-primary">Request a Demo</a>
                 <a href="https://iot.teksoi.com/signup" target="_blank" rel="noopener noreferrer" class="btn"
                     style="border: 1px solid var(--line); color: var(--ink); background: transparent;">
                     Create Account
@@ -2080,10 +2188,9 @@
         <div class="wrap">
             <div class="hero-grid">
                 <div class="reveal">
-                    <h1 style="text-transform: capitalize;"><span>Every Visit</span> verified, every route optimized
-                    </h1>
-                    <p class="lead">Track your sales team's movements in real time, plan optimal routes, and capture
-                        every customer visit automatically — no manual reporting required.</p>
+                    <h1 style="text-transform: capitalize;"><span>Zero Touch</span> attendance</h1>
+                    <p class="lead">Capture 100% authentic check-in and check-out data with automated location
+                        verification. Teksoi turns workplace presence into your most valuable management asset.</p>
 
                     <div style="display:flex; gap:16px; margin-bottom: 60px; flex-wrap: wrap; justify-content: center;">
                         <a href="#contact" class="btn btn-primary">Request a Demo</a>
@@ -2097,8 +2204,8 @@
                         style="display:grid; grid-template-columns: 1fr 1fr; gap:32px; padding-top: 40px; border-top: 1px solid var(--line);">
                         <div style="font-family: var(--font-mono); font-size: 11px; color: var(--slate);">
                             <b style="color:var(--brand); display:block; font-size: 16px; margin-bottom:6px;">100%
-                                Verified Visits</b>
-                            GPS-backed visit logs
+                                Authentic</b>
+                            GPS-backed data logs
                         </div>
                         <div style="font-family: var(--font-mono); font-size: 11px; color: var(--slate);">
                             <b style="color:var(--brand); display:block; font-size: 16px; margin-bottom:6px;">Encrypted
@@ -2109,7 +2216,6 @@
                 </div>
 
                 <div class="hero-visual-container reveal-zoom" style="animation-delay: 0.2s;">
-                    <!-- Advanced Geofence & Movement Tracking SVG -->
                     <svg class="hero-svg" width="300" height="300" viewBox="0 0 200 200" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <defs>
@@ -2118,21 +2224,16 @@
                             </pattern>
                         </defs>
                         <rect width="200" height="200" fill="url(#grid-hero)" />
-
                         <rect x="60" y="60" width="80" height="80" rx="4" stroke="var(--brand)" stroke-width="2"
                             fill="var(--brand)" fill-opacity="0.05" />
                         <path d="M60 80H140M60 100H140M60 120H140M80 60V140M100 60V140M120 60V140" stroke="var(--brand)"
                             stroke-width="0.5" opacity="0.1" />
                         <text x="60" y="55" fill="var(--brand)" font-family="var(--font-mono)" font-size="7"
-                            font-weight="bold">CLIENT SITE A
-                        </text>
-
+                            font-weight="bold">OFFICE ZONE A</text>
                         <circle cx="100" cy="100" r="75" stroke="var(--brand)" stroke-width="1" stroke-dasharray="4 2"
                             opacity="0.3" />
-
                         <path id="trackPath" d="M30 170 C 50 150, 40 130, 70 110 S 90 90, 105 85" fill="none"
                             stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 3" opacity="0.5" />
-
                         <g>
                             <circle r="5" fill="var(--accent)">
                                 <animateMotion dur="5s" repeatCount="indefinite"
@@ -2146,17 +2247,13 @@
                                     repeatCount="indefinite" />
                             </circle>
                         </g>
-
                         <rect x="10" y="10" width="100" height="55" rx="6" fill="var(--ink)" />
                         <text x="18" y="26" fill="white" font-family="var(--font-mono)" font-size="8"
-                            font-weight="bold">AUTO VISIT LOG
-                        </text>
-                        <text x="18" y="38" fill="var(--accent)" font-family="var(--font-mono)" font-size="7">●
-                            LIVE TRACKING
-                        </text>
+                            font-weight="bold">AUTO ATTENDANCE</text>
+                        <text x="18" y="38" fill="var(--accent)" font-family="var(--font-mono)" font-size="7">● LIVE
+                            TRACKING</text>
                         <text x="18" y="50" fill="rgba(255,255,255,0.6)" font-family="var(--font-mono)"
-                            font-size="6">REP ID: SR-2081
-                        </text>
+                            font-size="6">USER ID: EMP-4210</text>
                         <text x="18" y="58" fill="rgba(255,255,255,0.6)" font-family="var(--font-mono)" font-size="6">
                             BOUNDARY:
                             <tspan fill="rgba(255,255,255,0.4)">
@@ -2170,7 +2267,6 @@
                                 WITHIN
                             </tspan>
                         </text>
-
                         <g transform="translate(150, 30)">
                             <circle r="20" fill="white" stroke="var(--line)" stroke-width="1.5">
                                 <animate attributeName="fill" values="white; white; #10B981; #10B981"
@@ -2186,12 +2282,11 @@
                                 <animate attributeName="opacity" values="0; 0; 1; 1" keyTimes="0; 0.51; 0.52; 1"
                                     dur="5s" repeatCount="indefinite" />
                             </path>
-
                         </g>
                     </svg>
 
                     <div class="hero-visual">
-                        <img src="web_image_3.png" alt="Teksoi Sales Rep App Interface">
+                        <img src="../asset/web_image_3.png" alt="Teksoi Secure App Interface">
                     </div>
 
                     <div class="tech-badge">
@@ -2243,9 +2338,9 @@
         <div class="wrap">
             <div class="hero-grid" style="align-items: center;">
                 <div class="reveal-left">
-                    <h1>Zero-Touch Visit Logging</h1>
-                    <p class="lead">Eliminate manual call reports. Teksoi captures every client visit automatically as
-                        your reps move through their territory.</p>
+                    <h1>Zero-Touch Attendance</h1>
+                    <p class="lead">Eliminate manual errors and save time. Teksoi handles your entire attendance process
+                        automatically, so your team can focus on what matters most.</p>
 
                     <div class="step-track">
                         <div class="step-connector"></div>
@@ -2253,27 +2348,29 @@
                             <div class="step-num">01</div>
                             <div>
                                 <h4 style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px;">
-                                    Automatic Check-In</h4>
-                                <p style="color: var(--slate); font-size: 15px;">Reps are checked in the moment they
-                                    arrive at a client site — no app to open, no button to tap.</p>
+                                    Seamless Arrival</h4>
+                                <p style="color: var(--slate); font-size: 15px;">Your team is automatically checked in
+                                    as they arrive at the workplace. No apps to open, no buttons to press.</p>
                             </div>
                         </div>
                         <div class="step-row">
                             <div class="step-num">02</div>
                             <div>
                                 <h4 style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px;">
-                                    Verified Visit Duration</h4>
-                                <p style="color: var(--slate); font-size: 15px;">Capture exact arrival and departure
-                                    times at every customer stop for accurate call reporting.</p>
+                                    Precise Start Times</h4>
+                                <p style="color: var(--slate); font-size: 15px;">Capture exact arrival times for every
+                                    employee. Ensure accurate records for payroll and compliance without lifting a
+                                    finger.</p>
                             </div>
                         </div>
                         <div class="step-row">
                             <div class="step-num">03</div>
                             <div>
                                 <h4 style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px;">
-                                    Automatic Check-Out</h4>
-                                <p style="color: var(--slate); font-size: 15px;">Visits close out automatically when
-                                    reps leave the site, giving you complete daily route visibility.</p>
+                                    Effortless Departure</h4>
+                                <p style="color: var(--slate); font-size: 15px;">Check-out is handled automatically when
+                                    employees leave. Get complete visibility into daily hours without any manual effort
+                                    from your team.</p>
                             </div>
                         </div>
                     </div>
@@ -2314,7 +2411,7 @@
                                 <rect x="15" y="35" width="30" height="10" rx="2" fill="var(--line)" />
                             </g>
                             <text x="200" y="250" text-anchor="middle" fill="var(--brand)"
-                                font-family="var(--font-mono)" font-size="10" font-weight="bold">ASSIGNED ZONE</text>
+                                font-family="var(--font-mono)" font-size="10" font-weight="bold">OFFICE SAFE ZONE</text>
                             <path id="entryPath" d="M20 380 Q 100 350, 120 250 T 200 200" fill="none" />
                             <path id="exitPath" d="M200 200 Q 280 150, 320 100 T 380 20" fill="none" />
                             <g>
@@ -2332,7 +2429,7 @@
                             </g>
                             <rect x="230" y="30" width="140" height="70" rx="12" fill="var(--ink)" />
                             <text x="245" y="55" fill="rgba(255,255,255,0.5)" font-family="var(--font-mono)"
-                                font-size="9">VISIT_STATUS</text>
+                                font-size="9">ATTENDANCE_STATUS</text>
                             <g>
                                 <text x="245" y="80" fill="var(--white)" font-family="var(--font-mono)" font-size="12"
                                     font-weight="bold">
@@ -2350,7 +2447,7 @@
                                     font-weight="bold" opacity="0">
                                     <animate attributeName="opacity" values="0;0;0;0;0;1;0" dur="8s"
                                         repeatCount="indefinite" />
-                                    Check-Out: 09:14
+                                    Check-Out: 17:10
                                 </text>
                             </g>
                         </svg>
@@ -2378,22 +2475,22 @@
         <div class="wrap">
             <div class="hero-grid" style="align-items: center; direction: rtl;">
                 <div class="reveal-right" style="direction: ltr;">
-                    <h1>Real-Time Field Monitoring</h1>
-                    <p class="lead">See where every rep is, which customers they've visited, and what orders they've
-                        placed — as it happens.</p>
+                    <h1>Real-Time Presence Monitoring</h1>
+                    <p class="lead">Stay informed about your team's presence within the workplace throughout the day
+                        with secure, automated updates that ensure complete accuracy.</p>
 
                     <div style="margin-top: 40px; text-align: left;">
                         <div class="info-card">
                             <div
                                 style="display: flex; gap: 20px; align-items: flex-start; position: relative; z-index: 1;">
-                                <iconify-icon icon="solar:map-point-wave-bold-duotone"
+                                <iconify-icon icon="solar:Map-point-wave-bold-duotone"
                                     style="color: var(--brand); font-size: 32px;"></iconify-icon>
                                 <div>
-                                    <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
-                                        Visibility & Accountability</h4>
-                                    <p style="font-size: 14px; color: var(--slate); max-width: 100%;">
-                                        Managers get live visibility into every rep's location, visits, and order
-                                        activity across the territory.</p>
+                                    <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Visibility &
+                                        Accountability</h4>
+                                    <p style="font-size: 14px; color: var(--slate); max-width: 100%;">Managers gain
+                                        real-time visibility into workforce presence, ensuring team accountability
+                                        across all work areas.</p>
                                 </div>
                             </div>
                         </div>
@@ -2403,17 +2500,16 @@
                                 <iconify-icon icon="solar:history-bold-duotone"
                                     style="color: var(--accent); font-size: 32px;"></iconify-icon>
                                 <div>
-                                    <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
-                                        Zero-Manual Reporting</h4>
-                                    <p style="font-size: 14px; color: var(--slate); max-width: 100%;">
-                                        Every customer interaction and order is timestamped automatically — no
-                                        end-of-day paperwork.</p>
+                                    <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Zero-Manual
+                                        Logging</h4>
+                                    <p style="font-size: 14px; color: var(--slate); max-width: 100%;">Live location
+                                        capture throughout work hours logs every presence with an accurate timestamp —
+                                        giving full visibility with zero manual entry required.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="reveal-left" style="direction: ltr; animation-delay: 0.2s;">
                     <div class="tracking-viz-card">
@@ -2442,7 +2538,7 @@
                             <path d="M30 40 L370 25 L385 200 L260 275 L45 260 Z" fill="var(--brand)" fill-opacity="0.05"
                                 stroke="var(--brand)" stroke-width="1.75" stroke-dasharray="6 5" opacity="0.75" />
                             <text x="60" y="55" fill="var(--brand)" font-family="var(--font-mono)" font-size="8"
-                                letter-spacing="0.05em" opacity="0.85">ASSIGNED TERRITORY</text>
+                                letter-spacing="0.05em" opacity="0.85">ASSIGNED WORK AREA</text>
                             <g clip-path="url(#fence-clip)">
                                 <path id="motion-path"
                                     d="M70 235 L70 185 L135 185 L135 225 L200 225 L200 145 L155 145 L155 100 L260 100 L260 180 L300 180 L300 65"
@@ -2453,17 +2549,17 @@
                                 <circle cx="70" cy="235" r="4" fill="var(--white)" stroke="var(--ink)"
                                     stroke-width="1.5" />
                                 <text x="70" y="220" text-anchor="middle" font-size="9" font-weight="bold"
-                                    fill="var(--ink)">Client A</text>
+                                    fill="var(--ink)">Reception</text>
                                 <text x="70" y="252" text-anchor="middle" font-size="7" fill="var(--slate)">09:00</text>
                                 <circle cx="200" cy="225" r="4" fill="var(--white)" stroke="var(--ink)"
                                     stroke-width="1.5" />
                                 <text x="220" y="230" text-anchor="start" font-size="9" font-weight="bold"
-                                    fill="var(--ink)">Client B</text>
+                                    fill="var(--ink)">Warehouse</text>
                                 <text x="220" y="243" text-anchor="start" font-size="7" fill="var(--slate)">12:35</text>
                                 <circle cx="300" cy="65" r="4" fill="var(--white)" stroke="var(--ink)"
                                     stroke-width="1.5" />
                                 <text x="300" y="50" text-anchor="middle" font-size="9" font-weight="bold"
-                                    fill="var(--ink)">Client C</text>
+                                    fill="var(--ink)">Loading dock</text>
                                 <text x="300" y="37" text-anchor="middle" font-size="7" fill="var(--slate)">15:10</text>
                             </g>
                             <g id="pin">
@@ -2478,8 +2574,8 @@
                         </svg>
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); position: relative; z-index: 1;">
-                            <div style="font-family: var(--font-mono); font-size: 10px; color: var(--slate);">3
-                                VISITS &middot; 2 ORDERS TODAY</div>
+                            <div style="font-family: var(--font-mono); font-size: 10px; color: var(--slate);">4
+                                CHECK-INS &middot; 0 EXITS TODAY</div>
                             <div
                                 style="font-family: var(--font-mono); font-size: 10px; color: var(--brand); font-weight: bold;">
                                 WITHIN GEOFENCE</div>
@@ -2509,20 +2605,20 @@
                             <div style="display: flex; align-items: center; gap: 8px;">
                                 <span class="tracking-live-dot"></span>
                                 <span
-                                    style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--slate); text-transform: uppercase;">Rep
-                                    App &middot; SR-2081</span>
+                                    style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--slate); text-transform: uppercase;">Employee
+                                    App &middot; EMP-4210</span>
                             </div>
                             <span class="geofence-badge">ACTIVE</span>
                         </div>
                         <div class="hero-visual"
                             style="max-width: 260px; border-radius: 40px; padding: 10px; border: 8px solid var(--ink);">
-                            <img src="User%20Home.jpeg" alt="Teksoi Sales Rep Mobile App" style="border-radius: 30px;"
-                                loading="lazy">
+                            <img src="../asset/User%20Home.jpeg" alt="Attendance App Home" style="border-radius: 30px;"
+                                 loading="lazy">
                         </div>
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); position: relative; z-index: 1;">
                             <div style="font-family: var(--font-mono); font-size: 10px; color: var(--slate);">
-                                VISIT LOGGED 08:47</div>
+                                CHECK-IN 08:47</div>
                             <div
                                 style="font-family: var(--font-mono); font-size: 10px; color: var(--brand); font-weight: bold;">
                                 WITHIN GEOFENCE</div>
@@ -2540,40 +2636,39 @@
                 </div>
                 <div class="reveal-right" style="animation-delay: 0.2s;">
                     <span class="hero-tag">Mobile Experience</span>
-                    <h1>Field Sales in Your Pocket</h1>
-                    <p class="lead">Teksoi gives reps a simple way to log visits and manage their day — just a tap on
-                        their phone within each customer's geofence.</p>
-
+                    <h1>Attendance in Your Pocket</h1>
+                    <p class="lead">Teksoi transforms how employees interact with their workplace. No more manual logs
+                        or hardware scanners—just a simple tap on your phone within the office geofence.</p>
                     <ul style="list-style: none; margin-top: 32px; text-align: left;">
                         <li
                             style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; font-family: var(--font-display); font-weight: 600;">
                             <iconify-icon icon="solar:check-circle-linear"
                                 style="color: var(--accent); font-size: 24px; flex-shrink: 0;"></iconify-icon>
-                            Instant Visit Check-in/Check-out
+                            Instant Clock-in/Clock-out
                         </li>
                         <li
                             style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; font-family: var(--font-display); font-weight: 600;">
                             <iconify-icon icon="solar:check-circle-linear"
                                 style="color: var(--accent); font-size: 24px; flex-shrink: 0;"></iconify-icon>
-                            Real-time Visit & Order History
+                            Real-time Attendance History
                         </li>
                         <li
                             style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; font-family: var(--font-display); font-weight: 600;">
-                            <iconify-icon icon="solar:routing-2-linear"
+                            <iconify-icon icon="solar:check-circle-linear"
                                 style="color: var(--accent); font-size: 24px; flex-shrink: 0;"></iconify-icon>
-                            Optimal Route Planning
+                            Set Geofence Office Location For Employees
                         </li>
                         <li
                             style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; font-family: var(--font-display); font-weight: 600;">
-                            <iconify-icon icon="solar:cart-large-minimalistic-linear"
+                            <iconify-icon icon="solar:check-circle-linear"
                                 style="color: var(--accent); font-size: 24px; flex-shrink: 0;"></iconify-icon>
-                            Order Placement On the Go
+                            Employee Onboarding To System.
                         </li>
                         <li
                             style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; font-family: var(--font-display); font-weight: 600;">
                             <iconify-icon icon="solar:route-linear"
                                 style="color: var(--accent); font-size: 24px; flex-shrink: 0;"></iconify-icon>
-                            Leave & Attendance Requests
+                            Application For Leave Requests
                         </li>
                     </ul>
                 </div>
@@ -2599,12 +2694,12 @@
                                 <span class="tracking-live-dot"></span>
                                 <span
                                     style="font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--slate); text-transform: uppercase;">Admin
-                                    Dashboard &middot; Sales Force Overview</span>
+                                    Dashboard &middot; Workforce Overview</span>
                             </div>
                             <span class="geofence-badge">LIVE</span>
                         </div>
                         <div class="hero-visual">
-                            <img src="Dashboard.png" alt="Sales Admin Analytics Dashboard" loading="lazy">
+                            <img src="../asset/Dashboard.png" alt="Admin Analytics Dashboard" loading="lazy">
                         </div>
                         <div
                             style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); position: relative; z-index: 1;">
@@ -2612,7 +2707,7 @@
                                 REFRESHED 12s AGO</div>
                             <div
                                 style="font-family: var(--font-mono); font-size: 10px; color: var(--brand); font-weight: bold;">
-                                ALL ROUTES SYNCED</div>
+                                ALL SITES SYNCED</div>
                         </div>
                         <div class="dim-line h"
                             style="position: absolute; top: 20px; left: 0; right: 0; height: 1px; background: var(--line);">
@@ -2628,8 +2723,7 @@
                         style="position: absolute; top: 30px; right: -20px; background: var(--white); border: 1.5px solid var(--brand); padding: 20px; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,71,171,0.2); z-index: 10; width: 200px;">
                         <div
                             style="font-family: var(--font-mono); font-size: 10px; color: var(--brand); margin-bottom: 12px; font-weight: 700;">
-                            LIVE DATA FEED
-                        </div>
+                            LIVE DATA FEED</div>
                         <div style="height: 60px; display: flex; align-items: flex-end; gap: 4px;">
                             <div style="flex: 1; background: var(--brand); height: 40%; border-radius: 2px;"></div>
                             <div style="flex: 1; background: var(--brand); height: 70%; border-radius: 2px;"></div>
@@ -2648,35 +2742,32 @@
                 <div class="reveal-left" style="direction: ltr; animation-delay: 0.2s;">
                     <span class="hero-tag">Admin Intelligence</span>
                     <h1>Reporting Insights</h1>
-                    <p class="lead">Turn raw visit and order data into actionable insight — track productivity,
-                        coverage, and performance across your entire sales force.</p>
-
+                    <p class="lead">Harness the power of data to optimize your workforce. Our system provides clear
+                        reports that transform raw clock-ins into actionable performance insights.</p>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px;">
                         <div
                             style="background: var(--white); padding: 24px; border-radius: 16px; border: 1px solid var(--line); text-align: left;">
                             <iconify-icon icon="solar:calendar-mark-linear"
                                 style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
-                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
-                                Attendance Reports</h4>
+                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Attendance Reports</h4>
                             <p style="font-size: 13px; color: var(--slate);">Track daily check-ins, absences, and
-                                working hours across your entire sales team at a glance.</p>
+                                working hours across your entire team at a glance.</p>
                         </div>
                         <div
                             style="background: var(--white); padding: 24px; border-radius: 16px; border: 1px solid var(--line); text-align: left;">
                             <iconify-icon icon="solar:chart-2-linear"
                                 style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
-                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">
-                                Visit & Order Reports</h4>
-                            <p style="font-size: 13px; color: var(--slate);">Generate detailed visit, order, and route
-                                performance reports on demand.</p>
+                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Performance Reports</h4>
+                            <p style="font-size: 13px; color: var(--slate);">Generate detailed attendance, performance,
+                                and movement reports on demand.</p>
                         </div>
                         <div
                             style="background: var(--white); padding: 24px; border-radius: 16px; border: 1px solid var(--line); text-align: left;">
-                            <iconify-icon icon="solar:routing-2-linear"
+                            <iconify-icon icon="solar:history-bold-duotone"
                                 style="color: var(--brand); font-size: 32px; margin-bottom: 16px;"></iconify-icon>
-                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Route Efficiency</h4>
-                            <p style="font-size: 13px; color: var(--slate);">The system automatically flags missed
-                                visits and inefficient routes.</p>
+                            <h4 style="font-family: var(--font-display); margin-bottom: 8px;">Habitual Latecomers</h4>
+                            <p style="font-size: 13px; color: var(--slate);">The system automatically identifies and
+                                flags patterns of habitual tardiness.</p>
                         </div>
                     </div>
                 </div>
@@ -2684,21 +2775,17 @@
         </div>
     </section>
 
-
     <section class="reviews" id="reviews">
-        <div class="blob blob-9"></div>
-        <div class="blob blob-10"></div>
         <span class="particle" style="left: 10%; top: 15%; animation-duration: 7s; animation-delay: 0.2s;"></span>
         <span class="particle" style="right: 20%; bottom: 20%; animation-duration: 9s; animation-delay: 1s;"></span>
         <div class="wrap">
             <div class="section-head reveal-fade">
                 <h2>Validated by Industry Leaders</h2>
-                <p>See how Teksoi is transforming field sales management for teams globally.</p>
+                <p>See how Teksoi is transforming workforce management for teams globally.</p>
             </div>
 
             <div class="review-carousel reveal" style="animation-delay: 0.2s;">
                 <div class="review-track" id="reviewTrack">
-                    <!-- Review 1 -->
                     <div class="review-card">
                         <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
                             <iconify-icon icon="solar:star-bold"></iconify-icon>
@@ -2709,20 +2796,17 @@
                         </div>
                         <div
                             style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
-                            &ldquo;
-                        </div>
-                        <p class="review-quote">"Teksoi gave us full visibility into our field reps for the first time.
-                            Visit data is 100% accurate and route planning is effortless."</p>
+                            &ldquo;</div>
+                        <p class="review-quote">"Teksoi has completely removed the headache of manual tracking. The
+                            geofence accuracy is remarkable, ensuring our data is 100% authentic."</p>
                         <div class="review-user">
-                            <div class="review-avatar">TR</div>
+                            <div class="review-avatar">SM</div>
                             <div class="review-info">
-                                <h4>Tanvir Rahman</h4>
-                                <span>Sales Operations Manager</span>
+                                <h4>Sarah Mitchell</h4>
+                                <span>Operations Manager</span>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Review 2 -->
                     <div class="review-card">
                         <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
                             <iconify-icon icon="solar:star-bold"></iconify-icon>
@@ -2733,20 +2817,17 @@
                         </div>
                         <div
                             style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
-                            &ldquo;
-                        </div>
-                        <p class="review-quote">"Our reps no longer fill out call reports by hand. Every client visit
-                            logs itself the moment they arrive."</p>
+                            &ldquo;</div>
+                        <p class="review-quote">"The Zero-Touch feature is a game changer for our field staff. They love
+                            not having to open the app every time they cross the site boundary."</p>
                         <div class="review-user">
-                            <div class="review-avatar">NH</div>
+                            <div class="review-avatar">JD</div>
                             <div class="review-info">
-                                <h4>Nadia Haque</h4>
-                                <span>Regional Sales Director</span>
+                                <h4>James Donovan</h4>
+                                <span>HR Director</span>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Review 3 -->
                     <div class="review-card">
                         <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
                             <iconify-icon icon="solar:star-bold"></iconify-icon>
@@ -2757,20 +2838,17 @@
                         </div>
                         <div
                             style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
-                            &ldquo;
-                        </div>
-                        <p class="review-quote">"Order tracking tied to visit data helped us spot underperforming routes
-                            we didn't know existed."</p>
+                            &ldquo;</div>
+                        <p class="review-quote">"Detailed analytics helped us identify productivity gaps we didn't know
+                            existed. The automated reports save us hours every week."</p>
                         <div class="review-user">
-                            <div class="review-avatar">KI</div>
+                            <div class="review-avatar">AK</div>
                             <div class="review-info">
-                                <h4>Kamal Islam</h4>
-                                <span>CEO, Northline Distribution</span>
+                                <h4>Amina Khan</h4>
+                                <span>CEO, BuildCorp</span>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Review 4 -->
                     <div class="review-card">
                         <div style="display: flex; gap: 4px; margin-bottom: 20px; color: #FBBF24;">
                             <iconify-icon icon="solar:star-bold"></iconify-icon>
@@ -2781,20 +2859,18 @@
                         </div>
                         <div
                             style="position: absolute; top: 30px; right: 30px; color: var(--brand); opacity: 0.1; font-size: 60px; font-family: serif;">
-                            &ldquo;
-                        </div>
-                        <p class="review-quote">"Switching to Teksoi cut our reps' daily travel time and secure syncing
-                            works flawlessly even in low-network areas."</p>
+                            &ldquo;</div>
+                        <p class="review-quote">"Switching to Teksoi was the best decision for our remote sites. Secure
+                            syncing even in low-bandwidth areas works flawlessly every time."</p>
                         <div class="review-user">
-                            <div class="review-avatar">FA</div>
+                            <div class="review-avatar">RL</div>
                             <div class="review-info">
-                                <h4>Farhana Akter</h4>
-                                <span>Territory Sales Lead</span>
+                                <h4>Robert Lee</h4>
+                                <span>Site Supervisor</span>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="review-nav">
                     <div class="nav-dot active"></div>
                     <div class="nav-dot"></div>
@@ -2806,18 +2882,16 @@
     </section>
 
     <section class="cta-section">
-        <div class="blob blob-11"></div>
         <span class="particle" style="left: 5%; bottom: 10%; animation-duration: 8s; animation-delay: 0s;"></span>
         <span class="particle" style="right: 10%; top: 15%; animation-duration: 10s; animation-delay: 2s;"></span>
         <div class="wrap">
             <div class="cta-card reveal-zoom">
                 <div
                     style="font-family: var(--font-mono); font-size: 12px; margin-bottom: 24px; color: var(--brand-light); opacity: 0.6;">
-                    System Ready for Setup
-                </div>
-                <h2>Ready to Optimize Your Sales Team?</h2>
-                <p>Join sales organizations using Teksoi to automate field tracking, route planning, and reporting with
-                    ease and reliability.</p>
+                    System Ready for Setup</div>
+                <h2>Ready to Optimize Your Workforce?</h2>
+                <p>Join the industry leaders using Teksoi to automate their workforce management with ease and
+                    reliability.</p>
                 <div class="cta-buttons" style="display:flex; gap:20px; justify-content: center;">
                     <a href="#contact" class="btn btn-primary"
                         style="background: white; color: var(--ink); padding: 18px 40px; font-size: 16px;">Start Your
@@ -2830,7 +2904,6 @@
     </section>
 
     <section class="contact-section" id="contact">
-        <div class="blob blob-12"></div>
         <span class="particle" style="left: 15%; top: 25%; animation-duration: 9s; animation-delay: 0.5s;"></span>
         <span class="particle" style="right: 10%; bottom: 10%; animation-duration: 11s; animation-delay: 1.5s;"></span>
         <div
@@ -2850,22 +2923,20 @@
                 <div class="reveal-left">
                     <h2
                         style="font-family: var(--font-display); font-size: 48px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px;">
-                        Transform Your Field Sales Operations.</h2>
+                        Transform Your Workplace Attendance.</h2>
                     <p class="lead" style="margin-bottom: 48px;">Share your needs and our team will help you set up your
                         account within 24 hours.</p>
-
                     <div style="display: grid; gap: 32px; position: relative;">
                         <div
                             style="position: absolute; left: 15px; top: 40px; bottom: 0; width: 1px; background: var(--line); z-index: 0;">
                         </div>
-
                         <div
                             style="display: flex; gap: 20px; background: var(--white); position: relative; z-index: 1;">
                             <iconify-icon icon="solar:shield-check-bold-duotone"
                                 style="color: var(--brand); font-size: 32px; background: var(--white); padding-bottom: 8px; flex-shrink: 0;"></iconify-icon>
                             <div>
-                                <h4 style="font-family: var(--font-display); margin-bottom: 4px;">
-                                    Reliable Data Security</h4>
+                                <h4 style="font-family: var(--font-display); margin-bottom: 4px;">Reliable Data Security
+                                </h4>
                                 <p style="font-size: 14px; color: var(--slate);">Your privacy is our priority with
                                     enterprise-grade data protection.</p>
                                 <span
@@ -2878,10 +2949,9 @@
                             <iconify-icon icon="solar:globus-bold-duotone"
                                 style="color: var(--brand); font-size: 32px; background: var(--white); padding-bottom: 8px; flex-shrink: 0;"></iconify-icon>
                             <div>
-                                <h4 style="font-family: var(--font-display); margin-bottom: 4px;">
-                                    Scalable Solution</h4>
-                                <p style="font-size: 14px; color: var(--slate);">Built to support sales teams of any
-                                    size, from small crews to national field forces.</p>
+                                <h4 style="font-family: var(--font-display); margin-bottom: 4px;">Scalable Solution</h4>
+                                <p style="font-size: 14px; color: var(--slate);">Built to support businesses of any
+                                    size, from small teams to large enterprises.</p>
                                 <span
                                     style="font-family: var(--font-mono); font-size: 8px; color: var(--brand); opacity: 0.5;">READY
                                     FOR SCALE</span>
@@ -2916,20 +2986,20 @@
                             <input type="text" class="form-input" placeholder="Acme Corporation">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Sales Team Size</label>
+                            <label class="form-label">Company Size</label>
                             <select class="form-select">
-                                <option>1 - 20 Reps</option>
-                                <option selected>21 - 100 Reps</option>
-                                <option>100+ Reps</option>
+                                <option>100 - 500 Employees</option>
+                                <option selected>1k - 10k Employees</option>
+                                <option>10k+ Employees</option>
                             </select>
                         </div>
                         <div class="form-group full">
                             <label class="form-label">Industry</label>
                             <select class="form-select">
-                                <option selected>FMCG & Distribution</option>
-                                <option>Pharmaceuticals</option>
-                                <option>Retail & Trade</option>
-                                <option>B2B / Corporate Sales</option>
+                                <option selected>Construction & Engineering</option>
+                                <option>Retail & Logistics</option>
+                                <option>Manufacturing</option>
+                                <option>Software & Technology</option>
                             </select>
                         </div>
                         <div class="form-group full" style="margin-top: 12px;">
@@ -2950,18 +3020,16 @@
             <div class="footer-main"
                 style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 60px;">
                 <div>
-                    <a href="index.html" class="logo" style="margin-bottom: 20px;">
+                    <a href="index.html" class="logo" style="margin-bottom: 20px; text-decoration: none;">
                         <div class="logo-mark"></div>
                         Teksoi
                     </a>
-                    <p style="color: var(--slate); font-size: 14px; max-width: 300px;">Smart Field Sales, Simplified.
-                        The industry standard for sales workforce management.</p>
+                    <p style="color: var(--slate); font-size: 14px; max-width: 300px;">Smart Attendance, Simplified. The
+                        industry standard for workforce management.</p>
                 </div>
                 <div class="footer-links" style="display:flex; gap:80px;">
                     <div style="font-family: var(--font-mono); font-size: 12px;">
-                        <div style="color: var(--brand); margin-bottom: 20px; font-weight: 700;">
-                            PRODUCT
-                        </div>
+                        <div style="color: var(--brand); margin-bottom: 20px; font-weight: 700;">PRODUCT</div>
                         <a href="#"
                             style="display:block; text-decoration:none; color: var(--slate); margin-bottom: 12px;">Dashboard</a>
                         <a href="#"
@@ -2979,19 +3047,32 @@
                             List</a>
                         <a href="#"
                             style="display:block; text-decoration:none; color: var(--slate); margin-bottom: 12px;">Support</a>
-                        <a href="#" style="display:block; text-decoration:none; color: var(--slate);">Privacy v4.0</a>
+                        <a href="#" style="display:block; text-decoration:none; color: var(--slate);">Privacy
+                            v4.0</a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom"
                 style="display:flex; justify-content:space-between; align-items:center; padding-top: 40px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 11px; color: var(--slate); opacity: 0.6;">
-                <div>© 2026 Teksoi. ALL RIGHTS RESERVED.</div>
+                <div>© 2024 Teksoi. ALL RIGHTS RESERVED.</div>
+                <!--            <div>UTC: [00:00:00] // STATUS: OPERATIONAL</div>-->
             </div>
         </div>
     </footer>
 
     <script>
-        // Dropdown Toggle Logic
+        // Mobile nav toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        const navToggleIcon = document.getElementById('navToggleIcon');
+
+        navToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            navToggleIcon.setAttribute('icon', isOpen ? 'solar:close-circle-linear' : 'solar:hamburger-menu-linear');
+        });
+
+        // Toggle dropdown on click (both mobile and desktop for better UX)
         const dropdownToggle = document.querySelector('.nav-item-dropdown');
         dropdownToggle.addEventListener('click', (e) => {
             dropdownToggle.classList.toggle('active');
@@ -3007,17 +3088,6 @@
         const megamenu = document.querySelector('.megamenu');
         megamenu.addEventListener('click', (e) => {
             e.stopPropagation();
-        });
-
-        // Mobile nav toggle
-        const navToggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
-        const navToggleIcon = document.getElementById('navToggleIcon');
-
-        navToggle.addEventListener('click', () => {
-            const isOpen = navLinks.classList.toggle('open');
-            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-            navToggleIcon.setAttribute('icon', isOpen ? 'solar:close-circle-linear' : 'solar:hamburger-menu-linear');
         });
 
         // Close mobile menu after tapping a link
@@ -3053,7 +3123,6 @@
             const cardWidth = getCardWidth();
             const scrollLeft = track.scrollLeft;
             const activeIndex = Math.round(scrollLeft / cardWidth) % cardCount;
-
             dots.forEach((dot, i) => {
                 dot.classList.toggle('active', i === activeIndex);
             });
@@ -3083,23 +3152,25 @@
         dots.forEach((dot, i) => {
             dot.addEventListener('click', () => {
                 const cardWidth = getCardWidth();
-                track.scrollTo({
-                    left: i * cardWidth,
-                    behavior: 'smooth'
-                });
+                track.scrollTo({ left: i * cardWidth, behavior: 'smooth' });
             });
         });
 
         const autoScroll = () => {
             if (isPaused) return;
-
             const cardWidth = getCardWidth();
             const currentPos = Math.round(track.scrollLeft / cardWidth);
 
-            track.scrollTo({
-                left: (currentPos + 1) * cardWidth,
-                behavior: 'smooth'
-            });
+            // If we are about to scroll past the clones, snap back instantly first
+            if (currentPos >= cardCount) {
+                track.scrollTo({ left: track.scrollLeft - (cardCount * cardWidth), behavior: 'instant' });
+                setTimeout(() => {
+                    const newPos = Math.round(track.scrollLeft / cardWidth);
+                    track.scrollTo({ left: (newPos + 1) * cardWidth, behavior: 'smooth' });
+                }, 10);
+            } else {
+                track.scrollTo({ left: (currentPos + 1) * cardWidth, behavior: 'smooth' });
+            }
         };
 
         let scrollInterval = setInterval(autoScroll, 6000);
