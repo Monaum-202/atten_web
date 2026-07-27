@@ -1446,7 +1446,7 @@
 
         .review-card {
             flex: 0 0 400px;
-            scroll-snap-align: center;
+            scroll-snap-align: start;
             background: var(--white);
             border: 1px solid var(--line);
             border-radius: 24px;
@@ -3129,13 +3129,23 @@
         };
 
         // Scroll listener for seamless reset
+        let isResetting = false;
         track.addEventListener('scroll', () => {
+            if (isResetting) return;
+
             const cardWidth = getCardWidth();
-            if (track.scrollLeft >= cardCount * cardWidth) {
+            const totalWidth = cardCount * cardWidth;
+
+            if (track.scrollLeft >= totalWidth) {
+                isResetting = true;
                 track.scrollLeft = 0;
-            } else if (track.scrollLeft < 0) {
-                track.scrollLeft = cardCount * cardWidth;
+                requestAnimationFrame(() => { isResetting = false; });
+            } else if (track.scrollLeft <= -10) {
+                isResetting = true;
+                track.scrollLeft = totalWidth;
+                requestAnimationFrame(() => { isResetting = false; });
             }
+
             updateDots();
         });
 
@@ -3150,16 +3160,33 @@
             if (isPaused) return;
             const cardWidth = getCardWidth();
             const currentPos = Math.round(track.scrollLeft / cardWidth);
-            track.scrollTo({ left: (currentPos + 1) * cardWidth, behavior: 'smooth' });
+
+            // If we are about to scroll past the clones, snap back instantly first
+            if (currentPos >= cardCount) {
+                track.scrollTo({ left: track.scrollLeft - (cardCount * cardWidth), behavior: 'instant' });
+                setTimeout(() => {
+                    const newPos = Math.round(track.scrollLeft / cardWidth);
+                    track.scrollTo({ left: (newPos + 1) * cardWidth, behavior: 'smooth' });
+                }, 10);
+            } else {
+                track.scrollTo({ left: (currentPos + 1) * cardWidth, behavior: 'smooth' });
+            }
         };
 
-        let scrollInterval = setInterval(autoScroll, 4000);
+        let scrollInterval = setInterval(autoScroll, 6000);
+
+        const resetInterval = () => {
+            clearInterval(scrollInterval);
+            scrollInterval = setInterval(autoScroll, 6000);
+        };
 
         // Pause on interaction
-        track.addEventListener('mouseenter', () => isPaused = true);
-        track.addEventListener('mouseleave', () => isPaused = false);
-        track.addEventListener('touchstart', () => isPaused = true);
-        track.addEventListener('touchend', () => setTimeout(() => isPaused = false, 2000));
+        track.addEventListener('mouseenter', () => { isPaused = true; clearInterval(scrollInterval); });
+        track.addEventListener('mouseleave', () => { isPaused = false; resetInterval(); });
+        track.addEventListener('touchstart', () => { isPaused = true; clearInterval(scrollInterval); });
+        track.addEventListener('touchend', () => {
+            setTimeout(() => { isPaused = false; resetInterval(); }, 2000);
+        });
 
         // Re-calculate on resize
         window.addEventListener('resize', updateDots);

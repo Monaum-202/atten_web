@@ -1936,13 +1936,21 @@
     };
 
     // Scroll listener for seamless reset
+    let isResetting = false;
     track.addEventListener('scroll', () => {
-        const cardWidth = getCardWidth();
+        if (isResetting) return;
 
-        if (track.scrollLeft >= cardCount * cardWidth) {
+        const cardWidth = getCardWidth();
+        const totalWidth = cardCount * cardWidth;
+
+        if (track.scrollLeft >= totalWidth) {
+            isResetting = true;
             track.scrollLeft = 0;
-        } else if (track.scrollLeft < 0) {
-            track.scrollLeft = cardCount * cardWidth;
+            requestAnimationFrame(() => { isResetting = false; });
+        } else if (track.scrollLeft <= -10) {
+            isResetting = true;
+            track.scrollLeft = totalWidth;
+            requestAnimationFrame(() => { isResetting = false; });
         }
 
         updateDots();
@@ -1970,13 +1978,20 @@
         });
     };
 
-    let scrollInterval = setInterval(autoScroll, 4000);
+    let scrollInterval = setInterval(autoScroll, 6000);
+
+    const resetInterval = () => {
+        clearInterval(scrollInterval);
+        scrollInterval = setInterval(autoScroll, 6000);
+    };
 
     // Pause on interaction
-    track.addEventListener('mouseenter', () => isPaused = true);
-    track.addEventListener('mouseleave', () => isPaused = false);
-    track.addEventListener('touchstart', () => isPaused = true);
-    track.addEventListener('touchend', () => setTimeout(() => isPaused = false, 2000));
+    track.addEventListener('mouseenter', () => { isPaused = true; clearInterval(scrollInterval); });
+    track.addEventListener('mouseleave', () => { isPaused = false; resetInterval(); });
+    track.addEventListener('touchstart', () => { isPaused = true; clearInterval(scrollInterval); });
+    track.addEventListener('touchend', () => {
+        setTimeout(() => { isPaused = false; resetInterval(); }, 2000);
+    });
 
     // Re-calculate on resize
     window.addEventListener('resize', updateDots);
